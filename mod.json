@@ -1,0 +1,11 @@
+{
+  "name": "ctdt",
+  "main": "CreatorTowerDefense.CreatorTowerDefense",
+  "displayName": "创世神3-塔防",
+  "author": "[pink]编[cyan]号[red]95[violet]27",
+  "description": "",
+  "version": "0.1",
+  "minGameVersion": 146,
+  "dependencies": ["ct"]
+}
+
