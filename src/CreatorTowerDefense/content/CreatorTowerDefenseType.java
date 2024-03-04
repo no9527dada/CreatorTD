@@ -3,6 +3,8 @@ package CreatorTowerDefense.content;
 import ct.Asystem.type.EU_healthDisplay;
 import ct.Asystem.type.OnlyAttackCoreAI;
 import ct.Asystem.type.UnitDeathReward;
+import mindustry.Vars;
+import mindustry.content.Blocks;
 import mindustry.content.Fx;
 import mindustry.content.UnitTypes;
 import mindustry.entities.Damage;
@@ -10,12 +12,14 @@ import mindustry.entities.Units;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.BombBulletType;
 import mindustry.entities.bullet.BulletType;
+import mindustry.game.Team;
 import mindustry.gen.Sounds;
 import mindustry.type.Category;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.ammo.ItemAmmoType;
 import mindustry.world.Block;
+import mindustry.world.Tile;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.environment.Floor;
@@ -36,7 +40,7 @@ public class CreatorTowerDefenseType {
         }
     }
 
-    public static class TDWall extends Wall {
+    public static class TDWall extends Wall {//敌方的资源墙
         public TDWall(String name, int 血量) {
             super(name);
             requirements(Category.defense, with(魂,0));
@@ -45,9 +49,39 @@ public class CreatorTowerDefenseType {
             armor = 2;
         }
     }
+    public static class DamageWall extends Wall {//己方的掉血墙
+        public float damagePercent = 5f;
+        public float damageAmount = 5f;
+        public float damageTime = 60f;
 
+        public DamageWall(String name) {
+            super(name);
+            update = true;
+            health = 10000;
+        }
+        public class DamageWallBuild extends WallBuild{
+            @Override
+            public void updateTile() {
+                if(timer().get(damageTime)){
+                    damage(damageAmount);
+                    damage(damagePercent * health / 100);
+                }
+            }
+
+        }
+/**通用地板限制*/
+public static final Floor floor = (Floor) Blocks.slag;//需要的地板
+
+        @Override
+        public boolean canPlaceOn(Tile tile, Team team, int rotation) {
+            if(tile == null) return false;
+            if(Vars.state.isEditor()) return true;
+
+            tile.getLinkedTilesAs(this, tempTiles);
+            return !tempTiles.contains(o -> o.floor() != floor);
+        }
+    }
     public static class TDPowerTurret extends PowerTurret {
-
         public TDPowerTurret(String name, float 射速, float 范围) {
             super(name);
             targetable = false;//被单位攻击？
@@ -61,12 +95,19 @@ public class CreatorTowerDefenseType {
             reload = 射速;
             range = 范围 * 8;
             size=2;
-           // 升级前置=null;
         }
-        public static Block 升级前置;
-        @Override
+        public  Block 升级前置 = null;
         public boolean canReplace(Block other){
-            return 升级前置 == other;
+            if(other.alwaysReplace) return true;
+            return 升级前置 == null ? super.canReplace(other) : 升级前置 == other;
+        }
+        @Override
+        public boolean canPlaceOn(Tile tile, Team team, int rotation){
+            if(tile == null) return false;
+            if(Vars.state.isEditor() || 升级前置 == null) return true;
+
+            tile.getLinkedTilesAs(this, tempTiles);
+            return tempTiles.contains(o -> o.block() == 升级前置);
         }
 
         class Build extends PowerTurret.PowerTurretBuild {
