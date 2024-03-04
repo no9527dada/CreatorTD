@@ -11,12 +11,18 @@ import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.BombBulletType;
 import mindustry.entities.bullet.BulletType;
 import mindustry.gen.Sounds;
+import mindustry.type.Category;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
+import mindustry.type.ammo.ItemAmmoType;
+import mindustry.world.Block;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.meta.BlockFlag;
+
+import static CreatorTowerDefense.content.CreatorTowerDefenseItems.魂;
+import static mindustry.type.ItemStack.with;
 
 //
 public class CreatorTowerDefenseType {
@@ -29,9 +35,20 @@ public class CreatorTowerDefenseType {
             placeableOn = false;
         }
     }
+
+    public static class TDWall extends Wall {
+        public TDWall(String name, int 血量) {
+            super(name);
+            requirements(Category.defense, with(魂,0));
+            health = 血量;
+            size = 3;
+            armor = 2;
+        }
+    }
+
     public static class TDPowerTurret extends PowerTurret {
 
-        public TDPowerTurret(String name) {
+        public TDPowerTurret(String name, float 射速, float 范围) {
             super(name);
             targetable = false;//被单位攻击？
             health = 100;
@@ -40,8 +57,18 @@ public class CreatorTowerDefenseType {
             buildType = Build::new;
             coolantMultiplier = 0f; //液体冷却倍率
             liquidCapacity = 0; //液体容量
-            hasLiquids=false;
+            hasLiquids = false;
+            reload = 射速;
+            range = 范围 * 8;
+            size=2;
+           // 升级前置=null;
         }
+        public static Block 升级前置;
+        @Override
+        public boolean canReplace(Block other){
+            return 升级前置 == other;
+        }
+
         class Build extends PowerTurret.PowerTurretBuild {
             @Override
             public void damage(float damage) {
@@ -50,36 +77,38 @@ public class CreatorTowerDefenseType {
     }
 
     public static class TDUnitType extends UnitType {
-        public TDUnitType(String name,float 伤害,float 血量,float 移速) {
+        public TDUnitType(String name, float 伤害, float 血量, float 移速) {
             super(name);
-          // controller = u -> new OnlyAttackCoreAI();//单位的AI 塔防AI
+            controller = u -> new OnlyAttackCoreAI();//单位的AI 塔防AI
             //legCount=0;//没有脚
-           // hovering = true;//悬停
+            // hovering = true;//悬停
             alwaysUnlocked = true;//默认解锁
             flying = false;
             hitSize = 4;
             armor = 0;
             speed = 移速;
-            health=血量;
+            health = 血量;
             drawCell = false;//不显示队伍指示贴图
             targetFlags = new BlockFlag[]{BlockFlag.core};
             constructor = UnitTypes.elude.constructor;
-            abilities.add(new EU_healthDisplay(14, 22, 3));
-            weapons.add(new Weapon(){{
+            ammoType = new ItemAmmoType(魂);
+            abilities.add(new EU_healthDisplay.TDhealthDisplay(14, 22, 3));
+            weapons.add(new Weapon() {{
                 autoTarget = true;//被动开火?
                 shootOnDeath = true;//当它的主人死后，这把武器是否应该开火
                 reload = 30;
                 shootCone = 180;
                 ejectEffect = Fx.none;
                 shootSound = Sounds.explosion;
-                inaccuracy=0;
+                inaccuracy = 0;
                 x = 0;
                 shootY = 0;
                 mirror = false;
-                bullet = new BasicBulletType(9,伤害,"ctdt-透明"){{
-                    collidesAir = false;collidesGround = true;
-                    lifetime=3;
-                    collides =collidesTiles = true;
+                bullet = new BasicBulletType(9, 伤害, "ctdt-透明") {{
+                    collidesAir = false;
+                    collidesGround = true;
+                    lifetime = 3;
+                    collides = collidesTiles = true;
                     hitSound = Sounds.explosion;
                     hitEffect = Fx.pulverize;
                     killShooter = true;//射击后死亡

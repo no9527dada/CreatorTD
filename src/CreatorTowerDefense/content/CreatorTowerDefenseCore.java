@@ -7,10 +7,12 @@ import ct.Asystem.type.CTCoreBlock;
 import mindustry.ai.types.BuilderAI;
 import mindustry.type.Category;
 import mindustry.type.UnitType;
+import mindustry.type.ammo.ItemAmmoType;
 import mindustry.world.Block;
 import mindustry.world.meta.BuildVisibility;
 
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.星辰;
+import static CreatorTowerDefense.content.CreatorTowerDefenseItems.魂;
 import static mindustry.Vars.tilesize;
 import static mindustry.type.ItemStack.with;
 
@@ -42,6 +44,7 @@ public class CreatorTowerDefenseCore {
             targetable = false;//被敌人瞄准
             physics = false;//单位碰撞
             lightColor = Color.valueOf("ffcd35");
+            ammoType = new ItemAmmoType(魂);
             lightOpacity = 1;
             coreUnitDock = true;
             envDisabled = 0;
@@ -53,17 +56,17 @@ public class CreatorTowerDefenseCore {
             );
         }};
         DTcore0 = new CTCoreBlock("DTcore0") {{
-
             requirements(Category.effect, with(星辰, 10));
             alwaysUnlocked = true;
             incinerateNonBuildable = true;//不可建造，会在建造UI面板隐藏
             isFirstTier = false;//核心地板限制
             unitType = 核心机1;
-            health = 1100;
-            itemCapacity = 6000;
-            size = 3;
-            solid = false;//固体
-            unitCapModifier = 6;
+            health = 200;
+            itemCapacity = 9999999;
+            size = 5;
+            unitCapModifier = 0;
+            requiresCoreZone = true;//需要特定地板
+
         }};
     }
 }

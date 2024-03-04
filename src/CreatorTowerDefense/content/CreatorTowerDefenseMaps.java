@@ -11,7 +11,7 @@ public class CreatorTowerDefenseMaps {
 
     public static void load() {
 
-        草原1 = new SectorPreset("草原1", Planet1.Planet1, 1) {{
+     草原1 = new SectorPreset("草原1", Planet1.Planet1, 1) {{
             alwaysUnlocked = true;
             addStartingItems = true;
             captureWave = 10;
