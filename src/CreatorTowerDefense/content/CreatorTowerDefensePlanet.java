@@ -52,7 +52,7 @@ public class CreatorTowerDefensePlanet {
             accessible = true;
             updateLighting = false;//照明开关
             ruleSetter = r -> {
-               // r.unitAmmo = true;//单位需要子弹
+                r.disableWorldProcessors = false;//世处
                 r.showSpawns = true;//显示单位刷出点
                 r.unitCap = 0;//单位上限
                // r.onlyDepositCore = true;//物品只能存放在核心
@@ -61,6 +61,10 @@ public class CreatorTowerDefensePlanet {
                 r.waveTeam = Team.crux;
                 r.fog = false;//迷雾
                 r.placeRangeCheck = false;
+                r.waitEnemies=true;//等待波次敌人结束后再计时
+                r.waveSending = false;//手动跳波
+                r. enemyCoreBuildRadius = 5*8f;//敌方核心不可建造区域半径
+                r.dropZoneRadius=20*8;//敌人刷新点禁区
             };
 
            // unlockedOnLand.add(Blocks.coreShard);

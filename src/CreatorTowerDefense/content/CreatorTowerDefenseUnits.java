@@ -15,13 +15,16 @@ public class CreatorTowerDefenseUnits {
     public static void load() {
 
 
-        TDUnitType U星辰 = new TDUnitType("dt星辰", 0, 30, 3f);//奖励单位，没有伤害
+        TDUnitType U星辰 = new TDUnitType("dt星辰", 0, 30, 3f){{
+            hittable = false;//被子弹击中
+            targetable = false;//被敌人瞄准
+            }};//奖励单位，没有伤害
         TDUnitType 沙 = new TDUnitType("dt沙", 1, 10, 0.5f);
         TDUnitType 铜 = new TDUnitType("dt铜", 1, 20, 0.5f);
         TDUnitType 铅 = new TDUnitType("dt铅", 1, 10, 1.5f);
         TDUnitType 煤炭 = new TDUnitType("dt煤炭", 1, 30, 0.5f);
         TDUnitType 石英 = new TDUnitType("dt石英", 2, 30, 0.5f) {{
-            abilities.add(new SpawnDeathAbility(沙, 1, 8));
+            abilities.add(new SpawnDeathAbility(沙, 2, 8));
         }};
         TDUnitType 玻璃 = new TDUnitType("dt玻璃", 2, 35, 0.8f) {{
             abilities.add(new SpawnDeathAbility(铅, 1, 8));
@@ -30,14 +33,14 @@ public class CreatorTowerDefenseUnits {
             abilities.add(new SpawnDeathAbility(煤炭, 1, 8));
         }};
         TDUnitType 碳板 = new TDUnitType("dt碳板", 2, 50, 0.35f) {{
-            abilities.add(new SpawnDeathAbility(煤炭, 1, 8));
+            abilities.add(new SpawnDeathAbility(煤炭, 2, 8));
         }};
         TDUnitType 硅 = new TDUnitType("dt硅", 3, 30, 2.5f);
         TDUnitType 石墨烯 = new TDUnitType("dt石墨烯", 3, 80, 0.75f) {{
-            abilities.add(new SpawnDeathAbility(石墨, 1, 8));
+            abilities.add(new SpawnDeathAbility(石墨, 2, 8));
         }};
         TDUnitType 硫化物 = new TDUnitType("dt硫化物", 3, 150, 0.3f) {{
-            abilities.add(new SpawnDeathAbility(硅, 1, 8));
+            abilities.add(new SpawnDeathAbility(硅, 2, 8));
         }};
         TDUnitType 硅晶体 = new TDUnitType("dt硅晶体", 4, 220, 0.5f) {{
             abilities.add(new RepairFieldAbility(20f, 60f * 2, 4 * 8f));
@@ -103,7 +106,7 @@ public class CreatorTowerDefenseUnits {
                 .add(钻石, with(魂, 240,魄, 120,星辰, 25))
                 .add(魔力石, with(魂, 150,魄, 130,星辰, 20))
                 .add(微晶, with(魂, 500,魄, 200,星辰, 50))
-                .add(U星辰, with(星辰, 3));
+                .add(U星辰, with(星辰, 1));
 
     }
 }

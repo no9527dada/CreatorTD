@@ -4,6 +4,7 @@ import arc.Core;
 import arc.graphics.Color;
 import ct.Asystem.type.CT3UnitType;
 import ct.Asystem.type.CTCoreBlock;
+import ct.Asystem.type.waveRule;
 import mindustry.ai.types.BuilderAI;
 import mindustry.type.Category;
 import mindustry.type.UnitType;
@@ -20,16 +21,24 @@ public class CreatorTowerDefenseCore {
     public static Block DTcore0, DTcore1, DTcore2;
     public static UnitType 核心机1;
     public static void load() {
+        /**波次更改器
+         用处理器配置此方块，完成终结波次的修改
+         getlink q 0
+         control config q 100
+         stop
+           */
+        new waveRule("waveRule");
+
         核心机1 = new CT3UnitType.CTR1UnitType("CoreUnit", "gamma") {{
-            localizedName = "初号机";
-            description = "";
+           // localizedName = "初号机";
+           // description = "";
             aiController = BuilderAI::new;
             isEnemy = false;
             lowAltitude = true;
             flying = true;
            // mineSpeed = 3f;
            // mineTier = 1;
-            buildSpeed = 1f;
+            buildSpeed = 2f;
             drag = 0.05f;
             speed = 5f;
             rotateSpeed = 15f;
@@ -43,6 +52,7 @@ public class CreatorTowerDefenseCore {
             killable = false;//被杀死
             targetable = false;//被敌人瞄准
             physics = false;//单位碰撞
+            buildRange = 35*8.0F;//建造范围
             lightColor = Color.valueOf("ffcd35");
             ammoType = new ItemAmmoType(魂);
             lightOpacity = 1;
@@ -61,8 +71,8 @@ public class CreatorTowerDefenseCore {
             incinerateNonBuildable = true;//不可建造，会在建造UI面板隐藏
             isFirstTier = false;//核心地板限制
             unitType = 核心机1;
-            health = 200;
-            itemCapacity = 9999999;
+            health = 100;
+            itemCapacity = 100000;
             size = 5;
             unitCapModifier = 0;
             requiresCoreZone = true;//需要特定地板

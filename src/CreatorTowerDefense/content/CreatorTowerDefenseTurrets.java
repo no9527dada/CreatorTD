@@ -24,17 +24,17 @@ public class CreatorTowerDefenseTurrets {
                 width = 7f;
                 height = 9f;
                 lifetime = 30f;
-                ammoMultiplier = 2;
+                ammoMultiplier = 1;//装弹倍率
                 homingPower = 1;
                 trailLength = 8;
                 trailWidth = 2;trailColor =C("baee33");
             }};
-            consumePower(2 / 60f);
+            consumePower(10/ 60f);
             shoot = new ShootAlternate(3.5f);
-            requirements(Category.turret, with(魂, 5));
+            requirements(Category.turret, with(魂, 4));
         }};
         双管2 = new TDPowerTurret("双管2", 40, 14) {{
-            shootType = new BasicBulletType(4f, 5) {{
+            shootType = new BasicBulletType(4f, 10) {{
                 width = 7f;
                 height = 9f;
                 lifetime = 30f;
@@ -45,12 +45,12 @@ public class CreatorTowerDefenseTurrets {
                 trailColor =C("fff96f");
             }};
             升级前置=双管1;
-            consumePower(30 / 60f);
+            consumePower(50 / 60f);
             shoot = new ShootAlternate(3.5f);
-            requirements(Category.turret, with(魂, 50));
+            requirements(Category.turret, with(魂, 40));
         }};
         双管3 = new TDPowerTurret("双管3", 25, 22) {{
-            shootType = new BasicBulletType(4f, 10) {{
+            shootType = new BasicBulletType(4f, 20) {{
                 width = 7f;
                 height = 9f;
                 lifetime = 30f;
@@ -61,7 +61,7 @@ public class CreatorTowerDefenseTurrets {
                 trailColor =C("ff847d");
             }};
             升级前置=双管2;
-            consumePower(100 / 60f);
+            consumePower(200 / 60f);
             shoot = new ShootAlternate(3.5f);
             requirements(Category.turret, with(魂, 200,魄,20));
         }};

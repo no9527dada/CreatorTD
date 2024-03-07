@@ -14,7 +14,7 @@ public class CreatorTowerDefense  extends Mod {
         CreatorTowerDefensePower.load();
         CreatorTowerDefenseTurrets.load();//炮塔
         CreatorTowerDefensePlanet.load();//星球
-        //CreatorTowerDefenseMaps.load();//地图
+        CreatorTowerDefenseMaps.load();//地图
         CreatorTowerDefenseTechTree.load();//科技树
     }
 }
