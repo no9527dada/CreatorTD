@@ -32,10 +32,15 @@ public class CreatorTowerDefenseTechTree {
                             new Objectives.SectorComplete(草原2)
                     )
             );
+            addToTree(草原4, 草原3,ItemStack.with(
+                            星越星辰, 1),  Seq.with(
+                            new Objectives.SectorComplete(草原3)
+                    )
+            );
             //炮塔
             addToTree(双管1, DTcore0, ItemStack.with(
                             星辰, 1)
-                    //, Seq.with(new Objectives.Research(筑基丹))
+                    //, Seq.with(new Objectives.Research(筑基丹))//研究资源或方块
             );
             addToTree(双管2, 双管1, ItemStack.with(
                     星辰, 1000),  Seq.with(
@@ -43,7 +48,7 @@ public class CreatorTowerDefenseTechTree {
                     )
             );
             addToTree(无限, DTcore0, ItemStack.with(
-                    星辰,2000,星越星辰,1),  Seq.with(
+                    星辰,2000,星越星辰,2),  Seq.with(
                             new Objectives.SectorComplete(草原2)
                     )
             );
@@ -55,15 +60,15 @@ public class CreatorTowerDefenseTechTree {
                     星辰, 1)
             );
       /*      addToTree(节点大, 节点小, ItemStack.with(
-                    魂, 25000,魄,3500,星辰,50)
+                    星越星辰, 5)
             );*/
             addToTree(初始电力产生器, 节点小, ItemStack.with(
                     星辰, 1)
             );
   /*          addToTree(电力产生器, 初始电力产生器, ItemStack.with(
-                    魂, 10),
+                    星越星辰, 3),
                     Seq.with(
-                              new Objectives.SectorComplete(草原1)
+                              new Objectives.SectorComplete(草原5)
                     )
             );*/
 

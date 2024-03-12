@@ -1,6 +1,5 @@
-package cttd.vv;
+package CreatorTowerDefense.vv;
 
-import arc.Core;
 import arc.graphics.Color;
 import mindustry.content.Items;
 import mindustry.type.ItemStack;

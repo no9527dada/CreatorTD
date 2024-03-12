@@ -63,7 +63,7 @@ public class CreatorTowerDefenseTurrets {
             升级前置 = 双管2;
             consumePower(200 / 60f);
             shoot = new ShootAlternate(3.5f);
-            requirements(Category.turret, with(魂, 200, 魄, 20));
+            requirements(Category.turret, with(魂, 200, 魄, 40));
         }};
 
 

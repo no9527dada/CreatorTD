@@ -34,7 +34,7 @@ public class CreatorTowerDefenseType {
             hasShadow = false;
             variants = 0;
             placeableOn = false;
-            localizedName = Core.bundle.getOrNull("block.Floor");
+
 
         }
     }

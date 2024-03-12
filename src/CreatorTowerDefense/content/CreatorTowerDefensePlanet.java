@@ -15,7 +15,7 @@ import static CreatorTowerDefense.content.CreatorTowerDefenseItems.CreatorTowerD
 
 public class CreatorTowerDefensePlanet {
     public static Planet
-            DTPlanet1 ,DTPlanet2;
+            DTPlanet1, DTPlanet2;
 
     /*    public static Block
                 coreT1,coreT2,coreT3;*/
@@ -55,20 +55,24 @@ public class CreatorTowerDefensePlanet {
                 r.disableWorldProcessors = false;//世处
                 r.showSpawns = true;//显示单位刷出点
                 r.unitCap = 30;//单位上限
-               // r.onlyDepositCore = true;//物品只能存放在核心
+                // r.onlyDepositCore = true;//物品只能存放在核心
                 //r.coreDestroyClear = true;//死亡时(敌人)核心半径内的每个敌人方块都会被摧毁。
                 //r.teams.get(Team.sharded).unitDamageMultiplier = 0.5f;//单位伤害减半
                 r.waveTeam = Team.crux;
                 r.fog = false;//迷雾
                 r.placeRangeCheck = false;
-                r.waitEnemies=true;//等待波次敌人结束后再计时
+                r.waitEnemies = true;//等待波次敌人结束后再计时
                 r.waveSending = false;//手动跳波
-                r. enemyCoreBuildRadius = 5*8f;//敌方核心不可建造区域半径
-                r.dropZoneRadius=20*8;//敌人刷新点禁区
-                r.ghostBlocks=false;
+                r.enemyCoreBuildRadius = 5 * 8f;//敌方核心不可建造区域半径
+                r.dropZoneRadius = 20 * 8;//敌人刷新点禁区
+                r.ghostBlocks = false;
+                r.deconstructRefundMultiplier = 0.3f;//拆除返还倍率
+                r.waveTimer = true;//开启波次计时
+                r.waves = true;//波次
+                r.initialWaveSpacing = 30*60;//第一波间隔
             };
 
-           // unlockedOnLand.add(Blocks.coreShard);
+            // unlockedOnLand.add(Blocks.coreShard);
         }};
         DTPlanet2 = new Planet("GOD2", Planets.sun, 1f, 3) {{
             localizedName = Core.bundle.format("cttd.Planet2");
@@ -105,7 +109,7 @@ public class CreatorTowerDefensePlanet {
                 //r.unitAmmo = true;//单位需要子弹
                 r.showSpawns = true;//显示单位刷出点
                 r.unitCap = 0;//单位上限
-               // r.onlyDepositCore = true;//物品只能存放在核心
+                // r.onlyDepositCore = true;//物品只能存放在核心
                 //r.coreDestroyClear = true;//死亡时(敌人)核心半径内的每个敌人方块都会被摧毁。
                 //r.teams.get(Team.sharded).unitDamageMultiplier = 0.5f;//单位伤害减半
                 r.waveTeam = Team.crux;

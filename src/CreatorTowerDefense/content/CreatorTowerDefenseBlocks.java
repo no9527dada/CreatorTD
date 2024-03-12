@@ -1,21 +1,16 @@
 package CreatorTowerDefense.content;
 
 import arc.struct.Seq;
-import ct.Asystem.type.BlockDestroyReward;
 import ct.Asystem.type.TDTyep.TDMendProjector;
 import ct.Asystem.type.TDTyep.TDUnitFactory;
 import ct.Asystem.type.TDTyep.TDsuicideWall;
 import mindustry.type.Category;
 import mindustry.world.Block;
-import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.units.UnitFactory;
-import mindustry.world.meta.BuildVisibility;
 
-import static ct.content.ItemX.物品;
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseTerrain.*;
-import static CreatorTowerDefense.content.CreatorTowerDefenseType.TDWall;
 import static CreatorTowerDefense.content.CreatorTowerDefenseUnits.*;
 import static mindustry.type.ItemStack.with;
 

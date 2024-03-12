@@ -2,6 +2,8 @@ package CreatorTowerDefense;
 
 
 import CreatorTowerDefense.content.*;
+import CreatorTowerDefense.vv.测试;
+import ct.CreatorsModJS;
 import mindustry.Vars;
 import mindustry.mod.Mod;
 //主类
@@ -22,5 +24,6 @@ public class CreatorTowerDefense  extends Mod {
        CreatorTowerDefensePlanet.load();//星球
        CreatorTowerDefenseMaps.load();//地图
        CreatorTowerDefenseTechTree.load();//科技树
+      CTTDModJS.DawnMods();//JS加载器
     }
 }

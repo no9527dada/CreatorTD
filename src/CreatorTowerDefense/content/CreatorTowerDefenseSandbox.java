@@ -25,15 +25,15 @@ public class CreatorTowerDefenseSandbox {
             public boolean canBreak(Tile tile) {
                 return false;
             }{
-            requirements(Category.effect, with(物品, 1));
+            requirements(Category.effect,  BuildVisibility.sandboxOnly,with(物品, 1));
         }};
 
         //地图墙,用于制作地图时使用
         new Wall("dt地图墙"){{
-            requirements(Category.defense, BuildVisibility.sandboxOnly, with(物品, 1,星辰,999));
+            requirements(Category.defense, BuildVisibility.sandboxOnly, with(物品, 1));
         }};
         new Wall("dt地图墙2"){{size=7;
-            requirements(Category.defense, BuildVisibility.sandboxOnly,with(物品, 1,星辰,999));
+            requirements(Category.defense, BuildVisibility.sandboxOnly,with(物品, 1));
         }};
 
 
