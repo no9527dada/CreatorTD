@@ -23,19 +23,16 @@ public class CreatorTowerDefenseTechTree {
             addToTree(草原1, DTcore0,null);
             addToTree(TD教程, 草原1,null);
             addToTree(草原2, 草原1,ItemStack.with(
-                    星越星辰, 1),  Seq.with(
-                            new Objectives.SectorComplete(草原1)
-                    )
+                    星越星辰, 1)
             );
             addToTree(草原3, 草原2,ItemStack.with(
-                    星越星辰, 1),  Seq.with(
-                            new Objectives.SectorComplete(草原2)
-                    )
+                    星越星辰, 1)
             );
             addToTree(草原4, 草原3,ItemStack.with(
-                            星越星辰, 1),  Seq.with(
-                            new Objectives.SectorComplete(草原3)
-                    )
+                            星越星辰, 1)
+            );
+           addToTree(草原5, 草原4,ItemStack.with(
+                    星越星辰, 1)
             );
             //炮塔
             addToTree(双管1, DTcore0, ItemStack.with(
@@ -47,30 +44,55 @@ public class CreatorTowerDefenseTechTree {
                             new Objectives.SectorComplete(草原1)
                     )
             );
+            addToTree(双管3, 双管2, ItemStack.with(
+                            星辰,2000,星越星辰,5),  Seq.with(
+                            new Objectives.SectorComplete(草原4)
+                    )
+            );
+            addToTree(黏黏炮1, DTcore0, ItemStack.with(
+                            星辰,700,星越星辰,2),  Seq.with(
+                            new Objectives.SectorComplete(草原4)
+                    )
+            );
+            addToTree(黏黏炮1, DTcore0, ItemStack.with(
+                            星辰,3200,星越星辰,2),  Seq.with(
+                            new Objectives.SectorComplete(草原5)
+                    )
+            );
+            addToTree(蓝瑟1, DTcore0, ItemStack.with(
+                            星辰,700,星越星辰,2),  Seq.with(
+                            new Objectives.SectorComplete(草原5)
+                    )
+            );
+            addToTree(蓝瑟2, 蓝瑟1, ItemStack.with(
+                            星辰,2800,星越星辰,3),  Seq.with(
+                            new Objectives.SectorComplete(草原5)
+                    )
+            );
             addToTree(无限, DTcore0, ItemStack.with(
                     星辰,2000,星越星辰,2),  Seq.with(
                             new Objectives.SectorComplete(草原2)
                     )
             );
-      /*      addToTree(双管3, 双管2, ItemStack.with(
-                            魂, 1000,魄,300)
-            );*/
+
             //电力
             addToTree(节点小, DTcore0, ItemStack.with(
                     星辰, 1)
             );
-      /*      addToTree(节点大, 节点小, ItemStack.with(
-                    星越星辰, 5)
+    /*      addToTree(节点大, 节点小, ItemStack.with(
+                  星辰,3300,星越星辰, 5  , Seq.with(
+                          new Objectives.SectorComplete(草原6)
+                  ))
             );*/
             addToTree(初始电力产生器, 节点小, ItemStack.with(
                     星辰, 1)
             );
-  /*          addToTree(电力产生器, 初始电力产生器, ItemStack.with(
-                    星越星辰, 3),
+         addToTree(电力产生器, 初始电力产生器, ItemStack.with(
+                         星辰,1800,星越星辰, 3),
                     Seq.with(
-                              new Objectives.SectorComplete(草原5)
+                              new Objectives.SectorComplete(草原4)
                     )
-            );*/
+            );
 
         });
     }

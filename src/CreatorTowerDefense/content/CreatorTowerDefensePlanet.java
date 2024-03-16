@@ -2,6 +2,7 @@ package CreatorTowerDefense.content;
 
 import arc.Core;
 import arc.graphics.Color;
+import ct.Asystem.Evn2;
 import mindustry.content.Planets;
 import mindustry.game.Team;
 import mindustry.graphics.Pal;
@@ -43,6 +44,7 @@ public class CreatorTowerDefensePlanet {
             bloom = true;
             startSector = 0;
             alwaysUnlocked = true;
+           // defaultEnv =  Evn2.TD标记 ;
             clearSectorOnLose = true;//扇区丢失时是否重置地图
             enemyCoreSpawnReplace = false;//攻击图核心变刷怪点
             allowLaunchSchematics = false;//开启发射核心蓝图
@@ -70,6 +72,7 @@ public class CreatorTowerDefensePlanet {
                 r.waveTimer = true;//开启波次计时
                 r.waves = true;//波次
                 r.initialWaveSpacing = 30*60;//第一波间隔
+                r.waveSpacing=5;//后续波次时间
             };
 
             // unlockedOnLand.add(Blocks.coreShard);

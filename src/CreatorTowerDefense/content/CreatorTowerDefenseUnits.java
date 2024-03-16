@@ -1,7 +1,11 @@
 package CreatorTowerDefense.content;
 
+import arc.Core;
 import arc.graphics.Color;
+import ct.Asystem.Evn2;
+import ct.Asystem.type.CTUnitSpawnAbility;
 import ct.Asystem.type.UnitDeathReward;
+import mindustry.Vars;
 import mindustry.ai.UnitCommand;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
@@ -10,7 +14,9 @@ import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.ContinuousLaserBulletType;
 import mindustry.entities.bullet.MissileBulletType;
+import mindustry.game.Team;
 import mindustry.gen.Sounds;
+import mindustry.gen.Unit;
 import mindustry.graphics.Pal;
 import mindustry.type.StatusEffect;
 import mindustry.type.UnitType;
@@ -23,16 +29,28 @@ import static mindustry.type.ItemStack.with;
 
 //方块
 public class CreatorTowerDefenseUnits {
-    public static UnitType 星尘单位,星灵单位,凝蓝单位,蚀魂单位
-            ;
+    public static UnitType 星尘单位, 星灵单位, 凝蓝单位, 蚀魂单位;
+    public static StatusEffect BossBuff;
 
     public static void load() {
+        BossBuff = new StatusEffect("Boss") {
+            @Override
+            public void update(Unit unit, float time) {
+                super.update(unit, time);
+                Vars.state.teams.bosses.add(unit);
+            }{
+            color = Team.crux.color;
+            permanent = true;//状态永久持续
+            speedMultiplier = 0.5f;//移速
+            damageMultiplier = 3f;//伤害倍率
+            localizedName = Core.bundle.format("status." + name + ".name", speedMultiplier * 100, damageMultiplier * 100);
+        }};
 
-
-        TDUnitType U星辰 = new TDUnitType("dt星辰", 0, 30, 3f){{
+        TDUnitType U星辰 = new TDUnitType("dt星辰", 0, 30, 3f) {{
+            immunities.addAll(Vars.content.statusEffects());//免疫任何BUFF
             hittable = false;//被子弹击中
             targetable = false;//被敌人瞄准
-            }};//奖励单位，没有伤害
+        }};//奖励单位，没有伤害
         TDUnitType 沙 = new TDUnitType("dt沙", 1, 10, 0.5f);
         TDUnitType 铜 = new TDUnitType("dt铜", 1, 20, 0.5f);
         TDUnitType 铅 = new TDUnitType("dt铅", 1, 10, 1.5f);
@@ -63,7 +81,7 @@ public class CreatorTowerDefenseUnits {
             abilities.add(new ForceFieldAbility(3 * 8f, 4f, 50f, 60f * 8, 8, 0f));
         }};//力场
         TDUnitType 钍 = new TDUnitType("dt钍", 5, 500, 0.3f) {{
-            abilities.add(new UnitSpawnAbility(石墨烯, 60 * 15, 0, 0));
+            abilities.add(new CTUnitSpawnAbility(石墨烯, 60 * 15, 0, 0));
         }};//生产单位
         TDUnitType 塑钢 = new TDUnitType("dt塑钢", 5, 320, 0.5f) {{
             abilities.add(new StatusFieldAbility(new StatusEffect("tdjiaxue") {{
@@ -82,56 +100,78 @@ public class CreatorTowerDefenseUnits {
             }}, 60f * 5, 90f * 60f, 1f));
             abilities.add(new SpawnDeathAbility(钍, 1, 8));
         }};
-        TDUnitType 巨浪合金 = new TDUnitType("dt巨浪合金", 10, 5000, 0.3f);
-        TDUnitType 电池 = new TDUnitType("dt电池", 10, 2500, 1f);
-        TDUnitType 钛合金 = new TDUnitType("dt钛合金", 15, 8000, 0.3f);
-        TDUnitType 钻石 = new TDUnitType("dt钻石", 20, 11000, 0.3f);
-        TDUnitType 魔力石 = new TDUnitType("dt魔力石", 30, 3000, 0.3f){{armor=15;}};
-        TDUnitType 微晶 = new TDUnitType("dt微晶", 50, 20000, 0.2f){{
+        TDUnitType 电池 = new TDUnitType("dt电池", 10, 600, 0.6f) {{
+            abilities.add(new SpawnDeathAbility(石墨烯, 3, 8));
+        }};
+        TDUnitType 钛合金 = new TDUnitType("dt钛合金", 15, 1500, 0.5f) {{
+            abilities.add(new SpawnDeathAbility(钛, 3, 8));
+        }};
+        TDUnitType 钻石 = new TDUnitType("dt钻石", 20, 5000, 0.7f) {{
+            abilities.add(new SpawnDeathAbility(钍, 2, 8));
+        }};
+
+        TDUnitType 巨浪合金 = new TDUnitType("dt巨浪合金", 25, 5000, 0.5f) {{
             abilities.add(
-                    new UnitSpawnAbility(石英, 60 * 2, 0, 0),
-                    new UnitSpawnAbility(钍, 60 * 5, 0, 0),
-                    new UnitSpawnAbility(钛, 60 * 15, 0, 0));
+                    new CTUnitSpawnAbility(铜, 60 * 3, 0, 0),
+                    new CTUnitSpawnAbility(硅, 60 * 5, 0, 0),
+                    new CTUnitSpawnAbility(铅, 60 * 3, 0, 0),
+                    new CTUnitSpawnAbility(钛, 60 * 9, 0, 0));
+        }};
+        TDUnitType 魔力石 = new TDUnitType("dt魔力石", 30, 9000, 0.5f) {{
+            abilities.add(
+                    new CTUnitSpawnAbility(相织布, 60 * 8, 0, 0),
+                    new CTUnitSpawnAbility(硅晶体, 60 * 7, 0, 0),
+                    new CTUnitSpawnAbility(钛, 60 * 5, 0, 0));
+        }};
+        TDUnitType 微晶 = new TDUnitType("dt微晶", 50, 20000, 0.5f) {{
+            abilities.add(
+                    new CTUnitSpawnAbility(石英, 60 * 0.7f, 0, 0),
+                    new CTUnitSpawnAbility(钍, 60 * 5, 0, 0),
+                    new CTUnitSpawnAbility(钛, 60 * 15, 0, 0));
         }};//生产单位;
         UnitDeathReward.getInstance().init()
+                .add(U星辰, with(星越星辰, 1))
                 .add(沙, with(魂, 1))
-                .add(铜,  with(魂, 1))
+                .add(铜, with(魂, 1))
                 .add(铅, with(魂, 1))
-                .add(煤炭, with(魂, 2,魄, 1))
-                .add(玻璃, with(魂, 3,魄, 1))
-                .add(碳板, with(魂, 4,魄, 3))
-                .add(石墨, with(魂, 4,魄, 2))
-                .add(石墨烯, with(魂, 6,魄, 2))
-                .add(硅, with(魂, 2,魄, 4))
-                .add(硅晶体, with(魂, 4,魄, 4))
-                .add(石英, with(魂, 3,魄, 2))
-                .add(钛, with(魂, 10,魄, 5))
-                .add(硫化物, with(魂, 7,魄, 3))
-                .add(钍, with(魂, 13,魄, 7))
-                .add(塑钢, with(魂, 5,魄, 20))
-                .add(相织布, with(魂, 5,魄, 20))
-                .add(金, with(魂, 30,魄, 30))
+                .add(煤炭, with(魂, 2, 魄, 1))
+                .add(玻璃, with(魂, 3, 魄, 1))
+                .add(碳板, with(魂, 4, 魄, 3))
+                .add(石墨, with(魂, 4, 魄, 2))
+                .add(石墨烯, with(魂, 6, 魄, 2))
+                .add(硅, with(魂, 2, 魄, 4))
+                .add(硅晶体, with(魂, 4, 魄, 4))
+                .add(石英, with(魂, 3, 魄, 2))
+                .add(钛, with(魂, 10, 魄, 5))
+                .add(硫化物, with(魂, 7, 魄, 3))
+                .add(钍, with(魂, 13, 魄, 7))
+                .add(塑钢, with(魂, 20, 魄, 9))
+                .add(相织布, with(魂, 22, 魄, 8))
+                .add(金, with(魂, 30, 魄, 7))
+                .add(电池, with(魂, 45, 魄, 13, 星辰, 2))
+                .add(钛合金, with(魂, 60, 魄, 18, 星辰, 3))
+                .add(钻石, with(魂, 90, 魄, 25, 星辰, 3))
                 //boss
-                .add(巨浪合金, with(魂, 200,魄, 80,星辰, 10))
-                .add(电池, with(魂, 150,魄, 50,星辰, 10))
-                .add(钛合金, with(魂, 230,魄, 95,星辰, 20))
-                .add(钻石, with(魂, 240,魄, 120,星辰, 25))
-                .add(魔力石, with(魂, 150,魄, 130,星辰, 20))
-                .add(微晶, with(魂, 500,魄, 200,星辰, 50))
-                .add(U星辰, with(星越星辰, 1));
-/*单位工厂的单位*/
+                .add(巨浪合金, with(魂, 200, 魄, 80, 星辰, 10))
+                .add(魔力石, with(魂, 150, 魄, 130, 星辰, 20))
+                .add(微晶, with(魂, 500, 魄, 200, 星辰, 50))
+        ;
 
-        星尘单位 = new UnitType("星尘"){{
+        /*单位工厂的单位*/
+
+        星尘单位 = new UnitType("星尘") {{
             defaultCommand = UnitCommand.rebuildCommand;
             flying = true;
             drag = 0.05f;
             speed = 1f;
+            armor = 500;
             rotateSpeed = 15f;
             accel = 0.1f;
             range = 130f;
             health = 100;
             buildSpeed = 0.5f;
             engineOffset = 6.5f;
+            envEnabled = Evn2.TD标记;
             hitSize = 8f;
             lowAltitude = true;
             ammoType = new ItemAmmoType(魂);
@@ -140,13 +180,15 @@ public class CreatorTowerDefenseUnits {
             targetable = false;//被敌人瞄准
             constructor = UnitTypes.poly.constructor;
         }};
-        星灵单位 = new UnitType("星灵"){{
+        星灵单位 = new UnitType("星灵") {{
+            envEnabled = Evn2.TD标记;
             hittable = false;//被子弹击中
             targetable = false;//被敌人瞄准
             killable = true;//被杀死,这里需要打开，保证在刷怪圈内会被死亡
             speed = 2.7f;
             accel = 0.08f;
             drag = 0.04f;
+            armor = 500;
             flying = true;
             health = 100;
             engineOffset = 5.75f;
@@ -156,12 +198,12 @@ public class CreatorTowerDefenseUnits {
             //targetFlags = new BlockFlag[]{BlockFlag.generator, null};
             hitSize = 9;
             //itemCapacity = 10;
-            weapons.add(new Weapon(){{
+            weapons.add(new Weapon() {{
                 y = 0f;
                 x = 2f;
                 reload = 50f;
                 ejectEffect = Fx.casing1;
-                bullet = new BasicBulletType(2.5f, 8){{
+                bullet = new BasicBulletType(2.5f, 8) {{
                     width = 7f;
                     height = 9f;
                     lifetime = 30f;
@@ -174,12 +216,14 @@ public class CreatorTowerDefenseUnits {
                 shootSound = Sounds.pew;
             }});
         }};
-        凝蓝单位 = new UnitType("凝蓝"){{
+        凝蓝单位 = new UnitType("凝蓝") {{
+            envEnabled = Evn2.TD标记;
             hittable = false;//被子弹击中
             targetable = false;//被敌人瞄准
             killable = true;//被杀死,这里需要打开，保证在刷怪圈内会被死亡
             speed = 2.7f;
             accel = 0.08f;
+            armor = 500;
             drag = 0.04f;
             flying = true;
             health = 100;
@@ -187,7 +231,7 @@ public class CreatorTowerDefenseUnits {
             hitSize = 9;
             constructor = UnitTypes.flare.constructor;
             ammoType = new ItemAmmoType(魂);
-            weapons.add(new Weapon("zenith-missiles"){{
+            weapons.add(new Weapon("zenith-missiles") {{
                 reload = 40f;
                 x = 7f;
                 rotate = true;
@@ -196,7 +240,7 @@ public class CreatorTowerDefenseUnits {
                 inaccuracy = 5f;
                 velocityRnd = 0.2f;
                 shootSound = Sounds.missile;
-                bullet = new MissileBulletType(3f, 0){{
+                bullet = new MissileBulletType(3f, 0) {{
                     width = 8f;
                     height = 8f;
                     shrinkY = 0f;
@@ -216,20 +260,22 @@ public class CreatorTowerDefenseUnits {
                 }};
             }});
         }};
-        蚀魂单位 = new UnitType("蚀魂"){{
+        蚀魂单位 = new UnitType("蚀魂") {{
+            envEnabled = Evn2.TD标记;
             hittable = false;//被子弹击中
             targetable = false;//被敌人瞄准
             killable = true;//被杀死,这里需要打开，保证在刷怪圈内会被死亡
             speed = 2.7f;
             accel = 0.08f;
             drag = 0.04f;
+            armor = 500;
             flying = true;
             health = 100;
             engineOffset = 5.75f;
             hitSize = 9;
             constructor = UnitTypes.flare.constructor;
             ammoType = new ItemAmmoType(魂);
-            weapons.add(new Weapon("vela-weapon"){{
+            weapons.add(new Weapon("vela-weapon") {{
                 mirror = false;
                 top = false;
                 shake = 4f;
@@ -246,8 +292,8 @@ public class CreatorTowerDefenseUnits {
                 continuous = true;
                 cooldownTime = 180f;
 
-                bullet = new ContinuousLaserBulletType(){{
-                    damage = 45/12f;
+                bullet = new ContinuousLaserBulletType() {{
+                    damage = 45 / 12f;
                     length = 180f;
                     hitEffect = Fx.hitMeltHeal;
                     drawSize = 420f;
@@ -273,7 +319,6 @@ public class CreatorTowerDefenseUnits {
                 shootStatusDuration = bullet.lifetime + shoot.firstShotDelay;
             }});
         }};
-
 
 
     }

@@ -1,6 +1,7 @@
 package CreatorTowerDefense.content;
 
 import arc.Core;
+import arc.util.Nullable;
 import ct.Asystem.type.EU_healthDisplay;
 import ct.Asystem.type.OnlyAttackCoreAI;
 import mindustry.Vars;
@@ -17,7 +18,9 @@ import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
+import mindustry.world.blocks.defense.turrets.TractorBeamTurret;
 import mindustry.world.blocks.environment.Floor;
+import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.BuildVisibility;
 
@@ -51,12 +54,13 @@ public class CreatorTowerDefenseType {
         }
     }
 
+    //无限波次的方块
     public static class infiniteWall extends Wall {
-
         public infiniteWall(String name) {
             super(name);
             health = 100;
             solid = false;//固体
+            buildType=Build::new;
         }
         /**通用地板限制*/
         public Floor floor;//需要的地板
@@ -68,8 +72,14 @@ public class CreatorTowerDefenseType {
             tile.getLinkedTilesAs(this, tempTiles);
             return !tempTiles.contains(o -> o.floor() != floor);
         }
+        class Build extends Wall.WallBuild {//不会受到伤害
+            @Override
+            public void damage( float damage){
+            }
+        }
     }
 
+    //塔防的统一炮塔
     public static class TDPowerTurret extends PowerTurret {
         public TDPowerTurret(String name, float 射速, float 范围) {
             super(name);
@@ -77,7 +87,8 @@ public class CreatorTowerDefenseType {
             health = 100;
             inaccuracy = 0f;
             rotateSpeed = 3f;
-            buildType = Build::new;
+            armor = 500;
+           // buildType = Build::new;
             coolantMultiplier = 0f; //液体冷却倍率
             liquidCapacity = 0; //液体容量
             hasLiquids = false;
@@ -85,6 +96,7 @@ public class CreatorTowerDefenseType {
             range = 范围 * 8;
             size = 2;
             shootCone=90;//射击锁定角度
+            buildCostMultiplier = 3;//建造时间倍
         }
 
         public Block 升级前置 = null;
@@ -113,16 +125,58 @@ public class CreatorTowerDefenseType {
         }
 
 
-        class Build extends PowerTurret.PowerTurretBuild {
+/*        //免伤
+    class Build extends PowerTurret.PowerTurretBuild {
             @Override
             public void damage(float damage) {
             }
+        }*/
+    }
+
+    //塔防的激光炮 实则差扰改的
+    public static class TDTractorBeamTurret extends TractorBeamTurret {
+        public TDTractorBeamTurret(String name, float 伤害, float 范围) {
+            super(name);
+            range = 范围*8f;
+            damage = 伤害/60f;
+            health = 100;
+            targetGround= true;
+            hasPower = true;
+            size = 3;
+            force = 0;
+            scaledForce = 6f;
+            rotateSpeed = 10;
+            armor = 500;
+        }
+
+        public Block 升级前置 = null;
+
+        public boolean canReplace(Block other) {
+            if (other.alwaysReplace) return true;
+            return 升级前置 == null ? super.canReplace(other) : 升级前置 == other;
+        }
+
+        @Override
+        public boolean canPlaceOn(Tile tile, Team team, int rotation) {
+            if (tile == null) return false;
+            if (Vars.state.isEditor() || 升级前置 == null) return true;
+
+            tile.getLinkedTilesAs(this, tempTiles);
+            return tempTiles.contains(o -> o.block() == 升级前置);
+        }
+        @Override
+        public void drawPlace(int x, int y, int rotation, boolean valid) {
+         /*   if ( (player.team().core() != null && player.team().core().items.has(requirements, Vars.state.rules.buildCostMultiplier)) || Vars.state.rules.infiniteResources ) {
+                this.drawPlaceText(Core.bundle.get("bar.noresources"), x, y, false);
+            }*/
+            if(!valid && 升级前置 != null)drawPlaceText(Core.bundle.format("cttd.UpgradeFront") + 升级前置.localizedName, x, y, false);
+
+            super.drawPlace(x, y, rotation, valid);
         }
     }
 
 
-
-    //统一单位类
+    //塔防敌人的统一单位类
     public static class TDUnitType extends UnitType {
         public TDUnitType(String name, float 伤害, float 血量, float 移速) {
             super(name);

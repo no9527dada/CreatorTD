@@ -4,6 +4,7 @@ import arc.struct.Seq;
 import ct.Asystem.type.TDTyep.TDMendProjector;
 import ct.Asystem.type.TDTyep.TDUnitFactory;
 import ct.Asystem.type.TDTyep.TDsuicideWall;
+import ct.Asystem.type.factory.CreatorsUnitFactory;
 import mindustry.type.Category;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.Floor;
@@ -17,9 +18,24 @@ import static mindustry.type.ItemStack.with;
 //方块
 public class CreatorTowerDefenseBlocks {
     public static Block 魔力石墙, 修复器, 无限;
-    public static Block 星尘单位工厂,星灵单位工厂,凝蓝单位工厂,蚀魂单位工厂
+    public static Block 星尘单位工厂,星灵单位工厂,凝蓝单位工厂,蚀魂单位工厂,测试单位工厂
             ;
     public static void load() {
+
+        测试单位工厂 = new CreatorsUnitFactory("测试单位工厂") {{
+            requirements(Category.units, with(
+                    魂, 300, 魄, 5
+            ));
+            plans = Seq.with(
+                    new UnitPlan(星尘单位, 60f * 20, with(星辰,500))
+            );
+            size = 3;
+            //consumePower(200 / 60f);
+            floating = true;
+
+        }};
+
+
         星尘单位工厂 = new UnitFactory("星尘单位工厂") {{
             requirements(Category.units, with(
                     魂, 300, 魄, 5

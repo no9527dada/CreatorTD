@@ -51,6 +51,7 @@ public class CreatorTowerDefenseCore {
             envDisabled = 0;
             engineOffset = 7.5f;
             engineSize = 3.4f;
+
             setEnginesMirror(
                     new UnitEngine(35 / 4f, -13 / 4f, 2.7f, 315f),
                     new UnitEngine(28 / 4f, -35 / 4f, 2.7f, 315f)

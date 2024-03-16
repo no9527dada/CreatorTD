@@ -50,7 +50,7 @@ public class CreatorTowerDefensePower {
             itemDuration = 60f;
             //consumeLiquid(Liquids.water, 0.1f);
             hasLiquids = false;
-            size = 2;
+            size = 3;
             generateEffect = Fx.none;
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.06f;
@@ -59,12 +59,12 @@ public class CreatorTowerDefensePower {
             drawer = new DrawDefault();
         }};
         电力产生器 = new ConsumeGenerator("电力产生器"){{
-            requirements(Category.power, with(魂, 30, 魄, 2));
+            requirements(Category.power, with(魂, 260, 魄, 40));
             powerProduction = 6f;
             itemDuration = 60f;
             //consumeLiquid(Liquids.water, 0.1f);
             hasLiquids = false;
-            size = 2;
+            size = 3;
             generateEffect = Fx.generatespark;
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.06f;
