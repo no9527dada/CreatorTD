@@ -31,8 +31,8 @@ public class 光圈 {
             rotateSpeed = 0;
             shootCone = 360;//射击瞄准角度
             //升级前置 = 激光炮3;
-            consumePower(30f/60);
-            requirements(Category.turret, with(魂, 40));
+            consumePower(50f/60);
+            requirements(Category.turret, with(魂, 70));
 //    requirements(Category.turret, with(魂, 25,魄,800,星辰,300));
             float cont = 360 / 2f;//扩散角度，1/2值，60 = 120
             float bRange = range;//范围
@@ -108,8 +108,8 @@ public class 光圈 {
             recoil = 0;//武器后座
             rotateSpeed = 0;
             shootCone = 360;//射击瞄准角度
-            consumePower(60f/60);
-            requirements(Category.turret, with(魂, 130,魄,5));
+            consumePower(130f/60);
+            requirements(Category.turret, with(魂, 220,魄,15));
             float cont = 360 / 2f;//扩散角度，1/2值，60 = 120
             float bRange = range;//范围
             shootType = new BulletType() {
@@ -184,14 +184,14 @@ public class 光圈 {
             recoil = 0;//武器后座
             rotateSpeed = 0;
             shootCone = 360;//射击瞄准角度
-            consumePower(350f/60);
+            consumePower(420f/60);
            // requirements(Category.turret, with(魂, 25));
             requirements(Category.turret, with(魂, 280,魄,30,星辰,5));
             float cont = 360 / 2f;//扩散角度，1/2值，60 = 120
             float bRange = range;//范围
             shootType = new BulletType() {
                 {
-                    damage = 17;
+                    damage = 22;
                     lifetime = 速度;
                     speed = 0;
                     keepVelocity = false;

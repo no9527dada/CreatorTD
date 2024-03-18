@@ -6,6 +6,7 @@ import ct.Asystem.type.TDTyep.TDUnitFactory;
 import ct.Asystem.type.TDTyep.TDsuicideWall;
 import ct.Asystem.type.factory.CreatorsUnitFactory;
 import mindustry.type.Category;
+import mindustry.type.ItemStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.units.UnitFactory;
@@ -13,15 +14,68 @@ import mindustry.world.blocks.units.UnitFactory;
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseTerrain.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseUnits.*;
+import static CreatorTowerDefense.content.CreatorTowerDefenseType.*;
+import static mindustry.type.Category.crafting;
 import static mindustry.type.ItemStack.with;
 
 //方块
 public class CreatorTowerDefenseBlocks {
+    public static Block 初级魂魄凝练器,中级魂魄凝练器,高级魂魄凝练器,超级魂魄凝练器;
     public static Block 魔力石墙, 修复器, 无限;
     public static Block 星尘单位工厂,星灵单位工厂,凝蓝单位工厂,蚀魂单位工厂,测试单位工厂
             ;
     public static void load() {
-
+        初级魂魄凝练器= new TDCoreGenericCrafter("初级魂魄凝练器"){{
+           consumePower(120 / 60f);
+           outputItem = new ItemStack(魂, 3);
+           health = 100;
+           armor=500;
+           itemCapacity = 10;
+           size = 4;
+           craftTime = 120;
+           requirements(crafting, with(
+                   魂, 300
+           ));
+       }};
+        中级魂魄凝练器=new TDCoreGenericCrafter("中级魂魄凝练器"){{
+            consumePower(800 / 60f);
+            outputItems =  ItemStack.with(魂, 7,魄,2);
+            health = 100;
+            armor=500;
+            itemCapacity = 10;
+            size = 4;
+            craftTime = 120;
+            升级前置=初级魂魄凝练器;
+            requirements(crafting, with(
+                    魂, 3500
+            ));
+        }};
+        高级魂魄凝练器= new TDCoreGenericCrafter("高级魂魄凝练器"){{
+            consumePower(3200 / 60f);
+            outputItems =  ItemStack.with(魂, 9,魄,3);
+            health = 100;
+            armor=500;
+            itemCapacity = 10;
+            size = 4;
+            craftTime = 70;
+            升级前置=中级魂魄凝练器;
+            requirements(crafting, with(
+                    魂, 6600,魄,1200
+            ));
+        }};
+        超级魂魄凝练器= new TDCoreGenericCrafter("超级魂魄凝练器"){{
+            consumePower(9000 / 60f);
+            outputItems =  ItemStack.with(魂, 17,魄,6);
+            health = 100;
+            armor=500;
+            itemCapacity = 20;
+            size = 4;
+            craftTime = 40;
+            升级前置=高级魂魄凝练器;
+            requirements(crafting, with(
+                    魂, 6600,魄,1200,星辰,80
+            ));
+        }};
         测试单位工厂 = new CreatorsUnitFactory("测试单位工厂") {{
             requirements(Category.units, with(
                     魂, 300, 魄, 5

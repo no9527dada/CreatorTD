@@ -25,47 +25,40 @@ import mindustry.type.ammo.ItemAmmoType;
 
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseType.TDUnitType;
+import static ct.Asystem.CT3Sound.loadSound;
 import static mindustry.type.ItemStack.with;
 
 //方块
 public class CreatorTowerDefenseUnits {
     public static UnitType 星尘单位, 星灵单位, 凝蓝单位, 蚀魂单位;
-    public static StatusEffect BossBuff;
 
     public static void load() {
-        BossBuff = new StatusEffect("Boss") {
-            @Override
-            public void update(Unit unit, float time) {
-                super.update(unit, time);
-                Vars.state.teams.bosses.add(unit);
-            }{
-            color = Team.crux.color;
-            permanent = true;//状态永久持续
-            speedMultiplier = 0.5f;//移速
-            damageMultiplier = 3f;//伤害倍率
-            localizedName = Core.bundle.format("status." + name + ".name", speedMultiplier * 100, damageMultiplier * 100);
-        }};
+
 
         TDUnitType U星辰 = new TDUnitType("dt星辰", 0, 30, 3f) {{
             immunities.addAll(Vars.content.statusEffects());//免疫任何BUFF
             hittable = false;//被子弹击中
             targetable = false;//被敌人瞄准
         }};//奖励单位，没有伤害
-        TDUnitType 沙 = new TDUnitType("dt沙", 1, 10, 0.5f);
-        TDUnitType 铜 = new TDUnitType("dt铜", 1, 20, 0.5f);
-        TDUnitType 铅 = new TDUnitType("dt铅", 1, 10, 1.5f);
-        TDUnitType 煤炭 = new TDUnitType("dt煤炭", 1, 30, 0.5f);
+        TDUnitType 沙 = new TDUnitType("dt沙", 1, 10, 0.5f){{deathSound=loadSound("door");}};
+        TDUnitType 铜 = new TDUnitType("dt铜", 1, 20, 0.5f){{deathSound=loadSound("door");}};
+        TDUnitType 铅 = new TDUnitType("dt铅", 1, 10, 1.5f){{deathSound=loadSound("door");}};
+        TDUnitType 煤炭 = new TDUnitType("dt煤炭", 1, 30, 0.5f){{deathSound=loadSound("door");}};
         TDUnitType 石英 = new TDUnitType("dt石英", 2, 30, 0.5f) {{
             abilities.add(new SpawnDeathAbility(沙, 2, 8));
+            deathSound=loadSound("door");
         }};
         TDUnitType 玻璃 = new TDUnitType("dt玻璃", 2, 35, 0.8f) {{
             abilities.add(new SpawnDeathAbility(铅, 1, 8));
+            deathSound=loadSound("door");
         }};
         TDUnitType 石墨 = new TDUnitType("dt石墨", 2, 40, 0.5f) {{
             abilities.add(new SpawnDeathAbility(煤炭, 1, 8));
+            deathSound=loadSound("cttd-shimo");
         }};
         TDUnitType 碳板 = new TDUnitType("dt碳板", 2, 50, 0.5f) {{
             abilities.add(new SpawnDeathAbility(煤炭, 2, 8));
+            deathSound=loadSound("cttd-tanban");
         }};
         TDUnitType 硅 = new TDUnitType("dt硅", 3, 30, 2.5f);
         TDUnitType 石墨烯 = new TDUnitType("dt石墨烯", 3, 100, 0.75f) {{
@@ -85,18 +78,21 @@ public class CreatorTowerDefenseUnits {
         }};//生产单位
         TDUnitType 塑钢 = new TDUnitType("dt塑钢", 5, 320, 0.5f) {{
             abilities.add(new StatusFieldAbility(new StatusEffect("tdjiaxue") {{
-                healthMultiplier = 2f;//血量倍率
+                show = false;healthMultiplier = 2f;//血量倍率
+                localizedName= Core.bundle.format("status."+name+".name", healthMultiplier*100);
             }}, 60f * 3, 60f * 6f, 4 * 8f));
         }};
         TDUnitType 相织布 = new TDUnitType("dt相织布", 6, 260, 0.5f) {{
             abilities.add(new StatusFieldAbility(new StatusEffect("tdjiasu") {{
-                speedMultiplier = 1.8f;//移速
+                show = false;speedMultiplier = 1.8f;//移速
+                localizedName= Core.bundle.format("status."+name+".name", speedMultiplier*100);
             }}, 60f * 10, 60f * 6f, 4 * 8f));
             abilities.add(new SpawnDeathAbility(硅, 1, 8));
         }};
         TDUnitType 金 = new TDUnitType("dt金", 8, 380, 0.5f) {{
             abilities.add(new StatusFieldAbility(new StatusEffect("tdjiasu2") {{
-                speedMultiplier = 3.2f;//移速
+                show = false;speedMultiplier = 3.2f;//移速
+                localizedName= Core.bundle.format("status."+name+".name", speedMultiplier*100);
             }}, 60f * 5, 90f * 60f, 1f));
             abilities.add(new SpawnDeathAbility(钍, 1, 8));
         }};

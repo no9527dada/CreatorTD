@@ -35,12 +35,14 @@ public class CreatorTowerDefenseTerrain {
         }};*/
         StatusEffect 恢复1= new StatusEffect("recover1"){{
             damage=-8/60f;
+            show = false;
             effect= new Effect(30, e -> {
                 color(C("6fffa1"), Color.darkGray, e.rotation);
                 Fill.circle(e.x, e.y, e.fout() * 3.5f);
             });
         }};
         StatusEffect 恢复2= new StatusEffect("recover2"){{
+            show = false;
             damage=-30/60f;    effect= new Effect(30, e -> {
                 color(C("6fffa1"), Color.darkGray, e.rotation);
                 Fill.circle(e.x, e.y, e.fout() * 3.5f);

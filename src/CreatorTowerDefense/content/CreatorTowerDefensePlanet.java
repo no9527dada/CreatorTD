@@ -72,7 +72,7 @@ public class CreatorTowerDefensePlanet {
                 r.waveTimer = true;//开启波次计时
                 r.waves = true;//波次
                 r.initialWaveSpacing = 30*60;//第一波间隔
-                r.waveSpacing=5;//后续波次时间
+                r.waveSpacing=10;//后续波次时间
             };
 
             // unlockedOnLand.add(Blocks.coreShard);

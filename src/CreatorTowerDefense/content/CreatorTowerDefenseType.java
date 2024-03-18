@@ -4,6 +4,7 @@ import arc.Core;
 import arc.util.Nullable;
 import ct.Asystem.type.EU_healthDisplay;
 import ct.Asystem.type.OnlyAttackCoreAI;
+import ct.Asystem.type.factory.CoreGenericCrafter;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.content.UnitTypes;
@@ -11,6 +12,7 @@ import mindustry.entities.bullet.BasicBulletType;
 import mindustry.game.Team;
 import mindustry.gen.Sounds;
 import mindustry.type.Category;
+import mindustry.type.Item;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.ammo.ItemAmmoType;
@@ -20,6 +22,7 @@ import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.defense.turrets.TractorBeamTurret;
 import mindustry.world.blocks.environment.Floor;
+import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.BuildVisibility;
@@ -42,6 +45,36 @@ public class CreatorTowerDefenseType {
         }
     }
 
+    public static class TDCoreGenericCrafter extends CoreGenericCrafter {
+        public TDCoreGenericCrafter(String name) {
+            super(name);
+        }
+
+        public Block 升级前置 = null;
+
+        public boolean canReplace(Block other) {
+            if (other.alwaysReplace) return true;
+            return 升级前置 == null ? super.canReplace(other) : 升级前置 == other;
+        }
+
+        @Override
+        public boolean canPlaceOn(Tile tile, Team team, int rotation) {
+            if (tile == null) return false;
+            if (Vars.state.isEditor() || 升级前置 == null || Vars.state.rules.infiniteResources) return true;
+
+            tile.getLinkedTilesAs(this, tempTiles);
+            return tempTiles.contains(o -> o.block() == 升级前置);
+        }
+
+        @Override
+        public void drawPlace(int x, int y, int rotation, boolean valid) {
+            if (!valid && 升级前置 != null)
+                drawPlaceText(Core.bundle.format("cttd.UpgradeFront") + 升级前置.localizedName, x, y, false);
+            super.drawPlace(x, y, rotation, valid);
+        }
+
+    }
+
     public static class TDWall extends Wall {//敌方的资源墙
 
         public TDWall(String name, int 血量) {
@@ -60,10 +93,14 @@ public class CreatorTowerDefenseType {
             super(name);
             health = 100;
             solid = false;//固体
-            buildType=Build::new;
+            buildType = Build::new;
         }
-        /**通用地板限制*/
+
+        /**
+         * 通用地板限制
+         */
         public Floor floor;//需要的地板
+
         @Override
         public boolean canPlaceOn(Tile tile, Team team, int rotation) {
             if (tile == null) return false;
@@ -72,9 +109,11 @@ public class CreatorTowerDefenseType {
             tile.getLinkedTilesAs(this, tempTiles);
             return !tempTiles.contains(o -> o.floor() != floor);
         }
+
         class Build extends Wall.WallBuild {//不会受到伤害
+
             @Override
-            public void damage( float damage){
+            public void damage(float damage) {
             }
         }
     }
@@ -88,14 +127,14 @@ public class CreatorTowerDefenseType {
             inaccuracy = 0f;
             rotateSpeed = 3f;
             armor = 500;
-           // buildType = Build::new;
+            // buildType = Build::new;
             coolantMultiplier = 0f; //液体冷却倍率
             liquidCapacity = 0; //液体容量
             hasLiquids = false;
             reload = 射速;
             range = 范围 * 8;
             size = 2;
-            shootCone=90;//射击锁定角度
+            shootCone = 90;//射击锁定角度
             buildCostMultiplier = 3;//建造时间倍
         }
 
@@ -109,21 +148,21 @@ public class CreatorTowerDefenseType {
         @Override
         public boolean canPlaceOn(Tile tile, Team team, int rotation) {
             if (tile == null) return false;
-            if (Vars.state.isEditor() || 升级前置 == null) return true;
+            if (Vars.state.isEditor() || 升级前置 == null || Vars.state.rules.infiniteResources) return true;
 
             tile.getLinkedTilesAs(this, tempTiles);
             return tempTiles.contains(o -> o.block() == 升级前置);
         }
+
         @Override
         public void drawPlace(int x, int y, int rotation, boolean valid) {
          /*   if ( (player.team().core() != null && player.team().core().items.has(requirements, Vars.state.rules.buildCostMultiplier)) || Vars.state.rules.infiniteResources ) {
                 this.drawPlaceText(Core.bundle.get("bar.noresources"), x, y, false);
             }*/
-            if(!valid && 升级前置 != null)drawPlaceText(Core.bundle.format("cttd.UpgradeFront") + 升级前置.localizedName, x, y, false);
+            if (!valid && 升级前置 != null)
+                drawPlaceText(Core.bundle.format("cttd.UpgradeFront") + 升级前置.localizedName, x, y, false);
 
             super.drawPlace(x, y, rotation, valid);
-        }
-
 
 /*        //免伤
     class Build extends PowerTurret.PowerTurretBuild {
@@ -131,16 +170,17 @@ public class CreatorTowerDefenseType {
             public void damage(float damage) {
             }
         }*/
+        }
     }
 
     //塔防的激光炮 实则差扰改的
     public static class TDTractorBeamTurret extends TractorBeamTurret {
         public TDTractorBeamTurret(String name, float 伤害, float 范围) {
             super(name);
-            range = 范围*8f;
-            damage = 伤害/60f;
+            range = 范围 * 8f;
+            damage = 伤害 / 60f;
             health = 100;
-            targetGround= true;
+            targetGround = true;
             hasPower = true;
             size = 3;
             force = 0;
@@ -159,17 +199,19 @@ public class CreatorTowerDefenseType {
         @Override
         public boolean canPlaceOn(Tile tile, Team team, int rotation) {
             if (tile == null) return false;
-            if (Vars.state.isEditor() || 升级前置 == null) return true;
+            if (Vars.state.isEditor() || 升级前置 == null || Vars.state.rules.infiniteResources) return true;
 
             tile.getLinkedTilesAs(this, tempTiles);
             return tempTiles.contains(o -> o.block() == 升级前置);
         }
+
         @Override
         public void drawPlace(int x, int y, int rotation, boolean valid) {
          /*   if ( (player.team().core() != null && player.team().core().items.has(requirements, Vars.state.rules.buildCostMultiplier)) || Vars.state.rules.infiniteResources ) {
                 this.drawPlaceText(Core.bundle.get("bar.noresources"), x, y, false);
             }*/
-            if(!valid && 升级前置 != null)drawPlaceText(Core.bundle.format("cttd.UpgradeFront") + 升级前置.localizedName, x, y, false);
+            if (!valid && 升级前置 != null)
+                drawPlaceText(Core.bundle.format("cttd.UpgradeFront") + 升级前置.localizedName, x, y, false);
 
             super.drawPlace(x, y, rotation, valid);
         }
