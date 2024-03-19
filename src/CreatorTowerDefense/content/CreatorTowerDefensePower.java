@@ -13,7 +13,7 @@ import static CreatorTowerDefense.content.CreatorTowerDefenseItems.*;
 import static mindustry.type.ItemStack.with;
 
 public class CreatorTowerDefensePower {
-    public static Block 节点小,节点大,初始电力产生器,电力产生器
+    public static Block 节点小,节点大,初始电力产生器,电力产生器,三级电力产生器,四级电力产生器,五级电力产生器
             ;
     public static Block 修理            ;
     public static void load() {
@@ -70,7 +70,6 @@ public class CreatorTowerDefensePower {
             ambientSoundVolume = 0.06f;
            // consume(new ConsumeItemFlammable());
            // consume(new ConsumeItemExplode());
-
             drawer = new DrawMulti(
                     new DrawDefault(),
                     new DrawWarmupRegion(),

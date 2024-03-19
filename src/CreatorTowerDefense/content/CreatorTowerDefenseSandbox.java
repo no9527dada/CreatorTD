@@ -56,13 +56,13 @@ public class CreatorTowerDefenseSandbox {
         Wall 合金墙 = new CreatorTowerDefenseType.TDWall("dt合金墙", 20000){{armor=15;}};
 
         BlockDestroyReward.getInstance().apply()
-                .add(铜墙, with(魂, 30))
-                .add(铅墙, with(魄, 8))
+                .add(铜墙, with(魂, 50))
+                .add(铅墙, with(魂, 50,魄, 20))
                 .add(钛墙, with(魂, 500, 魄, 70))
-                .add(钍墙, with(魂, 900, 魄, 140))
+                .add(钍墙, with(魂, 1200, 魄, 140))
                 .add(塑钢墙, with(魂, 3000))
-                .add(布墙, with(魄, 500))
-                .add(合金墙, with(魂, 8000, 魄, 1200, 星辰, 30));
+                .add(布墙, with(魄, 5000))
+                .add(合金墙, with(魂, 25000, 魄, 1200, 星辰, 30));
     }
 
 }
