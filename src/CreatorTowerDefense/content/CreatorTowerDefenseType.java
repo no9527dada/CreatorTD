@@ -247,7 +247,7 @@ public class CreatorTowerDefenseType {
                 x = 0;
                 shootY = 0;
                 mirror = false;
-                bullet = new BasicBulletType(9, 0, "ctdt-透明") {{
+                bullet = new BasicBulletType(3, 0, "ctdt-透明") {{
                     width = 0.1f;
                     height = 0.1f;
                     collidesAir = false;
@@ -259,7 +259,7 @@ public class CreatorTowerDefenseType {
                     killShooter = true;//射击后死亡
                     hittable = false;//这颗子弹能否被点防击中
                     homingPower = 1;
-                    fragBullet = new BasicBulletType(2f, 伤害, "ctdt-透明")//分裂的子弹
+                    fragBullet = new BasicBulletType(0f, 伤害, "ctdt-透明")//分裂的子弹
                     {{
                         homingPower = 1;
                         width = 0.1f;

@@ -149,7 +149,7 @@ public class CreatorTowerDefenseBlocks {
         }};
         无限 = new CreatorTowerDefenseType.infiniteWall("TD无限") {{
             floor = (Floor) TD地板d;
-            requirements(Category.defense, with(星辰, 1));
+            requirements(Category.defense, with(星越星辰, 1));
         }};
 
 
