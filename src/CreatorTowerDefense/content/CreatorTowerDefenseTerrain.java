@@ -3,18 +3,13 @@ package CreatorTowerDefense.content;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Fill;
-import mindustry.content.Fx;
-import mindustry.content.StatusEffects;
 import mindustry.entities.Effect;
-import mindustry.gen.Sounds;
-import mindustry.graphics.CacheLayer;
 import mindustry.type.StatusEffect;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.StaticWall;
-import mindustry.world.meta.Attribute;
 
-import static CreatorTowerDefense.content.CreatorTowerDefenseType.*;
+import static CreatorTowerDefense.content.CreatorTowerDefenseType.TDFloor;
 import static arc.graphics.g2d.Draw.color;
 import static ct.Asystem.type.CTColor.C;
 
@@ -49,6 +44,14 @@ public class CreatorTowerDefenseTerrain {
             });
         }};
         new TDFloor("TD地板1"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
+        new TDFloor("TD地板2"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
+        new TDFloor("TD地板3"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
+        new TDFloor("TD地板4"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
+        new TDFloor("TD地板5"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
+        new TDFloor("TD地板6"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
+        new TDFloor("TD地板7"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
+        new TDFloor("TD地板8"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
+
 
         new TDFloor("TD加速地板a1"){{
             speedMultiplier = 1.8f;
@@ -61,6 +64,9 @@ public class CreatorTowerDefenseTerrain {
         }};
         new TDFloor("TD加速地板a4"){{
             speedMultiplier = 1.8f;
+        }};
+        new TDFloor("TD加速地板b"){{
+            speedMultiplier = 10f;
         }};
         new TDFloor("TD减速地板a1"){{speedMultiplier = 0.7f;status=恢复1;}};
         new TDFloor("TD减速地板a2"){{speedMultiplier = 0.7f;status=恢复1;}};

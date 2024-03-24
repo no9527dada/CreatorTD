@@ -1,7 +1,6 @@
 package CreatorTowerDefense.content;
 
 import arc.Core;
-import arc.util.Nullable;
 import ct.Asystem.type.EU_healthDisplay;
 import ct.Asystem.type.OnlyAttackCoreAI;
 import ct.Asystem.type.factory.CoreGenericCrafter;
@@ -12,7 +11,6 @@ import mindustry.entities.bullet.BasicBulletType;
 import mindustry.game.Team;
 import mindustry.gen.Sounds;
 import mindustry.type.Category;
-import mindustry.type.Item;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.ammo.ItemAmmoType;
@@ -22,13 +20,12 @@ import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.defense.turrets.TractorBeamTurret;
 import mindustry.world.blocks.environment.Floor;
-import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.BuildVisibility;
 
-import static ct.content.ItemX.物品;
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.魂;
+import static ct.Asystem.WorldDifficulty.cheat;
+import static ct.content.ItemX.物品;
 import static mindustry.type.ItemStack.with;
 
 //
@@ -82,7 +79,7 @@ public class CreatorTowerDefenseType {
             requirements(Category.defense, with(魂, 0));
             health = 血量;
             size = 3;
-            armor = 2;
+            armor = 0;
             requirements(Category.defense, BuildVisibility.sandboxOnly, with(物品, 0));
         }
     }
@@ -222,10 +219,11 @@ public class CreatorTowerDefenseType {
     public static class TDUnitType extends UnitType {
         public TDUnitType(String name, float 伤害, float 血量, float 移速) {
             super(name);
-            controller = u -> new OnlyAttackCoreAI();//单位的AI 塔防AI
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             //legCount=0;//没有脚
             // hovering = true;//悬停
             alwaysUnlocked = true;//默认解锁
+            immunities.addAll(cheat);//免疫难度修改的BUFF
             flying = false;
             hitSize = 10;
             armor = 0;

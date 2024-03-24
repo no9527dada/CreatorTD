@@ -2,8 +2,6 @@ package CreatorTowerDefense;
 
 
 import CreatorTowerDefense.content.*;
-import CreatorTowerDefense.vv.测试;
-import ct.CreatorsModJS;
 import mindustry.Vars;
 import mindustry.mod.Mod;
 //主类
@@ -12,11 +10,16 @@ public class CreatorTowerDefense  extends Mod {
       Vars.mods.locateMod("cttd").meta.version += "----" +  "[violet]创世神3-塔防[]";
    }*/
     public void loadContent() {
+        Vars.mods.locateMod("cttd").meta.version
+                += "-"
+                + "[violet]创世神附属塔防[] 版本：[yellow]"
+                +Vars.mods.getMod("cttd").meta.version+"[]";
         //测试.load();
        CreatorTowerDefenseTerrain.load();//地形
        CreatorTowerDefenseItems.load();//资源
        CreatorTowerDefenseCore.load();//核心
-       CreatorTowerDefenseUnits.load();//单位
+       CreatorTowerDefenseUnits.load();//单位A
+        CreatorTowerDefenseUnits2.load();//单位B
        CreatorTowerDefenseBlocks.load();//墙 单位工厂
        CreatorTowerDefenseTurrets.load();//炮塔
        CreatorTowerDefensePower.load();//电力

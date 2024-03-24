@@ -4,6 +4,7 @@ import arc.Core;
 import arc.graphics.Color;
 import ct.Asystem.Evn2;
 import ct.Asystem.type.CTUnitSpawnAbility;
+import ct.Asystem.type.OnlyAttackCoreAI;
 import ct.Asystem.type.UnitDeathReward;
 import mindustry.Vars;
 import mindustry.ai.UnitCommand;
@@ -37,6 +38,11 @@ public class CreatorTowerDefenseUnits {
 
 
         TDUnitType U星辰 = new TDUnitType("dt星辰", 0, 30, 3f) {{
+            immunities.addAll(Vars.content.statusEffects());//免疫任何BUFF
+            hittable = false;//被子弹击中
+            targetable = false;//被敌人瞄准
+        }};//奖励单位，没有伤害
+        TDUnitType W星辰 = new TDUnitType("dt无尽星辰", 0, 30, 3f) {{
             immunities.addAll(Vars.content.statusEffects());//免疫任何BUFF
             hittable = false;//被子弹击中
             targetable = false;//被敌人瞄准
@@ -138,6 +144,7 @@ public class CreatorTowerDefenseUnits {
         }};//生产单位;
         UnitDeathReward.getInstance().init()
                 .add(U星辰, with(星越星辰, 1))
+                .add(W星辰, with(无尽星辰, 1))
                 .add(沙, with(魂, 1))
                 .add(铜, with(魂, 1))
                 .add(铅, with(魂, 1))
@@ -178,7 +185,7 @@ public class CreatorTowerDefenseUnits {
             health = 100;
             buildSpeed = 0.5f;
             engineOffset = 6.5f;
-            envEnabled = Evn2.TD标记;
+           // envEnabled = Evn2.TD标记;
             hitSize = 8f;
             lowAltitude = true;
             ammoType = new ItemAmmoType(魂);
@@ -188,7 +195,8 @@ public class CreatorTowerDefenseUnits {
             constructor = UnitTypes.poly.constructor;
         }};
         星灵单位 = new UnitType("星灵") {{
-            envEnabled = Evn2.TD标记;
+            controller = u -> new  OnlyAttackCoreAI.DevourSpiritAI();
+                 //   envEnabled = Evn2.TD标记;
             hittable = false;//被子弹击中
             targetable = false;//被敌人瞄准
             killable = true;//被杀死,这里需要打开，保证在刷怪圈内会被死亡
@@ -224,7 +232,8 @@ public class CreatorTowerDefenseUnits {
             }});
         }};
         凝蓝单位 = new UnitType("凝蓝") {{
-            envEnabled = Evn2.TD标记;
+            aiController = OnlyAttackCoreAI.DevourSpiritAI::new;
+          //  envEnabled = Evn2.TD标记;
             hittable = false;//被子弹击中
             targetable = false;//被敌人瞄准
             killable = true;//被杀死,这里需要打开，保证在刷怪圈内会被死亡
@@ -268,7 +277,8 @@ public class CreatorTowerDefenseUnits {
             }});
         }};
         蚀魂单位 = new UnitType("蚀魂") {{
-            envEnabled = Evn2.TD标记;
+            aiController = OnlyAttackCoreAI.DevourSpiritAI::new;
+            //envEnabled = Evn2.TD标记;
             hittable = false;//被子弹击中
             targetable = false;//被敌人瞄准
             killable = true;//被杀死,这里需要打开，保证在刷怪圈内会被死亡

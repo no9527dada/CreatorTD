@@ -42,10 +42,13 @@ public class CreatorTowerDefenseTechTree {
             addToTree(红地7, 红地6, ItemStack.with(
                     星越星辰, 1)
             );
+            addToTree(红地8, 红地7, ItemStack.with(
+                    星越星辰, 1)
+            );
             //炮塔
             addToTree(双管1, DTcore0, ItemStack.with(
                             星辰, 1)
-                    //, Seq.with(new Objectives.Research(筑基丹))//研究资源或方块
+                    //, Seq.with(new Objectives.Research(XXX))//研究资源或方块
             );
             addToTree(双管2, 双管1, ItemStack.with(
                             星辰, 1000), Seq.with(
@@ -63,8 +66,8 @@ public class CreatorTowerDefenseTechTree {
                     )
             );
             addToTree(黏黏炮2, 黏黏炮1, ItemStack.with(
-                            星辰, 3200, 星越星辰, 7), Seq.with(
-                            new Objectives.SectorComplete(红地7)
+                            星辰, 3200, 星越星辰, 6), Seq.with(
+                            new Objectives.SectorComplete(红地8)
                     )
             );
             addToTree(光圈1, DTcore0, ItemStack.with(
@@ -93,7 +96,7 @@ public class CreatorTowerDefenseTechTree {
                     星辰, 1)
             );
             addToTree(节点大, 节点小, ItemStack.with(
-                    星辰, 3300, 星越星辰, 5),Seq.with(
+                    星辰, 3300, 星越星辰, 4),Seq.with(
                             new Objectives.SectorComplete(红地6)
                     )
             );
