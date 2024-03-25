@@ -45,6 +45,9 @@ public class CreatorTowerDefenseTechTree {
             addToTree(红地8, 红地7, ItemStack.with(
                     星越星辰, 1)
             );
+            addToTree(红地9, 红地8, ItemStack.with(
+                    星越星辰, 1)
+            );
             //炮塔
             addToTree(双管1, DTcore0, ItemStack.with(
                             星辰, 1)
@@ -73,6 +76,11 @@ public class CreatorTowerDefenseTechTree {
             addToTree(光圈1, DTcore0, ItemStack.with(
                             星辰, 1700, 星越星辰, 2), Seq.with(
                             new Objectives.SectorComplete(红地6)
+                    )
+            );
+            addToTree(激光炮1, DTcore0, ItemStack.with(
+                            星辰, 2000, 星越星辰, 1), Seq.with(
+                            new Objectives.SectorComplete(红地9)
                     )
             );
             addToTree(蓝瑟1, DTcore0, ItemStack.with(

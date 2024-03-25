@@ -31,7 +31,7 @@ public class CreatorTowerDefenseCore {
            // mineTier = 1;
             buildSpeed = 2f;
             drag = 0.05f;
-            speed = 5f;
+            speed = 8f;
             rotateSpeed = 15f;
             accel = 0.1f;
             itemCapacity = 0;

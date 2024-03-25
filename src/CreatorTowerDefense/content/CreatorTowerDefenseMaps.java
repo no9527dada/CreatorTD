@@ -66,13 +66,13 @@ public class CreatorTowerDefenseMaps {
             addStartingItems = true;
             localizedName = Core.bundle.format("maps.TD红地8");
         }};
-        /*哈哈= new SectorPreset("TD哈哈",DTPlanet1, 33) {{
-            captureWave = 哈哈;//始终要比地图中设置的终结波次要+1
-            difficulty = 7;
+        红地9= new SectorPreset("TD红地9",DTPlanet1, 33) {{
+            captureWave = 181;//始终要比地图中设置的终结波次要+1
+            difficulty = 15;
             addStartingItems = true;
-            localizedName = Core.bundle.format("maps.TD哈哈");
+            localizedName = Core.bundle.format("maps.红地9");
         }};
-        哈哈= new SectorPreset("TD哈哈",DTPlanet1, 160) {{
+             /*哈哈= new SectorPreset("TD哈哈",DTPlanet1, 160) {{
             captureWave = 哈哈;//始终要比地图中设置的终结波次要+1
             difficulty = 7;
             addStartingItems = true;

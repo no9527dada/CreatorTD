@@ -86,7 +86,7 @@ public class CreatorTowerDefenseBlocks {
             requirements(Category.units, with(
                     魂, 300, 魄, 5
             ));
-            plans = Seq.with(
+            plans =  Seq.with(
                     new UnitPlan(星尘单位, 60f * 20, with(星辰,500))
             );
             size = 3;
