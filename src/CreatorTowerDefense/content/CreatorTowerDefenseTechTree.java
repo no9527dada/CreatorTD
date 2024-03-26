@@ -6,13 +6,14 @@ import mindustry.content.TechTree;
 import mindustry.game.Objectives;
 import mindustry.type.ItemStack;
 
-import static CreatorTowerDefense.content.CreatorTowerDefenseBlocks.无限;
+import static CreatorTowerDefense.content.CreatorTowerDefenseBlocks.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseCore.DTcore0;
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseMaps.*;
 import static CreatorTowerDefense.content.CreatorTowerDefensePlanet.DTPlanet1;
 import static CreatorTowerDefense.content.CreatorTowerDefensePower.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseTurrets.*;
+import static CreatorTowerDefense.content.CreatorTowerDefenseUnits.星灵单位;
 import static CreatorTowerDefense.content.Sundry.光圈.*;
 import static ct.Asystem.type.CTTechTree.addToTree;
 import static ct.content.ItemX.物品;
@@ -47,6 +48,13 @@ public class CreatorTowerDefenseTechTree {
             );
             addToTree(红地9, 红地8, ItemStack.with(
                     星越星辰, 1)
+            );
+            addToTree(碧云10, 红地9, ItemStack.with(
+                    星越星辰, 1)
+            );
+            addToTree(镀银11, DTcore0, ItemStack.with(
+                    星越星辰, 1),
+                    Seq.with(new Objectives.Research(碧云10))
             );
             //炮塔
             addToTree(双管1, DTcore0, ItemStack.with(
@@ -117,7 +125,24 @@ public class CreatorTowerDefenseTechTree {
                             new Objectives.SectorComplete(草原4)
                     )
             );
-
+            addToTree(初级魂魄凝练器, DTcore0, ItemStack.with(
+                            星辰, 800, 星越星辰, 1),
+                    Seq.with(
+                            new Objectives.SectorComplete(红地7)
+                    )
+            );
+            addToTree(星灵单位工厂, DTcore0, ItemStack.with(
+                            星辰, 1000, 星越星辰, 1),
+                    Seq.with(
+                            new Objectives.SectorComplete(碧云10)
+                    )
+            );
+            addToTree(星灵单位, DTcore0, ItemStack.with(
+                            星辰, 500, 星越星辰, 1),
+                    Seq.with(
+                            new Objectives.SectorComplete(碧云10)
+                    )
+            );
         });
     }
 }
