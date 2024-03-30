@@ -43,6 +43,10 @@ public class CreatorTowerDefenseTerrain {
                 Fill.circle(e.x, e.y, e.fout() * 3.5f);
             });
         }};
+        new TDFloor("TD地板0"){{
+            isLiquid=true;
+        localizedName = Core.bundle.getOrNull("block.Floor");
+        }};
         new TDFloor("TD地板1"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
         new TDFloor("TD地板2"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
         new TDFloor("TD地板3"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};

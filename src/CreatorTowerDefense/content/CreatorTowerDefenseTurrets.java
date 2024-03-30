@@ -4,6 +4,7 @@ import CreatorTowerDefense.content.Sundry.光圈;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Fill;
+import ct.Asystem.type.BulletType.点激光加范围伤害BulletType;
 import ct.Asystem.type.TDTyep.BombTurret;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
@@ -38,7 +39,7 @@ public class CreatorTowerDefenseTurrets {
             });
         });
     }
-    public static Block 双管1, 双管2, 双管3, 冰冻炸弹1, 冰冻炸弹2, 冰冻炸弹3, 冰冻炸弹4,
+    public static Block 双管1, 双管2, 双管3,双管4, 冰冻炸弹1, 冰冻炸弹2, 冰冻炸弹3, 冰冻炸弹4,激光炮5,
             黏黏炮1,黏黏炮2,蓝瑟2,蓝瑟1,蓝瑟3,
             激光炮1,激光炮2,激光炮3,激光炮4,
             火焰喷射器1,火焰喷射器2,火焰喷射器3,
@@ -94,7 +95,25 @@ public class CreatorTowerDefenseTurrets {
             升级前置 = 双管2;
             consumePower(200 / 60f);
             shoot = new ShootAlternate(3.5f);
-            requirements(Category.turret, with(魂, 200, 魄, 40,星辰,15));
+            requirements(Category.turret, with(魂, 200, 魄, 40));
+        }};
+        双管4 = new TDPowerTurret("双管4", 25, 26) {{
+            shootType = new BasicBulletType(4f, 0) {{
+                width = 7+4f;
+                height = 9+4f;
+                lifetime = 60f;
+                ammoMultiplier = 1;
+                homingPower = 1;
+                trailLength = 8;
+                trailWidth = 2;
+                trailColor = C("ff847d");
+                splashDamage = 18;
+                splashDamageRadius = 3.5f*8f;
+            }};
+            升级前置 = 双管3;
+            consumePower(500 / 60f);
+            shoot = new ShootAlternate(3.5f);
+            requirements(Category.turret, with(魂, 600, 魄, 120,星辰,30));
         }};
         StatusEffect  黏黏=  new StatusEffect("mucus"){{
             speedMultiplier = 0.5f; show = false;
@@ -173,7 +192,7 @@ public class CreatorTowerDefenseTurrets {
                 //pierceCap = 4;
             }};
             升级前置 = 蓝瑟1;
-            consumePower(80 / 60f);
+            consumePower(100 / 60f);
             requirements(Category.turret, with(魂, 180,魄,20));
         }};
         蓝瑟3 = new TDPowerTurret("蓝瑟3", 45, 22) {{
@@ -192,7 +211,7 @@ public class CreatorTowerDefenseTurrets {
                 //pierceCap = 4;
             }};
             升级前置 = 蓝瑟2;
-            consumePower(200 / 60f);
+            consumePower(500 / 60f);
             requirements(Category.turret, with(魂, 800,魄,30,星辰,10));
         }};
         冰冻炸弹1 = new BombTurret("冰冻炸弹1", 14 * 8, 5 * 60,
@@ -208,19 +227,27 @@ public class CreatorTowerDefenseTurrets {
             requirements(Category.turret, with(魂, 630, 魄, 50));
         }};
         激光炮1 = new CreatorTowerDefenseType.TDTractorBeamTurret("激光炮1",9,15){{
+            shootCone=360;
+            rotateSpeed=0;
             consumePower(20f/60);
             requirements(Category.turret, with(魂, 35));
         }};
         激光炮2 = new CreatorTowerDefenseType.TDTractorBeamTurret("激光炮2",16,19){{
+            shootCone=360;
+            rotateSpeed=0;
             consumePower(90f/60);升级前置 = 激光炮1;
             requirements(Category.turret, with(魂, 220,魄,15));
         }};
         激光炮3 = new CreatorTowerDefenseType.TDTractorBeamTurret("激光炮3",37,25){{
+            shootCone=360;
+            rotateSpeed=0;
             升级前置 = 激光炮2;
             consumePower(500f/60);
             requirements(Category.turret, with(魂, 800,魄,40,星辰,50));
         }};
         激光炮4 = new CreatorTowerDefenseType.TDTractorBeamTurret("激光炮4",220,35){{
+            shootCone=360;
+            rotateSpeed=0;
             size = 5;升级前置 = 激光炮3;
             consumePower(7000f/60);
             requirements(Category.turret, with(魂, 18000,魄,800,星辰,300));

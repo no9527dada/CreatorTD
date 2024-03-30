@@ -75,11 +75,11 @@ public class CreatorTowerDefenseUnits {
             abilities.add(new SpawnDeathAbility(硅, 2, 8));
         }};
         TDUnitType 硅晶体 = new TDUnitType("dt硅晶体", 4, 270, 0.5f) {{
-            abilities.add(new RepairFieldAbility(20f, 60f * 2, 4 * 8f));
+            abilities.add(new RepairFieldAbility(30f, 60f * 2, 4 * 8f));
             deathSound= Vars.tree.loadSound("m8");
         }};//加血
         TDUnitType 钛 = new TDUnitType("dt钛", 4, 220, 0.5f) {{
-            abilities.add(new ForceFieldAbility(3 * 8f, 4f, 100f, 60f * 8, 8, 0f));
+            abilities.add(new ForceFieldAbility(3 * 8f, 30/60f, 150f, 60f * 3, 8, 0f));
             deathSound= Vars.tree.loadSound("m10");
         }};//力场
         TDUnitType 钍 = new TDUnitType("dt钍", 5, 500, 0.3f) {{
@@ -111,7 +111,7 @@ public class CreatorTowerDefenseUnits {
         }};
         TDUnitType 电池 = new TDUnitType("dt电池", 10, 600, 0.6f) {{
             abilities.add(new SpawnDeathAbility(石墨烯, 3, 8));
-        }};
+        }};//
         TDUnitType 钛合金 = new TDUnitType("dt钛合金", 15, 1500, 0.5f) {{
             abilities.add(new SpawnDeathAbility(钛, 3, 8));
         }};

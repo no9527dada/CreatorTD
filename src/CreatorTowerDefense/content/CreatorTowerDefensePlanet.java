@@ -12,6 +12,8 @@ import mindustry.type.Planet;
 import mindustry.type.Sector;
 
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.CreatorTowerDefenseItems显示;
+import static ct.content.Item0.TDserpuloItems;
+import static mindustry.content.Items.serpuloItems;
 
 
 public class CreatorTowerDefensePlanet {
@@ -71,13 +73,13 @@ public class CreatorTowerDefensePlanet {
                 r.deconstructRefundMultiplier = 0.3f;//拆除返还倍率
                 r.waveTimer = true;//开启波次计时
                 r.waves = true;//波次
-                r.initialWaveSpacing = 30*60;//第一波间隔
+                r.initialWaveSpacing = 60*60;//第一波间隔
                 r.waveSpacing=10*60;//后续波次时间
             };
 
             // unlockedOnLand.add(Blocks.coreShard);
         }};
-        DTPlanet2 = new Planet("GOD2", Planets.sun, 1f, 3) {{
+   /*     DTPlanet2 = new Planet("GOD2", Planets.sun, 1f, 3) {{
             localizedName = Core.bundle.format("cttd.Planet2");
             generator = new SerpuloPlanetGenerator() {
                 public boolean allowLanding(Sector sector) {
@@ -95,7 +97,7 @@ public class CreatorTowerDefensePlanet {
             atmosphereColor = Color.valueOf("ee7433");
             landCloudColor = Pal.spore.cpy().a(0.5f);
             meshLoader = () -> new HexMesh(this, 7);
-            itemWhitelist.addAll(CreatorTowerDefenseItems显示);
+            itemWhitelist.addAll(TDserpuloItems);
             bloom = true;
             startSector = 0;
             alwaysUnlocked = true;
@@ -123,7 +125,7 @@ public class CreatorTowerDefensePlanet {
             };
 
             // unlockedOnLand.add(Blocks.coreShard);
-        }};
+        }};*/
 
         //  setPlanet(Planet5, new String[]{"ct"});
 

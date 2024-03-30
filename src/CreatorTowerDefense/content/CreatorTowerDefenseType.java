@@ -80,6 +80,7 @@ public class CreatorTowerDefenseType {
             health = 血量;
             size = 3;
             armor = 0;
+            createRubble = false;//被破坏后的黑色残留
             requirements(Category.defense, BuildVisibility.sandboxOnly, with(物品, 0));
         }
     }

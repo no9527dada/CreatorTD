@@ -62,12 +62,12 @@ public class CreatorTowerDefenseTechTree {
                     //, Seq.with(new Objectives.Research(XXX))//研究资源或方块
             );
             addToTree(双管2, 双管1, ItemStack.with(
-                            星辰, 1000), Seq.with(
+                            星辰, 1000, 星越星辰, 1), Seq.with(
                             new Objectives.SectorComplete(草原1)
                     )
             );
             addToTree(双管3, 双管2, ItemStack.with(
-                            星辰, 4300, 星越星辰, 5), Seq.with(
+                            星辰, 1500, 星越星辰, 2), Seq.with(
                             new Objectives.SectorComplete(草原4)
                     )
             );
@@ -120,7 +120,7 @@ public class CreatorTowerDefenseTechTree {
                     星辰, 1)
             );
             addToTree(电力产生器, 初始电力产生器, ItemStack.with(
-                            星辰, 1800, 星越星辰, 3),
+                            星辰, 1800, 星越星辰, 2),
                     Seq.with(
                             new Objectives.SectorComplete(草原4)
                     )

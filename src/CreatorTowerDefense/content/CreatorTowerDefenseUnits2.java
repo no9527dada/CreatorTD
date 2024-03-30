@@ -7,6 +7,7 @@ import arc.math.Angles;
 import arc.math.Mathf;
 import arc.struct.ObjectSet;
 import ct.Asystem.type.OnlyAttackCoreAI;
+import ct.Asystem.type.UnitDeathReward;
 import mindustry.Vars;
 import mindustry.ai.types.BuilderAI;
 import mindustry.ai.types.DefenderAI;
@@ -26,6 +27,7 @@ import mindustry.gen.Sounds;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
+import mindustry.type.Item;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.ammo.ItemAmmoType;
@@ -34,10 +36,13 @@ import mindustry.type.weapons.PointDefenseWeapon;
 import mindustry.type.weapons.RepairBeamWeapon;
 import mindustry.world.meta.BlockFlag;
 
+import static CreatorTowerDefense.content.CreatorTowerDefenseItems.星越星辰;
 import static arc.graphics.g2d.Draw.color;
 import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.randLenVectors;
 import static mindustry.Vars.tilePayload;
+import static mindustry.content.Items.*;
+import static mindustry.type.ItemStack.with;
 
 public class CreatorTowerDefenseUnits2{
     public static void load(){
@@ -276,8 +281,7 @@ public class CreatorTowerDefenseUnits2{
         //region ground support
 
         UnitType 新星 = new CTUnitType("nova","nova"){{
-            //controller = CTUnitTypes.nova.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             canBoost = true;
             boostMultiplier = 1.5f;
             speed = 0.55f;
@@ -310,8 +314,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType 恒星 = new CTUnitType("pulsar","pulsar"){{
-            //controller = CTUnitTypes.pulsar.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             canBoost = true;
             boostMultiplier = 1.6f;
             speed = 0.7f;
@@ -368,8 +371,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType 耀星 = new CTUnitType("quasar","quasar"){{
-            //controller = CTUnitTypes.quasar.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             mineTier = 3;
             boostMultiplier = 2f;
             health = 640f;
@@ -414,8 +416,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType 灾星 = new CTUnitType("vela","vela"){{
-            //controller = CTUnitTypes.vela.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             hitSize = 24f;
 
             rotateSpeed = 1.8f;
@@ -500,8 +501,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType 死星 = new CTUnitType("corvus","corvus"){{
-            //controller = CTUnitTypes.corvus.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             hitSize = 29f;
             health = 18000f;
             armor = 9f;
@@ -575,8 +575,7 @@ public class CreatorTowerDefenseUnits2{
         //region ground legs
 
         UnitType 爬虫 = new CTUnitType("crawler","crawler"){{
-            //controller = CTUnitTypes.crawler.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             aiController = SuicideAI::new;
 
             speed = 1f;
@@ -613,8 +612,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType  毒蛛 = new CTUnitType("atrax","atrax"){{
-            //controller = CTUnitTypes.atrax.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             speed = 0.6f;
             drag = 0.4f;
             hitSize = 13f;
@@ -655,8 +653,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType 血蛭 = new CTUnitType("spiroct","spiroct"){{
-            //controller = CTUnitTypes.spiroct.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             speed = 0.54f;
             drag = 0.4f;
             hitSize = 15f;
@@ -720,8 +717,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType  毒蛊 = new CTUnitType("arkyid","arkyid"){{
-            //controller = CTUnitTypes.arkyid.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             drag = 0.1f;
             speed = 0.62f;
             hitSize = 23f;
@@ -823,8 +819,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType  天蝎 = new CTUnitType("toxopid","toxopid"){{
-            //controller = CTUnitTypes.toxopid.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             drag = 0.1f;
             speed = 0.5f;
             hitSize = 26f;
@@ -1502,8 +1497,7 @@ public class CreatorTowerDefenseUnits2{
         //region naval attack
 
         UnitType 梭鱼 = new CTUnitType("risso","risso"){{
-            //controller = CTUnitTypes.risso.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             speed = 1.1f;
             drag = 0.13f;
             hitSize = 10f;
@@ -1559,8 +1553,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType  飞鲨 = new CTUnitType("minke","minke"){{
-            //controller = CTUnitTypes.minke.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             health = 600;
             speed = 0.9f;
             drag = 0.15f;
@@ -1620,8 +1613,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType  战鲸 = new CTUnitType("bryde","bryde"){{
-            //controller = CTUnitTypes.bryde.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             health = 910;
             speed = 0.85f;
             accel = 0.2f;
@@ -1718,8 +1710,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType 蛟龙 = new CTUnitType("sei","sei"){{
-            //controller = CTUnitTypes.sei.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             health = 11000;
             armor = 12f;
 
@@ -1811,8 +1802,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType  海神 = new CTUnitType("omura","omura"){{
-            //controller = CTUnitTypes.omura.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             health = 22000;
             speed = 0.62f;
             drag = 0.18f;
@@ -1867,8 +1857,7 @@ public class CreatorTowerDefenseUnits2{
         //endregion
         //region naval support
         UnitType  潜螺 = new CTUnitType("retusa","retusa"){{
-            //controller = CTUnitTypes.retusa.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             speed = 0.9f;
             targetAir = false;
             drag = 0.14f;
@@ -1957,8 +1946,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType 电鳗 = new CTUnitType("oxynoe","oxynoe"){{
-            //controller = CTUnitTypes.oxynoe.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             health = 560;
             speed = 0.83f;
             drag = 0.14f;
@@ -2035,8 +2023,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType 江豚 = new CTUnitType("cyerce","cyerce"){{
-            //controller = CTUnitTypes.cyerce.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             health = 870;
             speed = 0.86f;
             accel = 0.22f;
@@ -2173,8 +2160,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType 玄武 = new CTUnitType("aegires","aegires"){{
-            //controller = CTUnitTypes.aegires.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             health = 12000;
             armor = 12f;
 
@@ -2221,8 +2207,7 @@ public class CreatorTowerDefenseUnits2{
         }};
 
         UnitType  龙王 = new CTUnitType("navanax","navanax"){{
-            //controller = CTUnitTypes.navanax.//controller;
-
+            controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
             health = 20000;
             speed = 0.65f;
             drag = 0.17f;
@@ -2376,136 +2361,56 @@ public class CreatorTowerDefenseUnits2{
             }});
         }};
 
-        //endregion
-        //region core
+        Item 铜=copper;
+        Item 铅=lead;
+        Item 石墨=graphite;
+        Item 玻璃=metaglass;
+        Item 硅=silicon;
+        Item 钛=titanium;
+        Item 钍=thorium;
+        Item 塑钢=plastanium;
+        Item 布=phaseFabric;
+        Item 合金=surgeAlloy;
+        //死亡掉落资源
+        UnitDeathReward.getInstance().init()
+                .add(尖刀,with(铜, 10,铅, 8))
+                .add(战锤,with(铜, 19,铅, 21,石墨,4,玻璃,2))
+                .add(堡垒,with(铜, 32,铅, 25,石墨,20,玻璃,8,硅,16,钛,7,钍,5,塑钢,2))
+                .add(权杖,with(铜, 150,铅, 80,石墨,13,玻璃,5,硅,20,钛,7,钍,15,塑钢,15,布,6,合金,5))
+                .add(王座,with(铜, 230,铅, 186,石墨,13,玻璃,5,硅,20,钛,7,钍,15,塑钢,15,布,6,合金,35))
+                .add(新星,with(铜, 10,铅, 3,玻璃,3))
+                .add(恒星,with(铜, 1))
+                .add(耀星,with(铜, 1))
+                .add(灾星,with(铜, 1))
+                .add(死星,with(铜, 1))
+                .add(爬虫,with(铜, 1))
+                .add(毒蛛,with(铜, 1))
+                .add(血蛭,with(铜, 1))
+                .add(毒蛊,with(铜, 1))
+                .add(天蝎,with(铜, 1))
+                .add(梭鱼,with(铜, 1))
+                .add(飞鲨,with(铜, 1))
+                .add(战鲸,with(铜, 1))
+                .add(蛟龙,with(铜, 1))
+                .add(海神,with(铜, 1))
+                .add(潜螺,with(铜, 1))
+                .add(电鳗,with(铜, 1))
+                .add(江豚,with(铜, 1))
+                .add(玄武,with(铜, 1))
+                .add(龙王,with(铜, 1))
+                .add(星辉,with(铜, 1))
+                .add(天垠,with(铜, 1))
+                .add(亡魂,with(铜, 1))
+                .add(月影,with(铜, 1))
+                .add(日蚀,with(铜, 1))
+                .add(独影,with(铜, 1))
+                .add(幻型,with(铜, 1))
+                .add(巨像,with(铜, 1))
+                .add(雷霆,with(铜, 1))
+                .add(要塞,with(铜, 1));
 
-       /* alpha = new CTUnitType("alpha","alpha"){{
-            //controller = CTUnitTypes.alpha.//controller;
 
-            aiController = BuilderAI::new;
-            isEnemy = false;
 
-            lowAltitude = true;
-            flying = true;
-            mineSpeed = 6.5f;
-            mineTier = 1;
-            buildSpeed = 3f;
-            drag = 0.05f;
-            speed = 5.5f;
-            rotateSpeed = 15f;
-            accel = 0.1f;
-            itemCapacity = 30;
-            health = 150f;
-            engineOffset = 6f;
-            hitSize = 8f;
-            alwaysUnlocked = true;
-
-            weapons.add(new Weapon("small-basic-weapon"){{
-                reload = 17f;
-                x = 2.75f;
-                y = 1f;
-                top = false;
-                ejectEffect = Fx.casing1;
-
-                bullet = new BasicBulletType(2.5f, 11){{
-                    width = 7f;
-                    height = 9f;
-                    lifetime = 60f;
-                    shootEffect = Fx.shootSmall;
-                    smokeEffect = Fx.shootSmallSmoke;
-                    buildingDamageMultiplier = 0.01f;
-                }};
-            }});
-        }};
-
-        beta = new CTUnitType("beta","beta"){{
-            //controller = CTUnitTypes.beta.//controller;
-
-            aiController = BuilderAI::new;
-            isEnemy = false;
-
-            flying = true;
-            mineSpeed = 7f;
-            mineTier = 1;
-            buildSpeed = 4f;
-            drag = 0.05f;
-            speed = 6f;
-            rotateSpeed = 17f;
-            accel = 0.1f;
-            itemCapacity = 50;
-            health = 170f;
-            engineOffset = 6f;
-            hitSize = 9f;
-            faceTarget = false;
-            lowAltitude = true;
-
-            weapons.add(new Weapon("small-mount-weapon"){{
-                top = false;
-                reload = 20f;
-                x = 3f;
-                y = 0.5f;
-                rotate = true;
-                shoot.shots = 2;
-                shoot.shotDelay = 4f;
-                ejectEffect = Fx.casing1;
-
-                bullet = new BasicBulletType(3f, 11){{
-                    width = 7f;
-                    height = 9f;
-                    lifetime = 60f;
-                    shootEffect = Fx.shootSmall;
-                    smokeEffect = Fx.shootSmallSmoke;
-                    buildingDamageMultiplier = 0.01f;
-                }};
-            }});
-        }};
-
-        gamma = new CTUnitType("gamma","gamma"){{
-            //controller = CTUnitTypes.gamma.//controller;
-
-            aiController = BuilderAI::new;
-            isEnemy = false;
-
-            lowAltitude = true;
-            flying = true;
-            mineSpeed = 8f;
-            mineTier = 2;
-            buildSpeed = 5f;
-            drag = 0.05f;
-            speed = 6.5f;
-            rotateSpeed = 19f;
-            accel = 0.11f;
-            itemCapacity = 70;
-            health = 220f;
-            engineOffset = 6f;
-            hitSize = 11f;
-
-            weapons.add(new Weapon("small-mount-weapon"){{
-                top = false;
-                reload = 15f;
-                x = 1f;
-                y = 2f;
-                shoot = new ShootSpread(){{
-                    shots = 2;
-                    shotDelay = 3f;
-                    spread = 2f;
-                }};
-
-                inaccuracy = 3f;
-                ejectEffect = Fx.casing1;
-
-                bullet = new BasicBulletType(3.5f, 11){{
-                    width = 6.5f;
-                    height = 11f;
-                    lifetime = 70f;
-                    shootEffect = Fx.shootSmall;
-                    smokeEffect = Fx.shootSmallSmoke;
-                    buildingDamageMultiplier = 0.01f;
-                    homingPower = 0.04f;
-                }};
-            }});
-        }};
-*/
 
     }
 }
