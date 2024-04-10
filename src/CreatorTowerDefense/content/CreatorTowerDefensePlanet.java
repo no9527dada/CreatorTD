@@ -56,7 +56,8 @@ public class CreatorTowerDefensePlanet {
             accessible = true;
             updateLighting = false;//照明开关
             ruleSetter = r -> {
-                r.disableWorldProcessors = false;//世处
+                r.disableOutsideArea = false;//场外禁用 关闭 世处都是在场外 不能禁用
+                r.disableWorldProcessors = false;//世处禁用 关闭
                 r.showSpawns = true;//显示单位刷出点
                 r.unitCap = 100;//单位上限
                 // r.onlyDepositCore = true;//物品只能存放在核心

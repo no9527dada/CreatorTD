@@ -26,9 +26,6 @@ ext{
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
 }
 
-
-
-
 //java 8 backwards compatibility flag
 allprojects{
     tasks.withType(JavaCompile){
@@ -41,7 +38,9 @@ dependencies{
     compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
 
     annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
+  //  compileOnly files("G:\\JAVA_MDT\\CT3JAR\\CT3.jar")
     compileOnly files("G:\\JAVA_MDT\\CT3主篇\\build\\libs\\CT3主篇.jar")
+
 }
 
 //force arc version
@@ -75,7 +74,7 @@ task jarAndroid{
 }
 
 jar{
-    archiveFileName = "${base.archivesBaseName}.jar"
+    archiveFileName = "${base.archivesBaseName}Desktop.jar"
 
     from{
         configurations.runtimeClasspath.collect{ it.isDirectory() ? it : zipTree(it) }

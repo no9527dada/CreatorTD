@@ -72,7 +72,7 @@ public class CreatorTowerDefenseUnits {
             abilities.add(new SpawnDeathAbility(石墨, 2, 8));
         }};
         TDUnitType 硫化物 = new TDUnitType("dt硫化物", 3, 180, 0.3f) {{
-            abilities.add(new SpawnDeathAbility(硅, 2, 8));
+            abilities.add(new SpawnDeathAbility(硅, 1, 8));
         }};
         TDUnitType 硅晶体 = new TDUnitType("dt硅晶体", 4, 270, 0.5f) {{
             abilities.add(new RepairFieldAbility(30f, 60f * 2, 4 * 8f));
@@ -177,14 +177,15 @@ public class CreatorTowerDefenseUnits {
             defaultCommand = UnitCommand.rebuildCommand;
             flying = true;
             drag = 0.05f;
-            speed = 1f;
+            speed = 4f;
             armor = 500;
             rotateSpeed = 15f;
             accel = 0.1f;
             range = 130f;
             health = 100;
             buildSpeed = 0.5f;
-            engineOffset = 6.5f;
+            engineOffset = 3.5f;
+            engineSize=2f;
            // envEnabled = Evn2.TD标记;
             hitSize = 8f;
             lowAltitude = true;
@@ -248,7 +249,7 @@ public class CreatorTowerDefenseUnits {
             constructor = UnitTypes.flare.constructor;
             ammoType = new ItemAmmoType(魂);
             weapons.add(new Weapon("zenith-missiles") {{
-                reload = 40f;
+                reload = 60f;
                 x = 7f;
                 rotate = true;
                 shake = 1f;

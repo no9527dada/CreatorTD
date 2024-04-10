@@ -5,7 +5,9 @@ import ct.Asystem.type.TDTyep.TDMendProjector;
 import ct.Asystem.type.TDTyep.TDUnitFactory;
 import ct.Asystem.type.TDTyep.TDsuicideWall;
 import ct.Asystem.type.TDTyep.UnitPortal;
+import ct.Asystem.type.VXV.EntityDraw;
 import ct.Asystem.type.factory.CreatorsUnitFactory;
+import ct.Asystem.type.factory.DuplexCoreGenericCrafter;
 import mindustry.content.Items;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
@@ -13,6 +15,7 @@ import mindustry.world.Block;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.units.UnitFactory;
+import mindustry.world.consumers.ConsumeItems;
 import mindustry.world.meta.BuildVisibility;
 
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.*;
@@ -20,6 +23,8 @@ import static CreatorTowerDefense.content.CreatorTowerDefenseTerrain.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseUnits.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseType.*;
 import static ct.content.ItemX.物品;
+import static ct.content.chapter1.Item1.余烬;
+import static mindustry.content.UnitTypes.mono;
 import static mindustry.type.Category.crafting;
 import static mindustry.type.ItemStack.with;
 
@@ -33,51 +38,52 @@ public class CreatorTowerDefenseBlocks {
     public static void load() {
         初级魂魄凝练器= new TDCoreGenericCrafter("初级魂魄凝练器"){{
            consumePower(120 / 60f);
-           outputItem = new ItemStack(魂, 3);
+           outputItem = new ItemStack(魂, 4);
            health = 100;
            armor=500;
            itemCapacity = 10;
            size = 4;
-           craftTime = 120;
+           craftTime = 60*5;
            requirements(crafting, with(
                    魂, 300
            ));
        }};
         中级魂魄凝练器=new TDCoreGenericCrafter("中级魂魄凝练器"){{
             consumePower(800 / 60f);
-            outputItems =  ItemStack.with(魂, 7,魄,2);
+            outputItems =  ItemStack.with(魂, 6);
             health = 100;
             armor=500;
             itemCapacity = 20;
             size = 4;
-            craftTime = 120;
+            craftTime =  60*5;
             升级前置=初级魂魄凝练器;
             requirements(crafting, with(
-                    魂, 3500
+                    魂, 4500
             ));
         }};
-        高级魂魄凝练器= new TDCoreGenericCrafter("高级魂魄凝练器"){{
+        高级魂魄凝练器= new DuplexCoreGenericCrafter("高级魂魄凝练器"){{
+            consumeItems(with(魂, 10));
             consumePower(3200 / 60f);
-            outputItems =  ItemStack.with(魂, 9,魄,3);
+            outputItems =  ItemStack.with(魄,1);
             health = 100;
             armor=500;
             itemCapacity = 30;
             size = 4;
-            craftTime = 70;
-            升级前置=中级魂魄凝练器;
+            craftTime = 60*5;
             requirements(crafting, with(
                     魂, 6600,魄,1200
             ));
         }};
-        超级魂魄凝练器= new TDCoreGenericCrafter("超级魂魄凝练器"){{
+        超级魂魄凝练器= new DuplexCoreGenericCrafter("超级魂魄凝练器"){{
+            consumeItems(with(星辰, 1));
             consumePower(9000 / 60f);
-            outputItems =  ItemStack.with(魂, 17,魄,6);
+            outputItems =  ItemStack.with(魄,500,魂, 3000);
             health = 100;
             armor=500;
             itemCapacity = 40;
             size = 4;
             craftTime = 40;
-            升级前置=高级魂魄凝练器;
+            //升级前置=高级魂魄凝练器;
             requirements(crafting, with(
                     魂, 6600,魄,1200,星辰,80
             ));
@@ -87,7 +93,7 @@ public class CreatorTowerDefenseBlocks {
                     魂, 300, 魄, 5
             ));
             plans =  Seq.with(
-                    new UnitPlan(星尘单位, 60f * 20, with(星辰,500))
+                    new UnitPlan(mono, 60f * 20, with(星辰,500))
             );
             size = 3;
             //consumePower(200 / 60f);
@@ -96,16 +102,18 @@ public class CreatorTowerDefenseBlocks {
         }};
 
 
-        星尘单位工厂 = new UnitFactory("星尘单位工厂") {{
+        星尘单位工厂 = new CreatorsUnitFactory("星尘单位工厂") {{
+            unitLimit=2;
             requirements(Category.units, with(
-                    魂, 300, 魄, 5
+                    魂, 1200, 魄, 120
             ));
             plans = Seq.with(
-                    new UnitPlan(星尘单位, 60f * 20, with())
+                    new UnitPlan(星尘单位, 60f * 90, with())
             );
-            size = 3;
-            consumePower(200 / 60f);
+            size = 5;
+            consumePower(500 / 60f);
             floating = true;
+
         }};
         星灵单位工厂 = new UnitFactory("星灵单位工厂") {{
             requirements(Category.units, with(
@@ -114,11 +122,11 @@ public class CreatorTowerDefenseBlocks {
             plans = Seq.with(
                     new UnitPlan(星灵单位, 60f * 40, with())
             );
-            size = 3;
+            size = 5;
             consumePower(200 / 60f);
             floating = true;
         }};
-        凝蓝单位工厂 = new TDUnitFactory("凝蓝单位工厂") {{
+        凝蓝单位工厂 = new UnitFactory("凝蓝单位工厂") {{
             requirements(Category.units, with(
                     魂, 350, 魄, 15
             ));
@@ -129,9 +137,9 @@ public class CreatorTowerDefenseBlocks {
             size = 5;
             consumePower(800 / 60f);
             floating = true;
-            升级前置=星灵单位工厂;
+           // 升级前置=星灵单位工厂;
         }};
-        蚀魂单位工厂 = new TDUnitFactory("蚀魂单位工厂") {{
+        蚀魂单位工厂 = new UnitFactory("蚀魂单位工厂") {{
             requirements(Category.units, with(
                     魂, 1400, 魄, 180
             ));
@@ -141,7 +149,7 @@ public class CreatorTowerDefenseBlocks {
             size = 7;
             consumePower(2200 / 60f);
             floating = true;
-           升级前置=凝蓝单位工厂;
+         //  升级前置=凝蓝单位工厂;
         }};
         /**掉血墙，主类在主篇里面*/
         魔力石墙 = new TDsuicideWall("TD魔力石墙") {{

@@ -34,7 +34,7 @@ public class CreatorTowerDefenseCore {
             speed = 8f;
             rotateSpeed = 15f;
             accel = 0.1f;
-            itemCapacity = 0;
+            itemCapacity = 1;
             health = 100f;
             hitSize = 16f;
             alwaysUnlocked = true;

@@ -2372,7 +2372,7 @@ public class CreatorTowerDefenseUnits2{
         Item 布=phaseFabric;
         Item 合金=surgeAlloy;
         //死亡掉落资源
-        UnitDeathReward.getInstance().init()
+        /*UnitDeathReward.getInstance().init()
                 .add(尖刀,with(铜, 10,铅, 8))
                 .add(战锤,with(铜, 19,铅, 21,石墨,4,玻璃,2))
                 .add(堡垒,with(铜, 32,铅, 25,石墨,20,玻璃,8,硅,16,钛,7,钍,5,塑钢,2))
@@ -2408,7 +2408,7 @@ public class CreatorTowerDefenseUnits2{
                 .add(巨像,with(铜, 1))
                 .add(雷霆,with(铜, 1))
                 .add(要塞,with(铜, 1));
-
+*/
 
 
 

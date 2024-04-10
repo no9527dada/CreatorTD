@@ -65,7 +65,7 @@ public class CreatorTowerDefensePower {
         电力产生器 = new ConsumeGenerator("电力产生器"){{
             health = 100;
             armor=500;
-            requirements(Category.power, with(魂, 200, 魄, 40));
+            requirements(Category.power, with(魂, 220, 魄, 30));
             canOverdrive = false;
             powerProduction = 360/60f;
             itemDuration = 60f;
@@ -93,7 +93,7 @@ public class CreatorTowerDefensePower {
         三级极点发电器=  new ConsumeGenerator("三级极点发电器"){{
             health = 100;
             armor=500;
-            requirements(Category.power, with(魂, 320, 魄, 150));
+            requirements(Category.power, with(魂, 500, 魄, 180));
             canOverdrive = false;
             powerProduction = 520/60f;
             itemDuration = 60f;

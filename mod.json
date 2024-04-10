@@ -4,8 +4,9 @@
   "displayName": "创世神3-塔防",
   "author": "[pink]编[cyan]号[red]95[violet]27,LYBF,Ovulam5480,皴皲",
   "description": "9527，皴皲，咕咕点心,LYBF,Ovulam5480,皴皲",
-  "version": "08.00",
+  "version": "12.06",
   "minGameVersion": 146,
-  "dependencies": ["ct"]
+  "dependencies": ["ct"],
+  "java":true
 }
 

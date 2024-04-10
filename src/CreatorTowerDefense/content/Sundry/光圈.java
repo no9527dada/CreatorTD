@@ -18,6 +18,7 @@ import static mindustry.content.Fx.none;
 import static mindustry.type.ItemStack.with;
 
 //太占篇幅，所以搬到这里来
+//本代码由 @guiY 提供
 public class 光圈 {
     public static Block 光圈1,光圈2,光圈3;
     public static void load() {
@@ -32,7 +33,7 @@ public class 光圈 {
             shootCone = 360;//射击瞄准角度
             //升级前置 = 激光炮3;
             consumePower(50f/60);
-            requirements(Category.turret, with(魂, 70));
+            requirements(Category.turret, with(魂, 70,魄,20));
 //    requirements(Category.turret, with(魂, 25,魄,800,星辰,300));
             float cont = 360 / 2f;//扩散角度，1/2值，60 = 120
             float bRange = range;//范围
@@ -108,8 +109,8 @@ public class 光圈 {
             recoil = 0;//武器后座
             rotateSpeed = 0;
             shootCone = 360;//射击瞄准角度
-            consumePower(130f/60);
-            requirements(Category.turret, with(魂, 220,魄,15));
+            consumePower(320f/60);
+            requirements(Category.turret, with(魂, 820,魄,200));
             float cont = 360 / 2f;//扩散角度，1/2值，60 = 120
             float bRange = range;//范围
             shootType = new BulletType() {
@@ -184,9 +185,9 @@ public class 光圈 {
             recoil = 0;//武器后座
             rotateSpeed = 0;
             shootCone = 360;//射击瞄准角度
-            consumePower(420f/60);
+            consumePower(1520f/60);
            // requirements(Category.turret, with(魂, 25));
-            requirements(Category.turret, with(魂, 280,魄,30,星辰,5));
+            requirements(Category.turret, with(魂, 7300,魄,4800,星辰,50));
             float cont = 360 / 2f;//扩散角度，1/2值，60 = 120
             float bRange = range;//范围
             shootType = new BulletType() {

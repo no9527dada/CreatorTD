@@ -1,29 +1,53 @@
 package CreatorTowerDefense.content;
 
 import arc.Core;
+import arc.graphics.Color;
+import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.Fill;
+import arc.graphics.g2d.Lines;
+import arc.math.Interp;
+import arc.math.Mathf;
+import arc.math.Rand;
 import ct.Asystem.type.EU_healthDisplay;
 import ct.Asystem.type.OnlyAttackCoreAI;
+import ct.Asystem.type.VXV.EntityDraw;
 import ct.Asystem.type.factory.CoreGenericCrafter;
+import ct.content.Effect.NewEffect;
+import ct.content.NewColor;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.content.UnitTypes;
+import mindustry.entities.Effect;
 import mindustry.entities.bullet.BasicBulletType;
+import mindustry.entities.bullet.BulletType;
+import mindustry.entities.effect.WaveEffect;
 import mindustry.game.Team;
+import mindustry.gen.Building;
 import mindustry.gen.Sounds;
-import mindustry.type.Category;
-import mindustry.type.UnitType;
-import mindustry.type.Weapon;
+import mindustry.graphics.Drawf;
+import mindustry.graphics.Layer;
+import mindustry.graphics.Pal;
+import mindustry.type.*;
 import mindustry.type.ammo.ItemAmmoType;
+import mindustry.ui.Bar;
 import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.defense.turrets.TractorBeamTurret;
+import mindustry.world.blocks.defense.turrets.Turret;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.BuildVisibility;
+import mindustry.world.meta.Stat;
+import mindustry.world.meta.StatValues;
 
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.魂;
+import static arc.graphics.g2d.Draw.alpha;
+import static arc.graphics.g2d.Draw.color;
+import static arc.graphics.g2d.Lines.lineAngle;
+import static arc.graphics.g2d.Lines.stroke;
+import static arc.math.Angles.randLenVectors;
 import static ct.Asystem.WorldDifficulty.cheat;
 import static ct.content.ItemX.物品;
 import static mindustry.type.ItemStack.with;
@@ -44,6 +68,7 @@ public class CreatorTowerDefenseType {
 
     public static class TDCoreGenericCrafter extends CoreGenericCrafter {
         public TDCoreGenericCrafter(String name) {
+
             super(name);
         }
 
@@ -68,6 +93,21 @@ public class CreatorTowerDefenseType {
             if (!valid && 升级前置 != null)
                 drawPlaceText(Core.bundle.format("cttd.UpgradeFront") + 升级前置.localizedName, x, y, false);
             super.drawPlace(x, y, rotation, valid);
+        }
+
+
+        public class TDCoreGenericCrafterBuild extends CoreGenericCrafterBuilding {
+
+            @Override
+            public void craft() {
+                super.craft();
+                if (outputItems != null) {
+                    for (ItemStack output : outputItems) {
+                        EntityDraw.addItemIcon(x, y, output.item.fullIcon, output.amount, 0.3f);
+                    }
+                }
+            }
+
         }
 
     }
@@ -168,6 +208,82 @@ public class CreatorTowerDefenseType {
             public void damage(float damage) {
             }
         }*/
+        }
+    }
+    //扣核心资源的炮塔
+    public static class TDItemTurret extends Turret {
+        public TDItemTurret(String name, float 范围, float 时间, StatusEffect 状态,float 装弹倍率) {
+            super(name);
+            size = 3;
+            armor = 500;
+            destroyEffect = Fx.reactorExplosion;
+            range = 范围;
+            shootEffect=Fx.none;
+            shootWarmupSpeed = 0.01F;
+            minWarmup = 1f;
+            linearWarmup = true;
+
+            rotateSpeed = 0;//武器旋转速度
+            shootCone = 360;//射击瞄准角度
+            //createRubble = true;//被破坏后的黑色残留
+            //rebuildable = false;//不会自动重建，不会留下残影 星球规则里同：ghostBlocks= false
+            shootY = 0;
+            shootType = new BasicBulletType(0, 1) {{
+                lifetime = 0f;
+                ammoMultiplier = 装弹倍率;//装弹倍率
+                splashDamageRadius = 范围;
+                splashDamage = 0;
+                status = 状态;
+                statusDuration = 时间;
+                maxAmmo=1;
+                despawnEffect=hitEffect=new WaveEffect() {{//一个空心圈，适用子弹击中效果
+                    sizeFrom = 0f;
+                    sizeTo = 范围;
+                    //持续时间
+                    lifetime = 60;
+                    strokeFrom = 4f;
+                    strokeTo = 1f;
+                    colorFrom = NewColor.光棱塔Bullet1;
+                    colorTo = NewColor.光棱塔Bullet2;
+                }};
+            }};
+        }
+
+        public ItemStack[] itemStacks;
+        public BulletType shootType;
+        public TDItemTurret(String name) {
+            super(name);
+        }
+        @Override
+        public void setStats(){
+            super.setStats();
+            stats.add(Stat.ammo, StatValues.items(false, itemStacks));
+        }
+        public class TDItemTurretBuild extends TurretBuild{
+            @Override
+            public void updateTile(){
+                unit.ammo((float)unit.type().ammoCapacity * totalAmmo / maxAmmo);
+
+                if(totalAmmo < maxAmmo){
+                    Building core = Vars.state.teams.get(team).core();
+                    if(core != null && core.items.has(itemStacks)){
+                        core.items.remove(itemStacks);
+                        totalAmmo ++;
+                    }
+                }
+                super.updateTile();
+            }            @Override
+            public BulletType useAmmo(){
+                totalAmmo --;
+                return shootType;
+            }            @Override
+            public boolean hasAmmo(){
+                return totalAmmo > 0;
+            }
+            @Override
+            public BulletType peekAmmo(){
+                return shootType;
+            }
         }
     }
 
