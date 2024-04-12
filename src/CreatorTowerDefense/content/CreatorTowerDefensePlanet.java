@@ -59,7 +59,7 @@ public class CreatorTowerDefensePlanet {
                 r.disableOutsideArea = false;//场外禁用 关闭 世处都是在场外 不能禁用
                 r.disableWorldProcessors = false;//世处禁用 关闭
                 r.showSpawns = true;//显示单位刷出点
-                r.unitCap = 100;//单位上限
+                r.unitCap = 50;//单位上限
                 // r.onlyDepositCore = true;//物品只能存放在核心
                 //r.coreDestroyClear = true;//死亡时(敌人)核心半径内的每个敌人方块都会被摧毁。
                 //r.teams.get(Team.sharded).unitDamageMultiplier = 0.5f;//单位伤害减半

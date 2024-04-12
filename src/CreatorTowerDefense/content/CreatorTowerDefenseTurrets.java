@@ -370,8 +370,8 @@ public class CreatorTowerDefenseTurrets {
         }};
         钉钉塔= new CTMineCell("钉钉塔") {
             {size=4;
-                consumePower(2000 / 60f);
-                requirements(Category.turret, with(魂, 2300, 魄, 220, 星辰, 30));
+                consumePower(200 / 60f);
+                requirements(Category.turret, with(魂, 1000, 魄, 220));
                 mines = 1;
                 floors = TD地板;
                 mineConsumes = with(魂, 1);

@@ -64,7 +64,7 @@ public class CreatorTowerDefenseCore {
             isFirstTier = false;//核心地板限制
             unitType = 核心机1;
             health = 100;
-            itemCapacity = 100000;
+            itemCapacity = 50000;
             size = 5;
             unitCapModifier = 0;
             requiresCoreZone = true;//需要特定地板

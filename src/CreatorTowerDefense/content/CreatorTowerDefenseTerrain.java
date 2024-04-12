@@ -72,14 +72,14 @@ public class CreatorTowerDefenseTerrain {
         new TDFloor("TD加速地板b"){{
             speedMultiplier = 10f;
         }};
-        new TDFloor("TD减速地板a1"){{speedMultiplier = 0.7f;status=恢复1;}};
-        new TDFloor("TD减速地板a2"){{speedMultiplier = 0.7f;status=恢复1;}};
-        new TDFloor("TD减速地板a3"){{speedMultiplier = 0.7f;status=恢复1;}};
-        new TDFloor("TD减速地板a4"){{speedMultiplier = 0.7f;status=恢复1;}};
-        new TDFloor("TD减速地板b1"){{ speedMultiplier = 0.4f;status=恢复2;}};
-        new TDFloor("TD减速地板b2"){{ speedMultiplier = 0.4f;status=恢复2;}};
-        new TDFloor("TD减速地板b3"){{ speedMultiplier = 0.4f;status=恢复2;}};
-        new TDFloor("TD减速地板b4"){{ speedMultiplier = 0.4f;status=恢复2;}};
+        new TDFloor("TD减速地板a1"){{speedMultiplier = 0.7f;}};
+        new TDFloor("TD减速地板a2"){{speedMultiplier = 0.7f;}};
+        new TDFloor("TD减速地板a3"){{speedMultiplier = 0.7f;}};
+        new TDFloor("TD减速地板a4"){{speedMultiplier = 0.7f;}};
+        new TDFloor("TD减速地板b1"){{ speedMultiplier = 0.4f;}};
+        new TDFloor("TD减速地板b2"){{ speedMultiplier = 0.4f;}};
+        new TDFloor("TD减速地板b3"){{ speedMultiplier = 0.4f;}};
+        new TDFloor("TD减速地板b4"){{ speedMultiplier = 0.4f;}};
         new Floor("TD碧云地板1"){{  variants = 0;}};
         new Floor("TD碧云地板2"){{  variants = 0;}};
         new Floor("TD碧云地板3"){{  variants = 0;}};

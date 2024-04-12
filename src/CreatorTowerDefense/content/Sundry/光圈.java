@@ -109,7 +109,7 @@ public class 光圈 {
             recoil = 0;//武器后座
             rotateSpeed = 0;
             shootCone = 360;//射击瞄准角度
-            consumePower(320f/60);
+            consumePower(450f/60);
             requirements(Category.turret, with(魂, 820,魄,200));
             float cont = 360 / 2f;//扩散角度，1/2值，60 = 120
             float bRange = range;//范围

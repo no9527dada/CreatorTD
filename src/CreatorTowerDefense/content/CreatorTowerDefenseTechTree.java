@@ -47,7 +47,7 @@ public class CreatorTowerDefenseTechTree {
             addToTree(红地8, 红地7, ItemStack.with(
                     星越星辰, 1)
             );
-       /*     addToTree(红地9, 红地8, ItemStack.with(
+          addToTree(红地9, 红地8, ItemStack.with(
                     星越星辰, 1)
             );
             addToTree(碧云10, 红地9, ItemStack.with(
@@ -59,7 +59,7 @@ public class CreatorTowerDefenseTechTree {
             );
             addToTree(湖泊12, 镀银11, ItemStack.with(
                             星越星辰, 1)
-            );*/
+            );
             //炮塔 湖泊12
             addToTree(双管1, DTcore0, ItemStack.with(
                             星辰, 1)
@@ -82,22 +82,27 @@ public class CreatorTowerDefenseTechTree {
             );
             addToTree(黏黏炮2, 黏黏炮1, ItemStack.with(
                             星辰, 3200, 星越星辰, 3), Seq.with(
-                            new Objectives.SectorComplete(红地8)
+                            new Objectives.SectorComplete(红地9)
                     )
             );
             addToTree(光圈1, DTcore0, ItemStack.with(
                             星辰, 1700, 星越星辰, 2), Seq.with(
-                            new Objectives.SectorComplete(红地6)
+                            new Objectives.SectorComplete(草原5)
                     )
             );
-/*            addToTree(光圈2, 光圈1, ItemStack.with(
+            addToTree(光圈2, 光圈1, ItemStack.with(
                             星辰, 3200, 星越星辰, 2), Seq.with(
-                            new Objectives.SectorComplete(红地9)
+                            new Objectives.SectorComplete(红地8)
                     )
-            );*/
+            );
             addToTree(激光炮1, DTcore0, ItemStack.with(
                             星辰, 2000, 星越星辰, 1), Seq.with(
                             new Objectives.SectorComplete(红地8)
+                    )
+            );
+            addToTree(钉钉塔, DTcore0, ItemStack.with(
+                            星辰, 1500, 星越星辰, 1), Seq.with(
+                            new Objectives.SectorComplete(草原4)
                     )
             );
             addToTree(蓝瑟1, DTcore0, ItemStack.with(
@@ -106,7 +111,7 @@ public class CreatorTowerDefenseTechTree {
                     )
             );
             addToTree(蓝瑟2, 蓝瑟1, ItemStack.with(
-                            星辰, 2800, 星越星辰, 3), Seq.with(
+                            星辰, 2800, 星越星辰, 2), Seq.with(
                             new Objectives.SectorComplete(红地6)
                     )
             );
