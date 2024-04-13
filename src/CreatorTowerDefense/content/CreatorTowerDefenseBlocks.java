@@ -6,6 +6,7 @@ import ct.Asystem.type.TDTyep.TDUnitFactory;
 import ct.Asystem.type.TDTyep.TDsuicideWall;
 import ct.Asystem.type.TDTyep.UnitPortal;
 import ct.Asystem.type.VXV.EntityDraw;
+import ct.Asystem.type.VXV.powerShowBlock;
 import ct.Asystem.type.factory.CreatorsUnitFactory;
 import ct.Asystem.type.factory.DuplexCoreGenericCrafter;
 import mindustry.content.Items;
@@ -25,17 +26,26 @@ import static CreatorTowerDefense.content.CreatorTowerDefenseType.*;
 import static ct.content.ItemX.物品;
 import static ct.content.chapter1.Item1.余烬;
 import static mindustry.content.UnitTypes.mono;
-import static mindustry.type.Category.crafting;
+import static mindustry.type.Category.*;
 import static mindustry.type.ItemStack.with;
 
 //方块
 public class CreatorTowerDefenseBlocks {
     public static Block 初级魂魄凝练器,中级魂魄凝练器,高级魂魄凝练器,超级魂魄凝练器;
-    public static Block 魔力石墙, 修复器, 无限,单位传送门;
+    public static Block 魔力石墙, 修复器, 无限,单位传送门,电量查看器;
     public static Block 星尘单位工厂,星灵单位工厂,凝蓝单位工厂,蚀魂单位工厂,测试单位工厂
 
             ;
     public static void load() {
+        电量查看器= new powerShowBlock("电量查看器"){{
+            health = 100;
+            armor=500;
+            itemCapacity = 10;
+            size = 3;
+            requirements(power, with(
+                    魂, 50
+            ));
+        }};
         初级魂魄凝练器= new TDCoreGenericCrafter("初级魂魄凝练器"){{
            consumePower(120 / 60f);
            outputItem = new ItemStack(魂, 4);
@@ -158,12 +168,12 @@ public class CreatorTowerDefenseBlocks {
             createRubble = false;//被破坏后的黑色残留
         }};
         修复器 = new TDMendProjector("修复器a") {{
-            requirements(Category.defense, with(魂, 600));
+            requirements(effect, with(魂, 600));
             floor = (Floor) TD地板b;
         }};
         无限 = new CreatorTowerDefenseType.infiniteWall("TD无限") {{
             floor = (Floor) TD地板d;
-            requirements(Category.defense, with(星越星辰, 1));
+            requirements(effect, with(星越星辰, 1));
         }};
         单位传送门= new UnitPortal("单位传送门"){{
             hasPower = true;
@@ -174,7 +184,7 @@ public class CreatorTowerDefenseBlocks {
             TransferAll = false;
             TransferType = false;
             size = 4;
-            requirements(Category.defense, ItemStack.with(物品, 1));
+            requirements(effect, ItemStack.with(物品, 1));
             buildVisibility = BuildVisibility.sandboxOnly;
             buildType = Build::new;
         }

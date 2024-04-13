@@ -61,6 +61,7 @@ public class CreatorTowerDefenseTechTree {
                             星越星辰, 1)
             );
             //炮塔 湖泊12
+
             addToTree(双管1, DTcore0, ItemStack.with(
                             星辰, 1)
                     //, Seq.with(new Objectives.Research(XXX))//研究资源或方块
@@ -139,6 +140,11 @@ public class CreatorTowerDefenseTechTree {
             //电力
             addToTree(节点小, DTcore0, ItemStack.with(
                     星辰, 1)
+            );
+            addToTree(电量查看器, 节点小, ItemStack.with(
+                            星辰, 500), Seq.with(
+                            new Objectives.SectorComplete(草原1)
+                    )
             );
             addToTree(节点大, 节点小, ItemStack.with(
                     星辰, 3300, 星越星辰, 3),Seq.with(
