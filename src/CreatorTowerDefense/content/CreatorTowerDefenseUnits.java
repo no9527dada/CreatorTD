@@ -119,8 +119,9 @@ public class CreatorTowerDefenseUnits {
             abilities.add(new SpawnDeathAbility(钍, 2, 8));
             deathSound= Vars.tree.loadSound("m5");
         }};
+       // coreLaunchConstruct
+        TDUnitType 巨浪合金 = new TDUnitType("dt巨浪合金", 25, 10000, 0.5f) {{
 
-        TDUnitType 巨浪合金 = new TDUnitType("dt巨浪合金", 25, 5000, 0.5f) {{
             deathSound= Vars.tree.loadSound("m11");
             abilities.add(
                     new CTUnitSpawnAbility(铜, 60 * 3, 0, 0),
@@ -128,14 +129,14 @@ public class CreatorTowerDefenseUnits {
                     new CTUnitSpawnAbility(铅, 60 * 3, 0, 0),
                     new CTUnitSpawnAbility(钛, 60 * 9, 0, 0));
         }};
-        TDUnitType 魔力石 = new TDUnitType("dt魔力石", 30, 9000, 0.5f) {{
+        TDUnitType 魔力石 = new TDUnitType("dt魔力石", 30, 24000, 0.5f) {{
             deathSound= Vars.tree.loadSound("m6");
             abilities.add(
                     new CTUnitSpawnAbility(相织布, 60 * 8, 0, 0),
                     new CTUnitSpawnAbility(硅晶体, 60 * 7, 0, 0),
                     new CTUnitSpawnAbility(钛, 60 * 5, 0, 0));
         }};
-        TDUnitType 微晶 = new TDUnitType("dt微晶", 50, 20000, 0.5f) {{
+        TDUnitType 微晶 = new TDUnitType("dt微晶", 50, 60000, 0.5f) {{
             deathSound= Vars.tree.loadSound("m5");
             abilities.add(
                     new CTUnitSpawnAbility(石英, 60 * 0.7f, 0, 0),

@@ -27,7 +27,7 @@ import static mindustry.type.ItemStack.with;
 
 //方块
 public class CreatorTowerDefenseBlocks {
-    public static Block 初级魂魄凝练器, 中级魂魄凝练器, 高级魂魄凝练器, 超级魂魄凝练器;
+    public static Block 初级魂魄凝练器, 初级魂魄转换器, 高级魂魄凝练器, 高级魂魄转换器;
     public static Block 魔力石墙, 修复器, 无限, 单位传送门, 电量查看器;
     public static Block 星尘单位工厂, 星灵单位工厂, 凝蓝单位工厂, 蚀魂单位工厂, 测试单位工厂;
 
@@ -53,8 +53,8 @@ public class CreatorTowerDefenseBlocks {
                     魂, 300
             ));
         }};
-        中级魂魄凝练器 = new TDCoreGenericCrafter("中级魂魄凝练器") {{
-            consumePower(800 / 60f);
+        高级魂魄凝练器 = new TDCoreGenericCrafter("高级魂魄凝练器") {{
+            consumePower(700 / 60f);
             outputItems = ItemStack.with(魂, 6);
             health = 100;
             armor = 500;
@@ -66,20 +66,20 @@ public class CreatorTowerDefenseBlocks {
                     魂, 4500
             ));
         }};
-        高级魂魄凝练器 = new DuplexCoreGenericCrafter("高级魂魄凝练器") {{
-            consumeItems(with(魂, 10));
-            consumePower(3200 / 60f);
-            outputItems = ItemStack.with(魄, 1);
+        初级魂魄转换器 = new DuplexCoreGenericCrafter("初级魂魄转换器") {{
+            consumeItems(with(魂, 15));
+            consumePower(300 / 60f);
+            outputItems = ItemStack.with(魄, 4);
             health = 100;
             armor = 500;
             itemCapacity = 30;
             size = 4;
-            craftTime = 60 * 5;
+            craftTime = 60 * 2.5F;
             requirements(crafting, with(
-                    魂, 6600, 魄, 1200
+                    魂, 4500, 魄, 300
             ));
         }};
-        超级魂魄凝练器 = new DuplexCoreGenericCrafter("超级魂魄凝练器") {{
+        高级魂魄转换器 = new DuplexCoreGenericCrafter("高级魂魄转换器") {{
             consumeItems(with(星辰, 1));
             consumePower(9000 / 60f);
             outputItems = ItemStack.with(魄, 500, 魂, 3000);

@@ -116,21 +116,21 @@ public class CreatorTowerDefenseTechTree {
                             new Objectives.SectorComplete(红地6)
                     )
             );
-         /*   addToTree(蓝瑟3, 蓝瑟2, ItemStack.with(
+            addToTree(蓝瑟3, 蓝瑟2, ItemStack.with(
                             星辰, 2800, 星越星辰, 3), Seq.with(
                             new Objectives.SectorComplete(湖泊12)
                     )
-            );*/
+            );
             addToTree(冰霜塔1, DTcore0, ItemStack.with(
                             星辰, 700, 星越星辰, 2), Seq.with(
                             new Objectives.SectorComplete(草原5)
                     )
             );
-      /*      addToTree(冰霜塔2, 冰霜塔1, ItemStack.with(
+            addToTree(冰霜塔2, 冰霜塔1, ItemStack.with(
                             星辰, 4800, 星越星辰, 3), Seq.with(
-                            new Objectives.SectorComplete(红地9)
+                            new Objectives.SectorComplete(碧云10)
                     )
-            );*/
+            );
             addToTree(无限, DTcore0, ItemStack.with(
                             星辰, 2000, 星越星辰, 2), Seq.with(
                             new Objectives.SectorComplete(草原2)
@@ -166,12 +166,12 @@ public class CreatorTowerDefenseTechTree {
                             new Objectives.SectorComplete(草原4)
                     )
             );
-     /*       addToTree(中级魂魄凝练器, DTcore0, ItemStack.with(
-                            星辰, 7400, 星越星辰, 4),
+           addToTree(初级魂魄转换器, DTcore0, ItemStack.with(
+                            星辰, 4000, 星越星辰, 2),
                     Seq.with(
                             new Objectives.SectorComplete(镀银11)
                     )
-            );*/
+            );
             addToTree(星尘单位工厂, DTcore0, ItemStack.with(
                             星辰, 1000, 星越星辰, 1),
                     Seq.with(

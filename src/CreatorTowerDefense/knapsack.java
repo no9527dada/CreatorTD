@@ -35,7 +35,7 @@ public class knapsack {
 
     public static class 钉钉子弹 extends BulletType {
              public 钉钉子弹(int 子弹数量, int 伤害) {
-            lifetime = 40 * 60;
+            lifetime = 120 * 60;
             damage = 伤害;
             pierceArmor = true;
             collidesTiles = false;

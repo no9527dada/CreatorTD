@@ -95,7 +95,7 @@ public class CreatorTowerDefenseTurrets {
             requirements(Category.turret, with(魂, 60, 魄, 5));
         }};
         双管3 = new TDPowerTurret("双管3", 35, 22) {{
-            shootType = new BasicBulletType(4f, 10) {{
+            shootType = new BasicBulletType(4f, 13) {{
                 width = 7 + 4f;
                 height = 9 + 4f;
                 lifetime = 65f;
@@ -193,7 +193,7 @@ public class CreatorTowerDefenseTurrets {
         }};
         蓝瑟2 = new TDPowerTurret("蓝瑟2", 50, 17) {{
             shootSound = Sounds.laser;
-            shootType = new LaserBulletType(7) {{
+            shootType = new LaserBulletType(9) {{
                 colors = new Color[]{Pal.lancerLaser.cpy().a(0.4f), Pal.lancerLaser, Color.white};
                 //TODO merge
                 chargeEffect = new MultiEffect(Fx.lancerLaserCharge, Fx.lancerLaserChargeBegin);
@@ -203,7 +203,7 @@ public class CreatorTowerDefenseTurrets {
                 lifetime = 16f;
                 drawSize = 400f;
                 collidesAir = false;
-                length = 17 * 8f;
+                length = 20 * 8f;
                 ammoMultiplier = 1f;
                 //pierceCap = 4;
             }};
@@ -211,9 +211,9 @@ public class CreatorTowerDefenseTurrets {
             consumePower(180 / 60f);
             requirements(Category.turret, with(魂, 520, 魄, 150));
         }};
-        蓝瑟3 = new TDPowerTurret("蓝瑟3", 45, 22) {{
+        蓝瑟3 = new TDPowerTurret("蓝瑟3", 30, 22) {{
             shootSound = Sounds.laser;
-            shootType = new LaserBulletType(17) {{
+            shootType = new LaserBulletType(25) {{
                 colors = new Color[]{Pal.lancerLaser.cpy().a(0.4f), Pal.lancerLaser, Color.white};
                 //TODO merge
                 chargeEffect = new MultiEffect(Fx.lancerLaserCharge, Fx.lancerLaserChargeBegin);
@@ -223,13 +223,13 @@ public class CreatorTowerDefenseTurrets {
                 lifetime = 16f;
                 drawSize = 400f;
                 collidesAir = false;
-                length = 22 * 8f;
+                length = 30 * 8f;
                 ammoMultiplier = 1f;
                 //pierceCap = 4;
             }};
             升级前置 = 蓝瑟2;
             consumePower(700 / 60f);
-            requirements(Category.turret, with(魂, 6500, 魄, 560, 星辰, 10));
+            requirements(Category.turret, with(魂, 6500, 魄, 560, 星辰, 7));
         }};
         冰霜塔1 = new CreatorTowerDefenseType.TDItemTurret("冰霜塔1", 14 * 8, 8 * 60,
                 new Buff.BuffStatusEffect("gelivation1", 0.7f), 1) {{
@@ -242,9 +242,9 @@ public class CreatorTowerDefenseTurrets {
         冰霜塔2 = new CreatorTowerDefenseType.TDItemTurret("冰霜塔2", 20 * 8, 20 * 60,
                 new Buff.BuffStatusEffect("gelivation2", 0.4f), 1) {{
             reload = 20 * 60f;
-            itemStacks = ItemStack.with(魂, 100, 魄, 10);
+            itemStacks = ItemStack.with(魂, 50, 魄, 5);
             consumePower(120 / 60f);
-            requirements(Category.turret, with(魂, 300, 魄, 20));
+            requirements(Category.turret, with(魂, 800, 魄, 230));
         }};
         冰霜塔3 = new CreatorTowerDefenseType.TDItemTurret("冰霜塔3", 33 * 8, 5 * 60,
                 new Buff.BuffStatusEffect("gelivation3", 0.7f, 0f), 5) {{
@@ -370,40 +370,40 @@ public class CreatorTowerDefenseTurrets {
         }};
         钉钉塔= new CTMineCell("钉钉塔") {
             {size=4;
-                consumePower(200 / 60f);
-                requirements(Category.turret, with(魂, 1000, 魄, 220));
+                consumePower(500 / 60f);
+                requirements(Category.turret, with(魂, 900, 魄, 400));
                 mines = 1;
                 floors = TD地板;
-                mineConsumes = with(魂, 1);
-                mine = new 钉钉子弹(mines,2);
+                mineConsumes = with(魂, 2);
+                mine = new 钉钉子弹(mines,5);
             }
         };
         钉刺塔= new CTMineCell("钉刺塔") {
             {size=4;
                 consumePower(2000 / 60f);
-                requirements(Category.turret, with(魂, 2300, 魄, 220, 星辰, 30));
+                requirements(Category.turret, with(魂, 1500, 魄, 2200));
                 mines = 2;
                 floors = TD地板;
-                mineConsumes = with(魂, 1);
-                mine = new 钉钉子弹(mines,8);
+                mineConsumes = with(魂, 4);
+                mine = new 钉钉子弹(mines,30);
             }
         };
         地刺塔= new CTMineCell("地刺塔") {
             {size=5;
-                consumePower(2000 / 60f);
-                requirements(Category.turret, with(魂, 2300, 魄, 220, 星辰, 30));
+                consumePower(6000 / 60f);
+                requirements(Category.turret, with(魂, 2800, 魄, 5000, 星辰, 50));
                 mines = 2;
                 floors = TD地板;
-                mineConsumes = with(魂, 1);
+                mineConsumes = with(魄, 3);
                 mine = new 钉钉子弹(mines,15);
             }
         };
         地刺雷= new CTMineCell("地刺雷") {
             {size=5;
-                consumePower(2000 / 60f);
-                requirements(Category.turret, with(魂, 2300, 魄, 220, 星辰, 30));
+                consumePower(14000 / 60f);
+                requirements(Category.turret, with(魂, 7000, 魄, 15000, 星辰, 100));
                 mines = 1;
-                floors = TD地板;    mineConsumes = with(魂, 1);
+                floors = TD地板;    mineConsumes = with(魄, 5);
                 mine = new 钉雷子弹(mines,10,30,3);
             }
         };
