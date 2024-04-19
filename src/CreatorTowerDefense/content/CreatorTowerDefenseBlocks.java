@@ -28,7 +28,7 @@ import static mindustry.type.ItemStack.with;
 //方块
 public class CreatorTowerDefenseBlocks {
     public static Block 初级魂魄凝练器, 初级魂魄转换器, 高级魂魄凝练器, 高级魂魄转换器;
-    public static Block 魔力石墙, 修复器, 无限, 单位传送门, 电量查看器;
+    public static Block 魔力石墙, 修复器, 无限,  电量查看器;
     public static Block 星尘单位工厂, 星灵单位工厂, 凝蓝单位工厂, 蚀魂单位工厂, 测试单位工厂;
 
     public static void load() {
@@ -170,38 +170,7 @@ public class CreatorTowerDefenseBlocks {
             floor = (Floor) TD地板d;
             requirements(effect, with(星越星辰, 1));
         }};
-        单位传送门 = new UnitPortal("单位传送门") {
-            public void setStats() {
-                super.setStats();
-                this.stats.add(Stat.basePowerGeneration, 1, StatUnit.powerSecond);
-            }
 
-            {
-                hasPower = true;
-                outputsPower = true;
-                consumePower(0);
-                health = 100;
-                targetable = false;//被单位攻击
-                UnitRange = 5;
-                TransferAll = false;
-                TransferType = false;
-                size = 1;
-                solid = false;
-                TransferSpeed = 5;//传送等待时间 60=1秒
-                requirements(effect, ItemStack.with(物品, 1));
-                buildVisibility = BuildVisibility.sandboxOnly;
-                buildType = Build::new;
-            }
-            class Build extends UnitPortal.UnitPortalBlockBuild {
-                @Override
-                public void damage(float damage) {
-                }
-                @Override
-                public float getPowerProduction() {
-                    return 1f / 60;
-                }
-            }
-        };
 
 
     }

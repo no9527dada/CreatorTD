@@ -14,6 +14,7 @@ import static CreatorTowerDefense.content.CreatorTowerDefensePlanet.DTPlanet1;
 import static CreatorTowerDefense.content.CreatorTowerDefensePower.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseTurrets.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseUnits.星尘单位;
+import static CreatorTowerDefense.content.CreatorTowerDefenseUnits.星灵单位;
 import static CreatorTowerDefense.content.Sundry.光圈.*;
 import static ct.Asystem.type.CTTechTree.addToTree;
 
@@ -60,6 +61,12 @@ public class CreatorTowerDefenseTechTree {
             addToTree(湖泊12, 镀银11, ItemStack.with(
                             星越星辰, 1)
             );
+            addToTree(雪地13, 湖泊12, ItemStack.with(
+                    星越星辰, 1)
+            );
+            addToTree(雪地14, 雪地13, ItemStack.with(
+                    星越星辰, 1)
+            );
             //炮塔 湖泊12
 
             addToTree(双管1, DTcore0, ItemStack.with(
@@ -101,6 +108,11 @@ public class CreatorTowerDefenseTechTree {
                             new Objectives.SectorComplete(红地8)
                     )
             );
+            addToTree(激光炮2, 激光炮1, ItemStack.with(
+                            星辰, 2300, 星越星辰, 1), Seq.with(
+                            new Objectives.SectorComplete(雪地14)
+                    )
+            );
             addToTree(钉钉塔, DTcore0, ItemStack.with(
                             星辰, 1500, 星越星辰, 1), Seq.with(
                             new Objectives.SectorComplete(草原4)
@@ -129,6 +141,11 @@ public class CreatorTowerDefenseTechTree {
             addToTree(冰霜塔2, 冰霜塔1, ItemStack.with(
                             星辰, 4800, 星越星辰, 3), Seq.with(
                             new Objectives.SectorComplete(碧云10)
+                    )
+            );
+            addToTree(火焰喷射器1, DTcore0, ItemStack.with(
+                            星辰, 2400, 星越星辰, 1), Seq.with(
+                            new Objectives.SectorComplete(湖泊12)
                     )
             );
             addToTree(无限, DTcore0, ItemStack.with(
@@ -182,6 +199,18 @@ public class CreatorTowerDefenseTechTree {
                             星辰, 500, 星越星辰, 1),
                     Seq.with(
                             new Objectives.SectorComplete(红地6)
+                    )
+            );
+            addToTree(星灵单位工厂, 星尘单位工厂, ItemStack.with(
+                            星辰, 1500, 星越星辰, 1),
+                    Seq.with(
+                            new Objectives.SectorComplete(雪地13)
+                    )
+            );
+            addToTree(星灵单位, 星灵单位工厂, ItemStack.with(
+                            星辰, 800, 星越星辰, 2),
+                    Seq.with(
+                            new Objectives.SectorComplete(雪地13)
                     )
             );
         });

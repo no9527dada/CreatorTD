@@ -75,7 +75,7 @@ public class CreatorTowerDefenseUnits {
             abilities.add(new SpawnDeathAbility(硅, 1, 8));
         }};
         TDUnitType 硅晶体 = new TDUnitType("dt硅晶体", 4, 270, 0.5f) {{
-            abilities.add(new RepairFieldAbility(30f, 60f * 2, 4 * 8f));
+            abilities.add(new RepairFieldAbility(80f, 60f * 2, 4 * 8f));
             deathSound= Vars.tree.loadSound("m8");
         }};//加血
         TDUnitType 钛 = new TDUnitType("dt钛", 4, 220, 0.5f) {{
@@ -83,7 +83,7 @@ public class CreatorTowerDefenseUnits {
             deathSound= Vars.tree.loadSound("m10");
         }};//力场
         TDUnitType 钍 = new TDUnitType("dt钍", 5, 500, 0.3f) {{
-            abilities.add(new CTUnitSpawnAbility(石墨烯, 60 * 15, 0, 0));
+            abilities.add(new CTUnitSpawnAbility(石墨烯, 60 * 8, 0, 0));
             deathSound= Vars.tree.loadSound("m11");
         }};//生产单位
         TDUnitType 塑钢 = new TDUnitType("dt塑钢", 5, 320, 0.5f) {{
@@ -111,17 +111,19 @@ public class CreatorTowerDefenseUnits {
         }};
         TDUnitType 电池 = new TDUnitType("dt电池", 10, 600, 0.6f) {{
             abilities.add(new SpawnDeathAbility(石墨烯, 3, 8));
+            armor=1;
         }};//
         TDUnitType 钛合金 = new TDUnitType("dt钛合金", 15, 1500, 0.5f) {{
-            abilities.add(new SpawnDeathAbility(钛, 3, 8));
+            abilities.add(new SpawnDeathAbility(钛, 3, 8)); armor=3;
+
         }};
         TDUnitType 钻石 = new TDUnitType("dt钻石", 20, 5000, 0.7f) {{
-            abilities.add(new SpawnDeathAbility(钍, 2, 8));
+            abilities.add(new SpawnDeathAbility(钍, 2, 8)); armor=5;
             deathSound= Vars.tree.loadSound("m5");
         }};
        // coreLaunchConstruct
         TDUnitType 巨浪合金 = new TDUnitType("dt巨浪合金", 25, 10000, 0.5f) {{
-
+            armor=2;
             deathSound= Vars.tree.loadSound("m11");
             abilities.add(
                     new CTUnitSpawnAbility(铜, 60 * 3, 0, 0),
@@ -130,14 +132,14 @@ public class CreatorTowerDefenseUnits {
                     new CTUnitSpawnAbility(钛, 60 * 9, 0, 0));
         }};
         TDUnitType 魔力石 = new TDUnitType("dt魔力石", 30, 24000, 0.5f) {{
-            deathSound= Vars.tree.loadSound("m6");
+            deathSound= Vars.tree.loadSound("m6"); armor=3;
             abilities.add(
                     new CTUnitSpawnAbility(相织布, 60 * 8, 0, 0),
                     new CTUnitSpawnAbility(硅晶体, 60 * 7, 0, 0),
                     new CTUnitSpawnAbility(钛, 60 * 5, 0, 0));
         }};
         TDUnitType 微晶 = new TDUnitType("dt微晶", 50, 60000, 0.5f) {{
-            deathSound= Vars.tree.loadSound("m5");
+            deathSound= Vars.tree.loadSound("m5"); armor=6;
             abilities.add(
                     new CTUnitSpawnAbility(石英, 60 * 0.7f, 0, 0),
                     new CTUnitSpawnAbility(钍, 60 * 5, 0, 0),

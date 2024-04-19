@@ -3,6 +3,7 @@ package CreatorTowerDefense.content;
 import arc.graphics.Color;
 import arc.struct.Seq;
 import mindustry.type.Item;
+import mindustry.type.Liquid;
 import mindustry.world.blocks.environment.OreBlock;
 
 import static ct.content.ItemX.物品;
@@ -15,6 +16,7 @@ public class CreatorTowerDefenseItems {
     public static Item
     魄, 魂,星辰,星越星辰,无尽星辰;
 
+    public static Liquid 制冷剂;
     public static void load() {
         魂 = new Item("魂", Color.valueOf("9bccfe"));
         魄 = new Item("魄", Color.valueOf("fb7069"));
@@ -38,5 +40,13 @@ public class CreatorTowerDefenseItems {
         CreatorTowerDefenseItems显示.addAll(
                 物品,魄, 魂,星辰,星越星辰,无尽星辰
         );
+        制冷剂 = new Liquid("cryofluid", Color.valueOf("6ecdec")){{
+            heatCapacity = 0.9f;
+            temperature = 0.25f;
+            lightColor = Color.valueOf("0097f5").a(0.2f);
+            boilPoint = 0.55f;
+            gasColor = Color.valueOf("c1e8f5");
+        }};
+
     }
 }

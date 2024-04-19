@@ -51,9 +51,10 @@ public class CreatorTowerDefenseTurrets {
         });
     }
 
-    public static Block 双管1, 双管2, 双管3, 双管4, 冰霜塔1, 冰霜塔2, 冰霜塔3, 冰冻炸弹4, 激光炮5,
+    public static Block 双管1, 双管2, 双管3, 双管4, 双管5,
+            冰霜塔1, 冰霜塔2, 冰霜塔3,
             黏黏炮1, 黏黏炮2, 蓝瑟2, 蓝瑟1, 蓝瑟3,
-            激光炮1, 激光炮2, 激光炮3, 激光炮4,
+            激光炮1, 激光炮2, 激光炮3, 激光炮4,激光炮5,
             火焰喷射器1, 火焰喷射器2, 火焰喷射器3,
             钉钉塔,钉刺塔,地刺塔,地刺雷,
 
@@ -108,10 +109,10 @@ public class CreatorTowerDefenseTurrets {
             升级前置 = 双管2;
             consumePower(300 / 60f);
             shoot = new ShootAlternate(3.5f);
-            requirements(Category.turret, with(魂, 950, 魄, 200));
+            requirements(Category.turret, with(魂, 850, 魄, 330));
         }};
         双管4 = new TDPowerTurret("双管4", 25, 26) {{
-            shootType = new BasicBulletType(4f, 0) {{
+            shootType = new BasicBulletType(4f, 20) {{
                 width = 7 + 4f;
                 height = 9 + 4f;
                 lifetime = 60f;
@@ -120,13 +121,39 @@ public class CreatorTowerDefenseTurrets {
                 trailLength = 8;
                 trailWidth = 2;
                 trailColor = C("ff847d");
-                splashDamage = 18;
+                splashDamage = 40;
                 splashDamageRadius = 3.5f * 8f;
+                hitEffect = Fx.blastExplosion;
             }};
             升级前置 = 双管3;
             consumePower(3500 / 60f);
             shoot = new ShootAlternate(3.5f);
-            requirements(Category.turret, with(魂, 2600, 魄, 320, 星辰, 50));
+            requirements(Category.turret, with(魂, 2600, 魄, 320, 星辰, 20));
+        }};
+        双管5 = new TDPowerTurret("双管5", 5, 35) {{
+            size=4;
+            shootSound = Sounds.shootBig;shoot = new ShootAlternate(16f);ammoUseEffect = Fx.casing3;
+            shootType = new BasicBulletType(9f, 40) {{
+                width = 14 + 4f;
+                height = 17 + 4f;
+                lifetime = 40f;
+                ammoMultiplier = 1;
+                inaccuracy = 4;//精准
+                homingPower = 0.02F;
+                hitEffect = Fx.blastExplosion;
+                trailLength = 11;
+                trailWidth = 4;
+                trailColor = C("B8DCAA");
+                splashDamage = 180;
+                splashDamageRadius = 5f * 8f;
+                lightning = 4; //闪电根数
+                lightningLength = 15; //闪电长度
+                lightningDamage = 15;//闪电伤害
+                lightningColor = C("B8DCAA");//闪电颜色
+            }};
+            升级前置 = 双管4;
+            consumePower(3500 / 60f);
+            requirements(Category.turret, with(魂, 35000, 魄, 15000, 星辰, 80));
         }};
         StatusEffect 黏黏 = new StatusEffect("mucus") {{
             speedMultiplier = 0.5f;
@@ -209,7 +236,7 @@ public class CreatorTowerDefenseTurrets {
             }};
             升级前置 = 蓝瑟1;
             consumePower(180 / 60f);
-            requirements(Category.turret, with(魂, 520, 魄, 150));
+            requirements(Category.turret, with(魂, 220, 魄, 60));
         }};
         蓝瑟3 = new TDPowerTurret("蓝瑟3", 30, 22) {{
             shootSound = Sounds.laser;
@@ -229,7 +256,7 @@ public class CreatorTowerDefenseTurrets {
             }};
             升级前置 = 蓝瑟2;
             consumePower(700 / 60f);
-            requirements(Category.turret, with(魂, 6500, 魄, 560, 星辰, 7));
+            requirements(Category.turret, with(魂, 6500, 魄, 560, 星辰, 4));
         }};
         冰霜塔1 = new CreatorTowerDefenseType.TDItemTurret("冰霜塔1", 14 * 8, 8 * 60,
                 new Buff.BuffStatusEffect("gelivation1", 0.7f), 1) {{
@@ -241,14 +268,14 @@ public class CreatorTowerDefenseTurrets {
         }};
         冰霜塔2 = new CreatorTowerDefenseType.TDItemTurret("冰霜塔2", 20 * 8, 20 * 60,
                 new Buff.BuffStatusEffect("gelivation2", 0.4f), 1) {{
-            reload = 20 * 60f;
+            reload = 20 * 60f;升级前置 = 冰霜塔1;
             itemStacks = ItemStack.with(魂, 50, 魄, 5);
-            consumePower(120 / 60f);
+            consumePower(500 / 60f);
             requirements(Category.turret, with(魂, 800, 魄, 230));
         }};
         冰霜塔3 = new CreatorTowerDefenseType.TDItemTurret("冰霜塔3", 33 * 8, 5 * 60,
                 new Buff.BuffStatusEffect("gelivation3", 0.7f, 0f), 5) {{
-            reload = 10 * 60f;
+            reload = 10 * 60f;升级前置 = 冰霜塔2;
             itemStacks = ItemStack.with(星辰, 1);
             consumePower(120 / 60f);
             requirements(Category.turret, with(魂, 1130, 魄, 130));
@@ -259,19 +286,19 @@ public class CreatorTowerDefenseTurrets {
             consumePower(20f / 60);
             requirements(Category.turret, with(魂, 35));
         }};
-        激光炮2 = new CreatorTowerDefenseType.TDTractorBeamTurret("激光炮2", 16, 19) {{
+        激光炮2 = new CreatorTowerDefenseType.TDTractorBeamTurret("激光炮2", 24, 19) {{
             shootCone = 360;
             rotateSpeed = 0;
-            consumePower(90f / 60);
+            consumePower(180f / 60);
             升级前置 = 激光炮1;
-            requirements(Category.turret, with(魂, 220, 魄, 20));
+            requirements(Category.turret, with(魂, 310, 魄, 20));
         }};
         激光炮3 = new CreatorTowerDefenseType.TDTractorBeamTurret("激光炮3", 37, 25) {{
             shootCone = 360;
             rotateSpeed = 0;
             升级前置 = 激光炮2;
             consumePower(500f / 60);
-            requirements(Category.turret, with(魂, 6800, 魄, 1400, 星辰, 50));
+            requirements(Category.turret, with(魂, 6800, 魄, 1400, 星辰, 6));
         }};
         激光炮4 = new CreatorTowerDefenseType.TDTractorBeamTurret("激光炮4", 220, 35) {{
             shootCone = 360;
@@ -279,7 +306,7 @@ public class CreatorTowerDefenseTurrets {
             size = 5;
             升级前置 = 激光炮3;
             consumePower(7000f / 60);
-            requirements(Category.turret, with(魂, 76000, 魄, 4800, 星辰, 300));
+            requirements(Category.turret, with(魂, 76000, 魄, 4800, 星辰, 20));
         }};
         光圈.load();
         火焰喷射器1 = new TDPowerTurret("火焰喷射器1", 200, 7) {{
@@ -291,7 +318,7 @@ public class CreatorTowerDefenseTurrets {
             shoot.shotDelay = 6f;
             size = 3;
             inaccuracy = 4;
-            shootType = new BulletType(3.35f, 3f) {{
+            shootType = new BulletType(3.35f, 4f) {{
                 ammoMultiplier = 1f;
                 hitSize = 7f;
                 lifetime = 14f;
@@ -303,7 +330,7 @@ public class CreatorTowerDefenseTurrets {
                 status = Buff.TDburning;
             }};
             consumePower(90 / 60f);
-            requirements(Category.turret, with(魂, 150, 魄, 5));
+            requirements(Category.turret, with(魂, 300, 魄, 15));
         }};
         火焰喷射器2 = new TDPowerTurret("火焰喷射器2", 240, 10) {{
             shootY = 10;
@@ -314,7 +341,7 @@ public class CreatorTowerDefenseTurrets {
             shoot.shotDelay = 6f;
             size = 3;
             inaccuracy = 4;
-            shootType = new BulletType(3.35f, 7f) {{
+            shootType = new BulletType(3.35f, 9f) {{
                 ammoMultiplier = 1f;
                 hitSize = 7f;
                 lifetime = 22f;
@@ -338,7 +365,7 @@ public class CreatorTowerDefenseTurrets {
             shoot.shotDelay = 6f;
             size = 3;
             inaccuracy = 4;
-            shootType = new BulletType(3.35f, 14f) {{
+            shootType = new BulletType(3.35f, 22f) {{
                 ammoMultiplier = 1f;
                 hitSize = 7f;
                 lifetime = 29f;
@@ -351,12 +378,12 @@ public class CreatorTowerDefenseTurrets {
             }};
             升级前置 = 火焰喷射器2;
             consumePower(2000 / 60f);
-            requirements(Category.turret, with(魂, 2300, 魄, 220, 星辰, 30));
+            requirements(Category.turret, with(魂, 2300, 魄, 220, 星辰, 8));
         }};
         new CreatorTowerDefenseType.TDItemTurret("资源炮") {{
             itemStacks = ItemStack.with(魂, 6, 魄, 2);
             consumePower(2000 / 60f);
-            requirements(Category.turret, with(魂, 2300, 魄, 220, 星辰, 30));
+            requirements(Category.turret, with(魂, 0, 魄, 0, 星辰, 0));
             shootType = new BasicBulletType(4f, 2) {{
                 width = 7f;
                 height = 9f;

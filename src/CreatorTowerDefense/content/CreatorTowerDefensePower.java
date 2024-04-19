@@ -1,5 +1,8 @@
 package CreatorTowerDefense.content;
 
+import ct.Asystem.type.power.CoreConsumeGenerator;
+import ct.Asystem.type.power.CoreImpactReactor;
+import ct.Asystem.type.power.CoreNuclearReactor;
 import mindustry.content.Fx;
 import mindustry.gen.Sounds;
 import mindustry.type.Category;
@@ -90,14 +93,14 @@ public class CreatorTowerDefensePower {
 
             );
         }};
-        三级极点发电器=  new ConsumeGenerator("三级极点发电器"){{
+        三级极点发电器=  new CoreConsumeGenerator("三级极点发电器"){{
             health = 100;
             armor=500;
-            requirements(Category.power, with(魂, 500, 魄, 180));
+            requirements(Category.power, with(魂, 750, 魄, 180));
             canOverdrive = false;
             powerProduction = 520/60f;
-            itemDuration = 60f;
-            //consumeLiquid(Liquids.water, 0.1f);
+            itemDuration = 60*2f;
+            consumeItem(魂,1);
             hasLiquids = false;
             size = 3;
             ambientSound = Sounds.smelter;
@@ -105,21 +108,21 @@ public class CreatorTowerDefensePower {
             generateEffect = Fx.generatespark;
             drawer = new DrawMulti(new DrawDefault(), new DrawWarmupRegion());
         }};
-        四级点辉发电器=new NuclearReactor("四级点辉发电器"){{
+        四级点辉发电器=new CoreNuclearReactor("四级点辉发电器"){{
             health = 100;
             armor=500;
             requirements(Category.power, with(魂, 580, 魄, 340));
-            powerProduction = 1350/60f;
+            powerProduction = 1650/60f;
             itemDuration = 220f;
             size = 4;
-            ambientSound = Sounds.steam;
-            ambientSoundVolume = 0.06f;
-            heating = 0f;//不会爆
+            explosionRadius = 8;
+            explosionDamage = 1250 * 4;
+            heating = 0.003f;//不会爆?
             consumeItem(魂);
-            drawer = new DrawMulti(new DrawDefault(), new DrawWarmupRegion());
+            consumeLiquid(制冷剂, 3 / 60f).update(false);
 
         }};
-        五级辉灵发电器=new ImpactReactor("五级辉灵发电器"){{
+        五级辉灵发电器=new CoreImpactReactor("五级辉灵发电器"){{
             health = 100;
             armor=500;
             requirements(Category.power, with(魂, 2300, 魄, 1500,星辰,50));

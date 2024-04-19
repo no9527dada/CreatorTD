@@ -3,14 +3,19 @@ package CreatorTowerDefense.content;
 import arc.Core;
 import ct.Asystem.type.BlockDestroyReward;
 
+import ct.Asystem.type.TDTyep.UnitPortal;
 import ct.Asystem.type.waveRule;
 import mindustry.type.Category;
+import mindustry.type.ItemStack;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.meta.BuildVisibility;
 import mindustry.world.meta.Env;
+import mindustry.world.meta.Stat;
+import mindustry.world.meta.StatUnit;
 
 import static ct.content.ItemX.物品;
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.*;
+import static mindustry.type.Category.effect;
 import static mindustry.type.ItemStack.with;
 import static ct.Asystem.type.TDTyep.TDBuffChange.*;
 
@@ -54,7 +59,41 @@ public class CreatorTowerDefenseSandbox {
                 }
             }
         };
+      new UnitPortal("单位传送门") {
+            public void setStats() {
+                super.setStats();
+                this.stats.add(Stat.basePowerGeneration, 1, StatUnit.powerSecond);
+            }
 
+            {
+                drawTeamOverlay=false;//队伍角标
+                hasShadow=false;//方块阴影
+                hasPower = true;
+                outputsPower = true;
+                consumePower(0);
+                health = 100;
+                targetable = false;//被单位攻击
+                UnitRange = 5;
+                LinkRange = 300.0F;
+                TransferAll = false;
+                TransferType = false;
+                size = 1;
+                solid = false;
+                TransferSpeed = 5;//传送等待时间 60=1秒
+                requirements(effect, ItemStack.with(物品, 1));
+                buildVisibility = BuildVisibility.sandboxOnly;
+                buildType = Build::new;
+            }
+            class Build extends UnitPortal.UnitPortalBlockBuild {
+                @Override
+                public void damage(float damage) {
+                }
+                @Override
+                public float getPowerProduction() {
+                    return 1f / 60;
+                }
+            }
+        };
 
 
 
