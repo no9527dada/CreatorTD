@@ -1,9 +1,8 @@
 package CreatorTowerDefense.content;
 
-import arc.Core;
 import ct.Asystem.type.BlockDestroyReward;
 
-import ct.Asystem.type.TDTyep.UnitPortal;
+import ct.Asystem.type.VXV.UnitPortal;
 import ct.Asystem.type.waveRule;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;

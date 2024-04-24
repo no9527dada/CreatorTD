@@ -14,6 +14,7 @@ import mindustry.type.Category;
 import mindustry.world.Block;
 
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.*;
+import static ct.Asystem.type.CTColor.C;
 import static mindustry.content.Fx.none;
 import static mindustry.type.ItemStack.with;
 
@@ -100,7 +101,7 @@ public class 光圈 {
                 }
             };
         }};
-        光圈2=new CreatorTowerDefenseType.TDPowerTurret("光圈2",50,16) {{
+        光圈2=new CreatorTowerDefenseType.TDPowerTurret("光圈2",60,16) {{
             Color TU浅绿色 = Color.valueOf("acff9a");
             range = 16 * 8;
             size = 3;
@@ -165,7 +166,7 @@ public class 光圈 {
                 public void draw(Bullet b) {
                     super.draw(b);
                     float pin = (b.fin());
-                    Lines.stroke(3, TU浅绿色);
+                    Lines.stroke(3,  C("#00cfa0"));
                     for (float i = b.rotation() - cont; i < b.rotation() + cont; i++) {
                         float lx = dx(b.x, bRange * pin, i);
                         float ly = dy(b.y, bRange * pin, i);
@@ -176,7 +177,7 @@ public class 光圈 {
                 }
             };
         }};
-        光圈3=new CreatorTowerDefenseType.TDPowerTurret("光圈3",30,22) {{
+        光圈3=new CreatorTowerDefenseType.TDPowerTurret("光圈3",40,22) {{
             Color TU浅绿色 = Color.valueOf("acff9a");
             range = 22 * 8;
             size = 3;
@@ -187,7 +188,7 @@ public class 光圈 {
             shootCone = 360;//射击瞄准角度
             consumePower(1520f/60);
            // requirements(Category.turret, with(魂, 25));
-            requirements(Category.turret, with(魂, 7300,魄,4800,星辰,50));
+            requirements(Category.turret, with(魂, 7300,魄,2800,星辰,50));
             float cont = 360 / 2f;//扩散角度，1/2值，60 = 120
             float bRange = range;//范围
             shootType = new BulletType() {
@@ -242,7 +243,7 @@ public class 光圈 {
                 public void draw(Bullet b) {
                     super.draw(b);
                     float pin = (b.fin());
-                    Lines.stroke(3, TU浅绿色);
+                    Lines.stroke(3,  C("#00bced"));
                     for (float i = b.rotation() - cont; i < b.rotation() + cont; i++) {
                         float lx = dx(b.x, bRange * pin, i);
                         float ly = dy(b.y, bRange * pin, i);

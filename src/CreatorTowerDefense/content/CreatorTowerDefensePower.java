@@ -98,7 +98,7 @@ public class CreatorTowerDefensePower {
             armor=500;
             requirements(Category.power, with(魂, 750, 魄, 180));
             canOverdrive = false;
-            powerProduction = 520/60f;
+            powerProduction = 720/60f;
             itemDuration = 60*2f;
             consumeItem(魂,1);
             hasLiquids = false;
@@ -114,27 +114,30 @@ public class CreatorTowerDefensePower {
             requirements(Category.power, with(魂, 580, 魄, 340));
             powerProduction = 1650/60f;
             itemDuration = 220f;
+            takeItemDelay = 60f;
             size = 4;
-            explosionRadius = 8;
-            explosionDamage = 1250 * 4;
-            heating = 0.003f;//不会爆?
-            consumeItem(魂);
+            consumesPower=true;
+            explosionRadius = 1;
+            explosionDamage =0;
+            heating = 0.001f;//
+            fuelItem=魂;
+            consumePower(30/60f);
+            consumeItem(魂,3);
             consumeLiquid(制冷剂, 3 / 60f).update(false);
-
         }};
         五级辉灵发电器=new CoreImpactReactor("五级辉灵发电器"){{
             health = 100;
             armor=500;
             requirements(Category.power, with(魂, 2300, 魄, 1500,星辰,50));
-            powerProduction = 7000/60f;
+            powerProduction = 13000/60f;
             size = 5;
             itemDuration = 140f;
             ambientSound = Sounds.pulse;
             ambientSoundVolume = 0.03f;
-            consumePower(0f);
-            consumeItem(魄);
-            drawer = new DrawMulti(new DrawDefault(), new DrawWarmupRegion());
-
+            consumePower(100/60f);
+            fuelItem=魄;
+            consumeItem(魄,3);
+            consumeLiquid(制冷剂, 12 / 60f).update(false);
         }};
     }
 }

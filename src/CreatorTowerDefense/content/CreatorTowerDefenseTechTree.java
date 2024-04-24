@@ -67,6 +67,12 @@ public class CreatorTowerDefenseTechTree {
             addToTree(雪地14, 雪地13, ItemStack.with(
                     星越星辰, 1)
             );
+             addToTree(红冰15 , 雪地14, ItemStack.with(
+                    星越星辰, 1)
+            );
+            addToTree(草原16, 红冰15, ItemStack.with(
+                    星越星辰, 1), Seq.with(new Objectives.Research(魔力石墙))
+            );
             //炮塔 湖泊12
 
             addToTree(双管1, DTcore0, ItemStack.with(
@@ -112,10 +118,15 @@ public class CreatorTowerDefenseTechTree {
                             星辰, 2300, 星越星辰, 1), Seq.with(
                             new Objectives.SectorComplete(雪地14)
                     )
-            );
+            );//
             addToTree(钉钉塔, DTcore0, ItemStack.with(
                             星辰, 1500, 星越星辰, 1), Seq.with(
                             new Objectives.SectorComplete(草原4)
+                    )
+            );
+            addToTree(钉刺塔, 钉钉塔, ItemStack.with(
+                            星辰, 2000, 星越星辰, 1), Seq.with(
+                            new Objectives.SectorComplete(红冰15)
                     )
             );
             addToTree(蓝瑟1, DTcore0, ItemStack.with(
@@ -153,7 +164,11 @@ public class CreatorTowerDefenseTechTree {
                             new Objectives.SectorComplete(草原2)
                     )
             );
-
+         addToTree(魔力石墙, DTcore0, ItemStack.with(
+                            星辰, 600, 星越星辰, 1), Seq.with(
+                            new Objectives.SectorComplete(雪地14)
+                    )
+            );
             //电力
             addToTree(节点小, DTcore0, ItemStack.with(
                     星辰, 1)
@@ -175,6 +190,12 @@ public class CreatorTowerDefenseTechTree {
                             星辰, 1800, 星越星辰, 3),
                     Seq.with(
                             new Objectives.SectorComplete(草原5)
+                    )
+            );
+            addToTree(三级极点发电器, 电力产生器, ItemStack.with(
+                            星辰, 3200, 星越星辰, 3),
+                    Seq.with(
+                            new Objectives.SectorComplete(草原16)
                     )
             );
             addToTree(初级魂魄凝练器, DTcore0, ItemStack.with(

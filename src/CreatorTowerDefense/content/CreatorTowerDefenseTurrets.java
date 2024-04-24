@@ -1,5 +1,6 @@
 package CreatorTowerDefense.content;
 
+import CreatorTowerDefense.content.Sundry.三叶;
 import CreatorTowerDefense.content.Sundry.光圈;
 import CreatorTowerDefense.knapsack;
 import arc.Core;
@@ -19,6 +20,7 @@ import mindustry.entities.bullet.LaserBulletType;
 import mindustry.entities.effect.ExplosionEffect;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.pattern.ShootAlternate;
+import mindustry.entities.pattern.ShootSpread;
 import mindustry.gen.Bullet;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Drawf;
@@ -36,6 +38,7 @@ import static arc.graphics.g2d.Draw.color;
 import static arc.math.Angles.randLenVectors;
 import static ct.Asystem.type.CTColor.C;
 
+import static ct.content.chapter1.Item1.翠;
 import static mindustry.content.Fx.none;
 import static mindustry.type.ItemStack.with;
 
@@ -201,7 +204,7 @@ public class CreatorTowerDefenseTurrets {
         }};
         蓝瑟1 = new TDPowerTurret("蓝瑟1", 70, 14) {{
             shootSound = Sounds.laser;
-            shootType = new LaserBulletType(3) {{
+            shootType = new LaserBulletType(5) {{
                 colors = new Color[]{C("fab02d").cpy().a(0.4f), C("fab02d"), Color.white};
                 //TODO merge
                 chargeEffect = new MultiEffect(Fx.lancerLaserCharge, Fx.lancerLaserChargeBegin);
@@ -220,7 +223,7 @@ public class CreatorTowerDefenseTurrets {
         }};
         蓝瑟2 = new TDPowerTurret("蓝瑟2", 50, 17) {{
             shootSound = Sounds.laser;
-            shootType = new LaserBulletType(9) {{
+            shootType = new LaserBulletType(15) {{
                 colors = new Color[]{Pal.lancerLaser.cpy().a(0.4f), Pal.lancerLaser, Color.white};
                 //TODO merge
                 chargeEffect = new MultiEffect(Fx.lancerLaserCharge, Fx.lancerLaserChargeBegin);
@@ -240,7 +243,7 @@ public class CreatorTowerDefenseTurrets {
         }};
         蓝瑟3 = new TDPowerTurret("蓝瑟3", 30, 22) {{
             shootSound = Sounds.laser;
-            shootType = new LaserBulletType(25) {{
+            shootType = new LaserBulletType(33) {{
                 colors = new Color[]{Pal.lancerLaser.cpy().a(0.4f), Pal.lancerLaser, Color.white};
                 //TODO merge
                 chargeEffect = new MultiEffect(Fx.lancerLaserCharge, Fx.lancerLaserChargeBegin);
@@ -252,11 +255,34 @@ public class CreatorTowerDefenseTurrets {
                 collidesAir = false;
                 length = 30 * 8f;
                 ammoMultiplier = 1f;
-                //pierceCap = 4;
+                lightning = 5;
+                lightningDamage = 3;
+                lightningLength = 18;
+                lightningCone = 20;
+                lightningLengthRand = 13;
             }};
             升级前置 = 蓝瑟2;
             consumePower(700 / 60f);
             requirements(Category.turret, with(魂, 6500, 魄, 560, 星辰, 4));
+        }};
+     new TDPowerTurret("未命名1", 70, 22) {{
+            //shootSound = Sounds.laser;
+         size=3;
+         shootCone = 40F;//瞄准角度
+         shoot = new ShootSpread(2, 10f);
+         shootType = new CreatorTowerDefenseType.CTTDBasicBulletType(2, 12, "cttd-bu3") {
+             {
+                 width = 25f;
+                 height = 25f;
+                 lifetime = 300f;
+                 ammoMultiplier = 1;//装弹倍率
+                 spin = 8;
+                 pierce = true; //穿透
+             }
+         };;
+           // 升级前置 = 蓝瑟2;
+            consumePower(120 / 60f);
+            requirements(Category.turret, with(魂, 150));
         }};
         冰霜塔1 = new CreatorTowerDefenseType.TDItemTurret("冰霜塔1", 14 * 8, 8 * 60,
                 new Buff.BuffStatusEffect("gelivation1", 0.7f), 1) {{
@@ -269,7 +295,7 @@ public class CreatorTowerDefenseTurrets {
         冰霜塔2 = new CreatorTowerDefenseType.TDItemTurret("冰霜塔2", 20 * 8, 20 * 60,
                 new Buff.BuffStatusEffect("gelivation2", 0.4f), 1) {{
             reload = 20 * 60f;升级前置 = 冰霜塔1;
-            itemStacks = ItemStack.with(魂, 50, 魄, 5);
+            itemStacks = ItemStack.with(魂, 30, 魄, 5);
             consumePower(500 / 60f);
             requirements(Category.turret, with(魂, 800, 魄, 230));
         }};
@@ -309,7 +335,7 @@ public class CreatorTowerDefenseTurrets {
             requirements(Category.turret, with(魂, 76000, 魄, 4800, 星辰, 20));
         }};
         光圈.load();
-        火焰喷射器1 = new TDPowerTurret("火焰喷射器1", 200, 7) {{
+        火焰喷射器1 = new TDPowerTurret("火焰喷射器1", 200, 10) {{
             shootY = 10;
             shootCone = 50f;
             ammoUseEffect = none;
@@ -321,16 +347,16 @@ public class CreatorTowerDefenseTurrets {
             shootType = new BulletType(3.35f, 4f) {{
                 ammoMultiplier = 1f;
                 hitSize = 7f;
-                lifetime = 14f;
+                lifetime = 20f;
                 pierceBuilding = pierce = true;
                 statusDuration = 60f * 4;
-                shootEffect = 火焰(60, 100, 12, 80);
+                shootEffect = 火焰(60, 100, 12, 105);
                 hitEffect = Fx.hitFlameSmall;
                 despawnEffect = none;
                 status = Buff.TDburning;
             }};
-            consumePower(90 / 60f);
-            requirements(Category.turret, with(魂, 300, 魄, 15));
+            consumePower(130 / 60f);
+            requirements(Category.turret, with(魂, 230, 魄, 35));
         }};
         火焰喷射器2 = new TDPowerTurret("火焰喷射器2", 240, 10) {{
             shootY = 10;

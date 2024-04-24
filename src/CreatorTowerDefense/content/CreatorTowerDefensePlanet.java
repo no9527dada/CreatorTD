@@ -70,7 +70,7 @@ public class CreatorTowerDefensePlanet {
                 r.waveSending = false;//手动跳波
                 r.enemyCoreBuildRadius = 5 * 8f;//敌方核心不可建造区域半径
                 r.dropZoneRadius = 20 * 8;//敌人刷新点禁区
-                r.ghostBlocks = false;
+               // r.ghostBlocks = true;//重建
                 r.deconstructRefundMultiplier = 0.3f;//拆除返还倍率
                 r.waveTimer = true;//开启波次计时
                 r.waves = true;//波次
