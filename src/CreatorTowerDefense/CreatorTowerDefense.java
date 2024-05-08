@@ -20,7 +20,7 @@ public class CreatorTowerDefense extends Mod {
         CreatorTowerDefenseItems.load();//资源
         CreatorTowerDefenseCore.load();//核心
         CreatorTowerDefenseUnits.load();//单位A
-        CreatorTowerDefenseUnits2.load();//单位B
+       // CreatorTowerDefenseUnits2.load();//单位B
        // UnitDeathReward.load();//资源掉落
         CreatorTowerDefenseBlocks.load();//墙 单位工厂
         CreatorTowerDefenseTurrets.load();//炮塔

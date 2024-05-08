@@ -114,8 +114,8 @@ public class CreatorTowerDefensePower {
             requirements(Category.power, with(魂, 580, 魄, 340));
             powerProduction = 1650/60f;
             itemDuration = 220f;
-            takeItemDelay = 60f;
             size = 4;
+            takeItemDelay = 50f;
             consumesPower=true;
             explosionRadius = 1;
             explosionDamage =0;

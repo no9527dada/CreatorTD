@@ -25,7 +25,7 @@ public class 三叶 {
                     height = 25f;
                     lifetime = 300f;
                     spin = 8;
-
+                    fragOnHit=false;
                     // backColor = Color.valueOf("ffffff"); //背景颜色
                     // frontColor = 翠.color; //前面颜色
                     pierce = true;

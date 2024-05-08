@@ -13,6 +13,7 @@ import ct.Asystem.type.TDTyep.CTMineCell;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
 import mindustry.entities.Effect;
+import mindustry.entities.UnitSorts;
 import mindustry.entities.Units;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.BulletType;
@@ -60,6 +61,7 @@ public class CreatorTowerDefenseTurrets {
             激光炮1, 激光炮2, 激光炮3, 激光炮4,激光炮5,
             火焰喷射器1, 火焰喷射器2, 火焰喷射器3,
             钉钉塔,钉刺塔,地刺塔,地刺雷,
+            繁花1,
 
 
     炮塔aaa;
@@ -253,36 +255,80 @@ public class CreatorTowerDefenseTurrets {
                 lifetime = 16f;
                 drawSize = 400f;
                 collidesAir = false;
+                fragOnHit=false;
                 length = 30 * 8f;
                 ammoMultiplier = 1f;
-                lightning = 5;
-                lightningDamage = 3;
-                lightningLength = 18;
-                lightningCone = 20;
-                lightningLengthRand = 13;
+                shoot = new ShootSpread(4, 3);
+
             }};
             升级前置 = 蓝瑟2;
             consumePower(700 / 60f);
             requirements(Category.turret, with(魂, 6500, 魄, 560, 星辰, 4));
         }};
-     new TDPowerTurret("未命名1", 70, 22) {{
+        繁花1=new TDPowerTurret("繁花1", 130, 25) {{
             //shootSound = Sounds.laser;
+         unitSort = UnitSorts.farthest;//攻击单位时的优先选择/closest/farthest/strongest/weakest
          size=3;
          shootCone = 40F;//瞄准角度
          shoot = new ShootSpread(2, 10f);
-         shootType = new CreatorTowerDefenseType.CTTDBasicBulletType(2, 12, "cttd-bu3") {
+         shootType =new CreatorTowerDefenseType.CTTDBasicBulletType(2, 12, "cttd-bu3") {
              {
                  width = 25f;
                  height = 25f;
-                 lifetime = 300f;
+                 lifetime = 60f;
                  ammoMultiplier = 1;//装弹倍率
-                 spin = 8;
+                 spin = 12;  fragOnHit=false;
                  pierce = true; //穿透
+                 trailLength = 8;
+                 trailWidth = 2;
+                 //trailColor = 翠.color;
+                 frontColor = C("ff93fa"); //前面颜色
+                 fragBullet = new CreatorTowerDefenseType.CTTDBasicBulletType(2, 12, "cttd-bu3")//分裂的子弹
+                 {{
+                     width = 25f;
+                     height = 25f;
+                     lifetime = 300f;
+                     spin = 12;
+                     fragOnHit=false;
+                      backColor = Color.valueOf("ffffff"); //背景颜色
+                     frontColor = C("ff93fa"); //前面颜色
+                     pierce = true;
+                     despawnEffect = Fx.none;
+                     fragBullet = new CreatorTowerDefenseType.CTTDBasicBulletType(3.5f, 12, "cttd-bu3")//分裂的子弹
+                     {{
+                         width = 25f;
+                         height = 25f;
+                         lifetime = 300f;
+                         spin = 18;  fragOnHit=false;
+                          backColor = Color.valueOf("ffffff"); //背景颜色
+                         frontColor = C("ff93fa"); //前面颜色
+                         pierce = true;       homingPower = 1;homingRange=150*8;
+                         despawnEffect = Fx.none;
+                     }};
+                     fragBullets = 1;//分裂的数量
+                     fragRandomSpread = 15f;//分裂的角度
+                     fragAngle = 180f;//分裂的角度偏移，一般角度(上一个接口)越小越容易看出来
+                     fragVelocityMin = 1f;//随机范围的破片速度最小0。
+                     fragVelocityMax = 1f;//随机范围的破片速度最大1。
+                     fragLifeMin = 1f;//随机范围的碎片寿命作为乘数最小0
+                     fragLifeMax = 1f;//随机范围的碎片寿命作为乘数最大1。
+                     despawnEffect = Fx.none;
+                     hitEffect = Fx.none;
+                 }};
+                 fragBullets = 1;//分裂的数量
+                 fragRandomSpread = 15f;//分裂的角度
+                 fragAngle = 0f;//分裂的角度偏移，一般角度(上一个接口)越小越容易看出来
+                 fragVelocityMin = 1f;//随机范围的破片速度最小0。
+                 fragVelocityMax = 1f;//随机范围的破片速度最大1。
+                 fragLifeMin = 1f;//随机范围的碎片寿命作为乘数最小0
+                 fragLifeMax = 1f;//随机范围的碎片寿命作为乘数最大1。
+                 despawnEffect = Fx.none;
+                 hitEffect = Fx.none;
              }
-         };;
+         };
            // 升级前置 = 蓝瑟2;
-            consumePower(120 / 60f);
-            requirements(Category.turret, with(魂, 150));
+            consumePower(400 / 60f);
+            requirements(Category.turret, with(魂, 1000,魄,350));
         }};
         冰霜塔1 = new CreatorTowerDefenseType.TDItemTurret("冰霜塔1", 14 * 8, 8 * 60,
                 new Buff.BuffStatusEffect("gelivation1", 0.7f), 1) {{

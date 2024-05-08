@@ -7,7 +7,7 @@ import static CreatorTowerDefense.content.CreatorTowerDefensePlanet.DTPlanet1;
 
 public class CreatorTowerDefenseMaps {
     public static SectorPreset TD教程,草原1,草原2,草原3,草原4,草原5,红地6,红地7,红地8,红地9,碧云10,镀银11,
-            湖泊12,雪地13,雪地14,红冰15,草原16,
+            湖泊12,雪地13,雪地14,红冰15,草原16,碧云17,
            fhgf ;
 
     public static void load() {
@@ -115,13 +115,13 @@ public class CreatorTowerDefenseMaps {
             addStartingItems = true;
             localizedName = Core.bundle.format("maps.TD草原16");
         }};
-         /* 哈哈= new SectorPreset("TD哈哈",DTPlanet1, 177) {{
-            captureWave = 哈哈;//始终要比地图中设置的终结波次要+1
+        碧云17= new SectorPreset("TD碧云17",DTPlanet1, 177) {{//101 150-BOSS
+            captureWave = 101;//始终要比地图中设置的终结波次要+1
             difficulty = 7;
             addStartingItems = true;
-            localizedName = Core.bundle.format("maps.TD哈哈");
+            localizedName = Core.bundle.format("maps.TD碧云17");
         }};
-        哈哈= new SectorPreset("TD哈哈",DTPlanet1, 155) {{
+         /* 哈哈= new SectorPreset("TD哈哈",DTPlanet1, 155) {{
             captureWave = 哈哈;//始终要比地图中设置的终结波次要+1
             difficulty = 7;
             addStartingItems = true;
