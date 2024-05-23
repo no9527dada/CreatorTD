@@ -1,5 +1,6 @@
 package CreatorTowerDefense;
 
+import arc.Core;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
 import arc.struct.Seq;
@@ -12,6 +13,7 @@ import mindustry.gen.Sounds;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
+import mindustry.type.StatusEffect;
 
 import static mindustry.content.Fx.none;
 
@@ -32,7 +34,11 @@ public class knapsack {
             ("cttd-TD地板7"),
             ("cttd-TD地板8")
     );
-
+    static StatusEffect dd =new StatusEffect("dingding"){{
+        show = false;
+        healthMultiplier = 0.7f;
+        localizedName= Core.bundle.format("status.cttd-dingding.name");
+    }};
     public static class 钉钉子弹 extends BulletType {
              public 钉钉子弹(int 子弹数量, int 伤害) {
             lifetime = 120 * 60;
@@ -42,6 +48,8 @@ public class knapsack {
             hitEffect = despawnEffect = none;
             ammoMultiplier = 子弹数量;
             hitSize = 6;
+                 status = dd;
+                 statusDuration = 60f*3;
         }
         @Override
         public void draw(Bullet b) {
@@ -97,7 +105,7 @@ public class knapsack {
                     absorbable = keepVelocity = hittable = false;
                    // hitSound = despawnSound = Sounds.explosionbig;
                     status = StatusEffects.freezing;
-                    statusDuration = 60f;
+                    statusDuration = 5*60f;
                 }};
             }
 

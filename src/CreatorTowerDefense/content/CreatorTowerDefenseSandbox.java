@@ -43,12 +43,13 @@ public class CreatorTowerDefenseSandbox {
                 health = 100;
                 size = 1;
                 envEnabled = Env.any;
-                targetable = false;//被单位攻击？
+                solid= targetable = false;//被单位攻击？
                 requirements(Category.defense, BuildVisibility.sandboxOnly, with(
                         物品, 1
                 ));
                 buildType = Build::new;
                 alwaysUnlocked = true;
+                forceDark =true;//黑块
             }
 
             class Build extends Wall.WallBuild {
@@ -79,6 +80,7 @@ public class CreatorTowerDefenseSandbox {
                 size = 1;
                 solid = false;
                 TransferSpeed = 5;//传送等待时间 60=1秒
+                TransferEffectTime=3*60;//传送免疫时间
                 requirements(effect, ItemStack.with(物品, 1));
                 buildVisibility = BuildVisibility.sandboxOnly;
                 buildType = Build::new;

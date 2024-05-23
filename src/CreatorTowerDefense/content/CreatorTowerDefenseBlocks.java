@@ -38,14 +38,14 @@ public class CreatorTowerDefenseBlocks {
         电量查看器 = new powerShowBlock("电量查看器") {{
             health = 100;
             armor = 500;
-            itemCapacity = 10;
+           // itemCapacity = 10;
             size = 3;
             requirements(power, with(
                     魂, 50
             ));
         }};
         初级魂魄凝练器 = new TDCoreGenericCrafter("初级魂魄凝练器") {{
-            consumePower(120 / 60f);
+            consumePower(170 / 60f);
             outputItem = new ItemStack(魂, 4);
             health = 100;
             armor = 500;
@@ -57,7 +57,7 @@ public class CreatorTowerDefenseBlocks {
             ));
         }};
         高级魂魄凝练器 = new TDCoreGenericCrafter("高级魂魄凝练器") {{
-            consumePower(500 / 60f);
+            consumePower(800 / 60f);
             outputItems = ItemStack.with(魂, 7);
             health = 100;
             armor = 500;
@@ -71,7 +71,7 @@ public class CreatorTowerDefenseBlocks {
         }};
         初级魂魄转换器 = new DuplexCoreGenericCrafter("初级魂魄转换器") {{
             consumeItems(with(魂, 15));
-            consumePower(520 / 60f);
+            consumePower(1500 / 60f);
             outputItems = ItemStack.with(魄, 4);
             health = 100;
             armor = 500;
@@ -90,7 +90,7 @@ public class CreatorTowerDefenseBlocks {
             armor = 500;
             itemCapacity = 40;
             size = 4;
-            craftTime = 40;
+            craftTime = 60;
             //升级前置=高级魂魄凝练器;
             requirements(crafting, with(
                     魂, 6600, 魄, 1200, 星辰, 80
@@ -165,10 +165,10 @@ public class CreatorTowerDefenseBlocks {
             floating = true;
 
         }};
-        星灵单位工厂 = new CreatorsUnitFactory("星灵单位工厂") {{
+        星灵单位工厂 = new CreatorTowerDefenseType.TDCreatorsUnitFactory("星灵单位工厂") {{
             requirements(Category.units, with(
                     魂, 120
-            )); unitLimit = 2;
+            )); unitLimit = 3;
             plans = Seq.with(
                     new UnitPlan(星灵单位, 60f * 40, with())
             );
@@ -176,9 +176,9 @@ public class CreatorTowerDefenseBlocks {
             consumePower(200 / 60f);
             floating = true;
         }};
-        凝蓝单位工厂 = new CreatorsUnitFactory("凝蓝单位工厂") {{
+        凝蓝单位工厂 = new CreatorTowerDefenseType.TDCreatorsUnitFactory("凝蓝单位工厂") {{
             requirements(Category.units, with(
-                    魂, 350, 魄, 15
+                    魂, 650, 魄, 180
             ));
             unitLimit = 2;
             plans = Seq.with(
@@ -187,9 +187,9 @@ public class CreatorTowerDefenseBlocks {
             size = 5;
             consumePower(800 / 60f);
             floating = true;
-            // 升级前置=星灵单位工厂;
+             升级前置=星灵单位工厂;
         }};
-        蚀魂单位工厂 = new CreatorsUnitFactory("蚀魂单位工厂") {{
+        蚀魂单位工厂 = new CreatorTowerDefenseType.TDCreatorsUnitFactory("蚀魂单位工厂") {{
             requirements(Category.units, with(
                     魂, 1400, 魄, 180
             ));unitLimit = 2;
@@ -199,7 +199,7 @@ public class CreatorTowerDefenseBlocks {
             size = 7;
             consumePower(2200 / 60f);
             floating = true;
-            //  升级前置=凝蓝单位工厂;
+            升级前置=凝蓝单位工厂;
         }};
         /**掉血墙，主类在主篇里面*/
         魔力石墙 = new TDsuicideWall("TD魔力石墙") {{

@@ -13,8 +13,7 @@ import static CreatorTowerDefense.content.CreatorTowerDefenseMaps.*;
 import static CreatorTowerDefense.content.CreatorTowerDefensePlanet.DTPlanet1;
 import static CreatorTowerDefense.content.CreatorTowerDefensePower.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseTurrets.*;
-import static CreatorTowerDefense.content.CreatorTowerDefenseUnits.星尘单位;
-import static CreatorTowerDefense.content.CreatorTowerDefenseUnits.星灵单位;
+import static CreatorTowerDefense.content.CreatorTowerDefenseUnits.*;
 import static CreatorTowerDefense.content.Sundry.光圈.*;
 import static ct.Asystem.type.CTTechTree.addToTree;
 
@@ -74,6 +73,9 @@ public class CreatorTowerDefenseTechTree {
                     星越星辰, 1), Seq.with(new Objectives.Research(魔力石墙))
             );
             addToTree(碧云17, 草原16, ItemStack.with(
+                    星越星辰, 1)
+            );
+            addToTree(雪地18, 碧云17, ItemStack.with(
                     星越星辰, 1)
             );
             //炮塔 湖泊12
@@ -167,6 +169,32 @@ public class CreatorTowerDefenseTechTree {
                             new Objectives.SectorComplete(碧云17)
                     )
             );
+            addToTree(繁花1, DTcore0, ItemStack.with(
+                            星辰, 1800, 星越星辰, 2), Seq.with(
+                            new Objectives.SectorComplete(碧云17)
+                    )
+            );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             addToTree(无限, DTcore0, ItemStack.with(
                             星辰, 2000, 星越星辰, 2), Seq.with(
                             new Objectives.SectorComplete(草原2)
@@ -240,6 +268,18 @@ public class CreatorTowerDefenseTechTree {
                             星辰, 800, 星越星辰, 2),
                     Seq.with(
                             new Objectives.SectorComplete(雪地13)
+                    )
+            );
+            addToTree(凝蓝单位工厂, 星灵单位工厂, ItemStack.with(
+                            星辰, 2800, 星越星辰, 2),
+                    Seq.with(
+                            new Objectives.SectorComplete(雪地18)
+                    )
+            );
+            addToTree(凝蓝单位, 凝蓝单位工厂, ItemStack.with(
+                            星辰, 2200, 星越星辰, 4),
+                    Seq.with(
+                            new Objectives.SectorComplete(雪地18)
                     )
             );
         });

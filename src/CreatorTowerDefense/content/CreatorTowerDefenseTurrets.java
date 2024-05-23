@@ -15,9 +15,7 @@ import mindustry.content.StatusEffects;
 import mindustry.entities.Effect;
 import mindustry.entities.UnitSorts;
 import mindustry.entities.Units;
-import mindustry.entities.bullet.BasicBulletType;
-import mindustry.entities.bullet.BulletType;
-import mindustry.entities.bullet.LaserBulletType;
+import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ExplosionEffect;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.pattern.ShootAlternate;
@@ -31,9 +29,11 @@ import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.type.StatusEffect;
 import mindustry.world.Block;
+import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.defense.turrets.LaserTurret;
 
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.*;
-import static CreatorTowerDefense.content.CreatorTowerDefenseType.TDPowerTurret;
+import static CreatorTowerDefense.content.CreatorTowerDefenseType.*;
 import static CreatorTowerDefense.knapsack.*;
 import static arc.graphics.g2d.Draw.color;
 import static arc.math.Angles.randLenVectors;
@@ -62,7 +62,8 @@ public class CreatorTowerDefenseTurrets {
             火焰喷射器1, 火焰喷射器2, 火焰喷射器3,
             钉钉塔,钉刺塔,地刺塔,地刺雷,
             繁花1,
-
+            熔毁1,熔毁2,熔毁3,
+            厄运1,厄运2,厄运3,厄梦2,厄梦3,
 
     炮塔aaa;
 
@@ -262,16 +263,16 @@ public class CreatorTowerDefenseTurrets {
 
             }};
             升级前置 = 蓝瑟2;
-            consumePower(700 / 60f);
-            requirements(Category.turret, with(魂, 6500, 魄, 560, 星辰, 4));
+            consumePower(1000 / 60f);
+            requirements(Category.turret, with(魂, 6500, 魄, 560, 星辰, 7));
         }};
-        繁花1=new TDPowerTurret("繁花1", 130, 25) {{
+        繁花1=new TDPowerTurret("繁花1", 180, 25) {{
             //shootSound = Sounds.laser;
          unitSort = UnitSorts.farthest;//攻击单位时的优先选择/closest/farthest/strongest/weakest
          size=3;
          shootCone = 40F;//瞄准角度
          shoot = new ShootSpread(2, 10f);
-         shootType =new CreatorTowerDefenseType.CTTDBasicBulletType(2, 12, "cttd-bu3") {
+         shootType =new CreatorTowerDefenseType.CTTDBasicBulletType(2, 15, "cttd-bu3") {
              {
                  width = 25f;
                  height = 25f;
@@ -283,7 +284,7 @@ public class CreatorTowerDefenseTurrets {
                  trailWidth = 2;
                  //trailColor = 翠.color;
                  frontColor = C("ff93fa"); //前面颜色
-                 fragBullet = new CreatorTowerDefenseType.CTTDBasicBulletType(2, 12, "cttd-bu3")//分裂的子弹
+                 fragBullet = new CreatorTowerDefenseType.CTTDBasicBulletType(2, 7, "cttd-bu3")//分裂的子弹
                  {{
                      width = 25f;
                      height = 25f;
@@ -294,7 +295,7 @@ public class CreatorTowerDefenseTurrets {
                      frontColor = C("ff93fa"); //前面颜色
                      pierce = true;
                      despawnEffect = Fx.none;
-                     fragBullet = new CreatorTowerDefenseType.CTTDBasicBulletType(3.5f, 12, "cttd-bu3")//分裂的子弹
+                     fragBullet = new CreatorTowerDefenseType.CTTDBasicBulletType(3.5f, 7, "cttd-bu3")//分裂的子弹
                      {{
                          width = 25f;
                          height = 25f;
@@ -327,10 +328,10 @@ public class CreatorTowerDefenseTurrets {
              }
          };
            // 升级前置 = 蓝瑟2;
-            consumePower(400 / 60f);
+            consumePower(700 / 60f);
             requirements(Category.turret, with(魂, 1000,魄,350));
         }};
-        冰霜塔1 = new CreatorTowerDefenseType.TDItemTurret("冰霜塔1", 14 * 8, 8 * 60,
+        冰霜塔1 = new TDItemTurret("冰霜塔1", 14 * 8, 8 * 60,
                 new Buff.BuffStatusEffect("gelivation1", 0.7f), 1) {{
 
             reload = 11 * 60f;
@@ -338,47 +339,47 @@ public class CreatorTowerDefenseTurrets {
             consumePower(120 / 60f);
             requirements(Category.turret, with(魂, 100));
         }};
-        冰霜塔2 = new CreatorTowerDefenseType.TDItemTurret("冰霜塔2", 20 * 8, 20 * 60,
+        冰霜塔2 = new TDItemTurret("冰霜塔2", 20 * 8, 20 * 60,
                 new Buff.BuffStatusEffect("gelivation2", 0.4f), 1) {{
             reload = 20 * 60f;升级前置 = 冰霜塔1;
             itemStacks = ItemStack.with(魂, 30, 魄, 5);
             consumePower(500 / 60f);
             requirements(Category.turret, with(魂, 800, 魄, 230));
         }};
-        冰霜塔3 = new CreatorTowerDefenseType.TDItemTurret("冰霜塔3", 33 * 8, 5 * 60,
+        冰霜塔3 = new TDItemTurret("冰霜塔3", 33 * 8, 5 * 60,
                 new Buff.BuffStatusEffect("gelivation3", 0.7f, 0f), 5) {{
             reload = 10 * 60f;升级前置 = 冰霜塔2;
             itemStacks = ItemStack.with(星辰, 1);
             consumePower(120 / 60f);
             requirements(Category.turret, with(魂, 1130, 魄, 130));
         }};
-        激光炮1 = new CreatorTowerDefenseType.TDTractorBeamTurret("激光炮1", 9, 15) {{
+        激光炮1 = new TDTractorBeamTurret("激光炮1", 9, 15) {{
             shootCone = 360;
             rotateSpeed = 0;
             consumePower(20f / 60);
             requirements(Category.turret, with(魂, 35));
         }};
-        激光炮2 = new CreatorTowerDefenseType.TDTractorBeamTurret("激光炮2", 24, 19) {{
+        激光炮2 = new TDTractorBeamTurret("激光炮2", 24, 19) {{
             shootCone = 360;
             rotateSpeed = 0;
             consumePower(180f / 60);
             升级前置 = 激光炮1;
-            requirements(Category.turret, with(魂, 310, 魄, 20));
+            requirements(Category.turret, with(魂, 150, 魄, 15));
         }};
-        激光炮3 = new CreatorTowerDefenseType.TDTractorBeamTurret("激光炮3", 37, 25) {{
+        激光炮3 = new TDTractorBeamTurret("激光炮3", 37, 25) {{
             shootCone = 360;
             rotateSpeed = 0;
             升级前置 = 激光炮2;
-            consumePower(500f / 60);
-            requirements(Category.turret, with(魂, 6800, 魄, 1400, 星辰, 6));
+            consumePower(300f / 60);
+            requirements(Category.turret, with(魂, 320, 魄, 50));
         }};
-        激光炮4 = new CreatorTowerDefenseType.TDTractorBeamTurret("激光炮4", 220, 35) {{
+        激光炮4 = new TDTractorBeamTurret("激光炮4", 220, 35) {{
             shootCone = 360;
             rotateSpeed = 0;
             size = 5;
             升级前置 = 激光炮3;
-            consumePower(7000f / 60);
-            requirements(Category.turret, with(魂, 76000, 魄, 4800, 星辰, 20));
+            consumePower(1800f / 60);
+            requirements(Category.turret, with(魂, 2500, 魄, 1000, 星辰, 5));
         }};
         光圈.load();
         火焰喷射器1 = new TDPowerTurret("火焰喷射器1", 200, 10) {{
@@ -426,7 +427,7 @@ public class CreatorTowerDefenseTurrets {
             }};
             升级前置 = 火焰喷射器1;
             consumePower(400 / 60f);
-            requirements(Category.turret, with(魂, 520, 魄, 50));
+            requirements(Category.turret, with(魂, 930, 魄, 180));
         }};
         火焰喷射器3 = new TDPowerTurret("火焰喷射器3", 360, 13) {{
             shootY = 10;
@@ -450,63 +451,259 @@ public class CreatorTowerDefenseTurrets {
             }};
             升级前置 = 火焰喷射器2;
             consumePower(2000 / 60f);
-            requirements(Category.turret, with(魂, 2300, 魄, 220, 星辰, 8));
+            requirements(Category.turret, with(魂, 3200, 魄, 700, 星辰, 8));
         }};
-        new CreatorTowerDefenseType.TDItemTurret("资源炮") {{
-            itemStacks = ItemStack.with(魂, 6, 魄, 2);
-            consumePower(2000 / 60f);
-            requirements(Category.turret, with(魂, 0, 魄, 0, 星辰, 0));
-            shootType = new BasicBulletType(4f, 2) {{
-                width = 7f;
-                height = 9f;
-                lifetime = 30f;
-                ammoMultiplier = 1;//装弹倍率
-                homingPower = 1;
-                trailLength = 8;
-                trailWidth = 2;
-                trailColor = C("baee33");
-            }};
-        }};
+
         钉钉塔= new CTMineCell("钉钉塔") {
             {size=4;
-                consumePower(500 / 60f);
-                requirements(Category.turret, with(魂, 900, 魄, 400));
+                consumePower(400 / 60f);
+                requirements(Category.turret, with(魂, 300, 魄, 20));
                 mines = 1;
                 floors = TD地板;
                 mineConsumes = with(魂, 2);
-                mine = new 钉钉子弹(mines,5);
+                mine = new 钉钉子弹(mines,10);
             }
         };
         钉刺塔= new CTMineCell("钉刺塔") {
             {size=4;
-                consumePower(2000 / 60f);
-                requirements(Category.turret, with(魂, 1500, 魄, 2200));
+                consumePower(900 / 60f);
+                requirements(Category.turret, with(魂, 900, 魄, 400));
                 mines = 2;
                 floors = TD地板;
-                mineConsumes = with(魂, 4);
+                mineConsumes = with(魂, 2);
                 mine = new 钉钉子弹(mines,30);
             }
         };
         地刺塔= new CTMineCell("地刺塔") {
             {size=5;
-                consumePower(6000 / 60f);
-                requirements(Category.turret, with(魂, 2800, 魄, 5000, 星辰, 50));
-                mines = 2;
+                consumePower(3200 / 60f);
+                requirements(Category.turret, with(魂, 2800, 魄, 1200));
+                mines = 4;
                 floors = TD地板;
-                mineConsumes = with(魄, 3);
-                mine = new 钉钉子弹(mines,15);
+                mineConsumes = with(魄, 12);
+                mine = new 钉钉子弹(mines,60);
             }
         };
         地刺雷= new CTMineCell("地刺雷") {
             {size=5;
                 consumePower(14000 / 60f);
-                requirements(Category.turret, with(魂, 7000, 魄, 15000, 星辰, 100));
-                mines = 1;
-                floors = TD地板;    mineConsumes = with(魄, 5);
-                mine = new 钉雷子弹(mines,10,30,3);
+                requirements(Category.turret, with(魂, 9000, 魄, 3000, 星辰, 20));
+                mines = 3;
+                floors = TD地板;    mineConsumes = with(魄, 30);
+                mine = new 钉雷子弹(mines,100,320,3);
             }
         };
 
+        熔毁1 = new TDLaserTurret("熔毁1", 230f,23){{
+            requirements(Category.turret, with(魂, 300, 魄, 50));
+            shootEffect = Fx.shootBigSmoke2;
+            shootCone = 40f;
+            recoil = 4f;
+            shake = 2f;
+            firingMoveFract = 0.5f;
+            shootDuration = 230f;
+            shootSound = Sounds.laserbig;
+            loopSound = Sounds.beam;
+            loopSoundVolume = 0.5f;
+            shootType = new ContinuousLaserBulletType(15/12f){{
+                length = 23*8;
+                hitEffect = Fx.hitMeltdown;
+                hitColor = Pal.meltdownHit;
+                status = StatusEffects.melting;
+                drawSize = 180f;
+               // timescaleDamage = true;
+
+                incendChance = 0.4f;
+                incendSpread = 5f;
+                incendAmount = 1;
+                ammoMultiplier = 1f;
+            }};
+
+            consumePower(350/60f);
+        }};
+        熔毁2 = new TDLaserTurret("熔毁2",230f,25){{
+            requirements(Category.turret, with(魂, 720, 魄, 100));
+            shootEffect = Fx.shootBigSmoke2;
+            shootCone = 40f;
+            recoil = 4f;
+            shake = 2f;
+            firingMoveFract = 0.5f;
+            shootDuration = 230f;
+            shootSound = Sounds.laserbig;
+            loopSound = Sounds.beam;
+            loopSoundVolume = 0.5f;
+            升级前置 = 熔毁1;
+            shootType = new ContinuousLaserBulletType(30/12f){{
+                length = 28*8;
+                hitEffect = Fx.hitMeltdown;
+                hitColor = Pal.meltdownHit;
+                status = StatusEffects.melting;
+                drawSize = 420f/2;
+                // timescaleDamage = true;
+
+                incendChance = 0.4f;
+                incendSpread = 5f;
+                incendAmount = 1;
+                ammoMultiplier = 1f;
+            }};
+            // coolant = consumeCoolant(0.5f);
+            consumePower(620/60f);
+        }};
+        熔毁3 = new TDLaserTurret("熔毁3",190f,30){{
+            requirements(Category.turret, with(魂, 2000, 魄, 380));
+            shootEffect = Fx.shootBigSmoke2;
+            shootCone = 40f;
+            recoil = 4f;
+            shake = 2f;
+            firingMoveFract = 0.5f;
+            shootDuration =190f;
+            shootSound = Sounds.laserbig;
+            loopSound = Sounds.beam;
+            loopSoundVolume = 0.5f;
+            升级前置 = 熔毁2;
+            shootType = new ContinuousLaserBulletType(50/12f){{
+                length = 35*8;
+                hitEffect = Fx.hitMeltdown;
+                hitColor = Pal.meltdownHit;
+                status = StatusEffects.melting;
+                drawSize = 420f/3;
+                // timescaleDamage = true;
+                shoot.shots=2;
+                incendChance = 0.4f;
+                incendSpread = 5f;
+                incendAmount = 1;
+                ammoMultiplier = 1f;
+            }};
+            shoot = new ShootSpread(2, 10);
+            // coolant = consumeCoolant(0.5f);
+            consumePower(620/60f);
+        }};
+                厄运1=new TDItemTurret("厄运1") {{
+            consumePower(400 / 60f);
+                    unitSort = UnitSorts.farthest;
+                    itemStacks = ItemStack.with(魂, 1);
+            requirements(Category.turret, with(魂, 300, 魄, 100));
+            size=4;
+                    shootSound = Sounds.railgun;
+                    reload = 200;
+                    range = 50 * 8;
+            shootType =new PointBulletType(){{
+                shootEffect = Fx.instShoot;
+                hitEffect = Fx.instHit;
+                smokeEffect = Fx.smokeCloud;
+                trailEffect = Fx.instTrail;
+                despawnEffect = Fx.instBomb;
+                trailSpacing = 20f;
+                damage = 120;
+                buildingDamageMultiplier = 0.2f;
+                speed = 50*8;
+                hitShake = 6f;
+                ammoMultiplier = 1f;
+            }};
+        }};
+        厄运2=new TDItemTurret("厄运2") {{
+            itemStacks = ItemStack.with(魂, 5);
+            consumePower(800 / 60f);
+            unitSort = UnitSorts.farthest;
+            requirements(Category.turret, with(魂, 700, 魄, 400));
+            升级前置 = 厄运1;
+            size=4;
+            reload = 180;
+            range = 60 * 8;
+            shootSound = Sounds.railgun;
+            shootType = new PointBulletType(){{
+                shootEffect = Fx.instShoot;
+                hitEffect = Fx.instHit;
+                smokeEffect = Fx.smokeCloud;
+                trailEffect = Fx.instTrail;
+                despawnEffect = Fx.instBomb;
+                trailSpacing = 20f;
+                damage = 300;
+                buildingDamageMultiplier = 0.2f;
+                speed = 60*8;
+                hitShake = 6f;
+                ammoMultiplier = 1f;
+            }};
+        }};
+        厄梦2=new TDItemTurret("厄梦2") {{
+            itemStacks = ItemStack.with(魂, 5);
+            consumePower(800 / 60f);
+            requirements(Category.turret, with(魂, 700, 魄, 400));
+            升级前置 = 厄运1;
+            unitSort = UnitSorts.strongest;
+            size=4;
+            reload = 180;
+            range = 60 * 8;
+            shootSound = Sounds.railgun;
+            shootType = new ArtilleryBulletType(){{
+                speed = 5;
+                buildingDamageMultiplier = 0.2f;//对建筑的伤害
+                hitEffect = Fx.plasticExplosion;
+                lifetime = 40;
+                width = 30;
+                height = 30;
+                collidesTiles = false;
+                //shoot.shots=3;
+                scaleLife = true;//开启指哪打哪
+                splashDamageRadius = 4 * 8;
+                splashDamage = 90;
+                backColor = C("#9C6CD3");
+                frontColor = C("#9C6CD3");
+                knockback = 3;
+                homingPower = 0.08f;
+                homingRange = 50f;
+            }};
+        }};
+        厄运3=new TDItemTurret("厄运3") {{
+            itemStacks = ItemStack.with(魂, 10);
+            unitSort = UnitSorts.farthest;//攻击单位时的优先选择/closest/farthest/strongest/weakest
+            consumePower(1500 / 60f);
+            requirements(Category.turret, with(魂, 2000, 魄, 900,星辰,30));
+            升级前置 = 厄运2;
+            size=4;
+            reload = 140;
+            range = 75 * 8;
+            shootSound = Sounds.railgun;
+            shootType =  new RailBulletType(){{
+                shootEffect = Fx.railShoot;
+                length = 75 * 8;
+                pointEffectSpace = 60f;
+                pierceEffect = Fx.railHit;
+                pointEffect = Fx.railTrail;
+                hitEffect = Fx.massiveExplosion;
+                smokeEffect = Fx.shootBig2;
+                damage = 500;
+                pierceDamageFactor = 0.5f;
+            }};
+        }};
+        厄梦3=new TDItemTurret("厄梦3") {{
+            itemStacks = ItemStack.with(魂, 10);
+            unitSort = UnitSorts.strongest;
+            consumePower(1500 / 60f);
+            requirements(Category.turret, with(魂, 2000, 魄, 900,星辰,30));
+            升级前置 = 厄梦2;
+            size=4;
+            reload = 140;
+            range = 75 * 8;
+            shootSound = Sounds.railgun;
+            shootType =  new ArtilleryBulletType(){{
+                speed = 5;
+                buildingDamageMultiplier = 0.2f;//对建筑的伤害
+                hitEffect = Fx.plasticExplosion;
+                lifetime = 40;
+                width = 35;
+                height = 35;
+                scaleLife = true;//开启指哪打哪
+                collidesTiles = false;
+                splashDamageRadius = 5 * 8;
+                splashDamage = 300;
+                backColor = C("#9C6CD3");
+                frontColor = C("#9C6CD3");
+                knockback = 3;
+                homingPower = 0.08f;
+                homingRange = 50f;
+            }};
+        }};
     }
 }
 

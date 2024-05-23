@@ -68,6 +68,10 @@ public class CreatorTowerDefenseUnits {
             Vars.tree.loadSound("m9");
         }};
         TDUnitType 硅 = new TDUnitType("dt硅", 3, 30, 2.5f);
+        TDUnitType 星灵花 = new TDUnitType("dt星灵花", 2, 40, 0.5f) {{
+           // abilities.add(new SpawnDeathAbility(煤炭, 1, 8));
+            Vars.tree.loadSound("m11");
+        }};
         TDUnitType 石墨烯 = new TDUnitType("dt石墨烯", 3, 100, 0.75f) {{
             abilities.add(new SpawnDeathAbility(石墨, 2, 8));
         }};
