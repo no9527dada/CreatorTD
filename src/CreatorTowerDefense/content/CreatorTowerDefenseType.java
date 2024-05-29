@@ -3,12 +3,9 @@ package CreatorTowerDefense.content;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Fill;
-import arc.graphics.g2d.Lines;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Interp;
 import arc.math.Mathf;
-import arc.math.Rand;
 import arc.struct.ObjectMap;
 import arc.util.Nullable;
 import arc.util.Tmp;
@@ -17,12 +14,10 @@ import ct.Asystem.type.OnlyAttackCoreAI;
 import ct.Asystem.type.VXV.EntityDraw;
 import ct.Asystem.type.factory.CoreGenericCrafter;
 import ct.Asystem.type.factory.CreatorsUnitFactory;
-import ct.content.Effect.NewEffect;
 import ct.content.NewColor;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.content.UnitTypes;
-import mindustry.entities.Effect;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.BulletType;
 import mindustry.entities.effect.WaveEffect;
@@ -30,12 +25,9 @@ import mindustry.game.Team;
 import mindustry.gen.Building;
 import mindustry.gen.Bullet;
 import mindustry.gen.Sounds;
-import mindustry.graphics.Drawf;
-import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.type.ammo.ItemAmmoType;
-import mindustry.ui.Bar;
 import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.blocks.defense.Wall;
@@ -44,18 +36,12 @@ import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.defense.turrets.TractorBeamTurret;
 import mindustry.world.blocks.defense.turrets.Turret;
 import mindustry.world.blocks.environment.Floor;
-import mindustry.world.blocks.units.UnitBlock;
 import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.BuildVisibility;
 import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatValues;
 
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.魂;
-import static arc.graphics.g2d.Draw.alpha;
-import static arc.graphics.g2d.Draw.color;
-import static arc.graphics.g2d.Lines.lineAngle;
-import static arc.graphics.g2d.Lines.stroke;
-import static arc.math.Angles.randLenVectors;
 import static ct.Asystem.WorldDifficulty.cheat;
 import static ct.content.ItemX.物品;
 import static mindustry.type.ItemStack.with;
@@ -69,6 +55,9 @@ public class CreatorTowerDefenseType {
             hasShadow = false;
             variants = 0;
             placeableOn = false;
+            emitLight = true;
+            lightRadius = 8f;
+            lightColor = Color.white.cpy().a(0.5f);
 
 
         }
@@ -566,4 +555,7 @@ public class CreatorTowerDefenseType {
             }});
         }
     }
+
+    //塔防敌人的统一单位类 带加速的  需要免疫加速护盾仪
+
 }

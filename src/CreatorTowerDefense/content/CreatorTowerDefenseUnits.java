@@ -2,7 +2,6 @@ package CreatorTowerDefense.content;
 
 import arc.Core;
 import arc.graphics.Color;
-import ct.Asystem.Evn2;
 import ct.Asystem.type.CTUnitSpawnAbility;
 import ct.Asystem.type.OnlyAttackCoreAI;
 import ct.Asystem.type.UnitDeathReward;
@@ -11,13 +10,14 @@ import mindustry.ai.UnitCommand;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
 import mindustry.content.UnitTypes;
-import mindustry.entities.abilities.*;
+import mindustry.entities.abilities.ForceFieldAbility;
+import mindustry.entities.abilities.RepairFieldAbility;
+import mindustry.entities.abilities.SpawnDeathAbility;
+import mindustry.entities.abilities.StatusFieldAbility;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.ContinuousLaserBulletType;
 import mindustry.entities.bullet.MissileBulletType;
-import mindustry.game.Team;
 import mindustry.gen.Sounds;
-import mindustry.gen.Unit;
 import mindustry.graphics.Pal;
 import mindustry.type.StatusEffect;
 import mindustry.type.UnitType;
@@ -26,17 +26,16 @@ import mindustry.type.ammo.ItemAmmoType;
 
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseType.TDUnitType;
-import static ct.Asystem.type.CTlib.loadSound;
-import static mindustry.content.UnitTypes.dagger;
+import static ct.Asystem.WorldDifficulty.cheat;
 import static mindustry.type.ItemStack.with;
 
 //方块
 public class CreatorTowerDefenseUnits {
     public static UnitType 星尘单位, 星灵单位, 凝蓝单位, 蚀魂单位;
-
+    public static StatusEffect 加速状态仪Buff= new StatusEffect("加速状态仪") {{
+        speedMultiplier = 2;
+    }};;
     public static void load() {
-
-
         TDUnitType U星辰 = new TDUnitType("dt星辰", 0, 30, 3f) {{
             immunities.addAll(Vars.content.statusEffects());//免疫任何BUFF
             hittable = false;//被子弹击中
@@ -49,7 +48,7 @@ public class CreatorTowerDefenseUnits {
         }};//奖励单位，没有伤害
         TDUnitType 沙 = new TDUnitType("dt沙", 1, 10, 0.5f){{deathSound= Vars.tree.loadSound("m11");}};
         TDUnitType 铜 = new TDUnitType("dt铜", 1, 20, 0.5f){{deathSound= Vars.tree.loadSound("m2");}};
-        TDUnitType 铅 = new TDUnitType("dt铅", 1, 10, 1.5f){{deathSound= Vars.tree.loadSound("m9");}};
+        TDUnitType 铅 = new TDUnitType("dt铅", 1, 10, 1.5f){{deathSound= Vars.tree.loadSound("m9");immunities.addAll(cheat,加速状态仪Buff);}};
         TDUnitType 煤炭 = new TDUnitType("dt煤炭", 1, 30, 0.5f){{deathSound= Vars.tree.loadSound("m4");}};
         TDUnitType 石英 = new TDUnitType("dt石英", 2, 30, 0.5f) {{
             abilities.add(new SpawnDeathAbility(沙, 2, 8));
@@ -67,11 +66,11 @@ public class CreatorTowerDefenseUnits {
             abilities.add(new SpawnDeathAbility(煤炭, 2, 8));
             Vars.tree.loadSound("m9");
         }};
-        TDUnitType 硅 = new TDUnitType("dt硅", 3, 30, 2.5f);
-        TDUnitType 星灵花 = new TDUnitType("dt星灵花", 2, 40, 0.5f) {{
+        TDUnitType 硅 = new TDUnitType("dt硅", 3, 30, 2.5f){{       immunities.addAll(cheat,加速状态仪Buff);}};
+/*        TDUnitType 星灵花 = new TDUnitType("dt星灵花", 2, 40, 0.5f) {{
            // abilities.add(new SpawnDeathAbility(煤炭, 1, 8));
             Vars.tree.loadSound("m11");
-        }};
+        }};*/
         TDUnitType 石墨烯 = new TDUnitType("dt石墨烯", 3, 100, 0.75f) {{
             abilities.add(new SpawnDeathAbility(石墨, 2, 8));
         }};
@@ -104,14 +103,16 @@ public class CreatorTowerDefenseUnits {
                 localizedName= Core.bundle.format("status."+name+".name", speedMultiplier*100);
             }}, 60f * 10, 60f * 6f, 4 * 8f));
             abilities.add(new SpawnDeathAbility(硅, 1, 8));
+            immunities.addAll(cheat,加速状态仪Buff);
         }};
         TDUnitType 金 = new TDUnitType("dt金", 8, 380, 0.5f) {{
             deathSound= Vars.tree.loadSound("m7");
             abilities.add(new StatusFieldAbility(new StatusEffect("tdjiasu2") {{
                 show = false;speedMultiplier = 3.2f;//移速
                 localizedName= Core.bundle.format("status."+name+".name", speedMultiplier*100);
-            }}, 60f * 5, 90f * 60f, 1f));
+            }}, 60f * 5, 90f * 60f, 4 * 8f));
             abilities.add(new SpawnDeathAbility(钍, 1, 8));
+            immunities.addAll(cheat,加速状态仪Buff);
         }};
         TDUnitType 电池 = new TDUnitType("dt电池", 10, 600, 0.6f) {{
             abilities.add(new SpawnDeathAbility(石墨烯, 3, 8));
@@ -147,7 +148,7 @@ public class CreatorTowerDefenseUnits {
             abilities.add(
                     new CTUnitSpawnAbility(石英, 60 * 0.7f, 0, 0),
                     new CTUnitSpawnAbility(钍, 60 * 5, 0, 0),
-                    new CTUnitSpawnAbility(钛, 60 * 15, 0, 0));
+                    new CTUnitSpawnAbility(钛, 60 * 7, 0, 0));
         }};//生产单位;
         UnitDeathReward.getInstance().init()
                 .add(U星辰, with(星越星辰, 1))

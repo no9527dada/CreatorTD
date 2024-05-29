@@ -27,7 +27,9 @@ public class CreatorTowerDefenseTechTree {
                     new Objectives.SectorComplete(草原1)
             ));
             addToTree(草原2, 草原1, ItemStack.with(
-                    星越星辰, 1)
+                    星越星辰, 1), Seq.with(
+                            new Objectives.SectorComplete(草原1)
+                    )
             );
             addToTree(草原3, 草原2, ItemStack.with(
                     星越星辰, 1)
@@ -76,6 +78,9 @@ public class CreatorTowerDefenseTechTree {
                     星越星辰, 1)
             );
             addToTree(雪地18, 碧云17, ItemStack.with(
+                    星越星辰, 1)
+            );
+            addToTree(森林19, 雪地18, ItemStack.with(
                     星越星辰, 1)
             );
             //炮塔 湖泊12
@@ -165,13 +170,13 @@ public class CreatorTowerDefenseTechTree {
                     )
             );
             addToTree(繁花1, DTcore0, ItemStack.with(
-                            星辰, 1800, 星越星辰, 2), Seq.with(
+                            星辰, 2200, 星越星辰, 2), Seq.with(
                             new Objectives.SectorComplete(碧云17)
                     )
             );
-            addToTree(繁花1, DTcore0, ItemStack.with(
-                            星辰, 1800, 星越星辰, 2), Seq.with(
-                            new Objectives.SectorComplete(碧云17)
+            addToTree(厄运1, DTcore0, ItemStack.with(
+                            星辰, 2500, 星越星辰, 2), Seq.with(
+                            new Objectives.SectorComplete(森林19)
                     )
             );
 

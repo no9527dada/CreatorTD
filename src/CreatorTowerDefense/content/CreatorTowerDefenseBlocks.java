@@ -1,5 +1,8 @@
 package CreatorTowerDefense.content;
 
+import arc.Core;
+import arc.scene.event.Touchable;
+import arc.scene.ui.Label;
 import arc.struct.Seq;
 import ct.Asystem.type.TDTyep.TDMendProjector;
 import ct.Asystem.type.TDTyep.TDsuicideWall;
@@ -9,9 +12,11 @@ import ct.Asystem.type.factory.CoreLiquidGenericCrafter;
 import ct.Asystem.type.factory.CreatorsUnitFactory;
 import ct.Asystem.type.factory.DuplexCoreGenericCrafter;
 import mindustry.content.Liquids;
+import mindustry.core.UI;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
+import mindustry.ui.Styles;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.units.UnitFactory;
@@ -19,6 +24,8 @@ import mindustry.world.draw.DrawDefault;
 import mindustry.world.draw.DrawLiquidTile;
 import mindustry.world.draw.DrawMulti;
 import mindustry.world.draw.DrawRegion;
+
+import java.util.Iterator;
 
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseTerrain.*;
@@ -35,7 +42,30 @@ public class CreatorTowerDefenseBlocks {
     public static Block 星尘单位工厂, 星灵单位工厂, 凝蓝单位工厂, 蚀魂单位工厂, 测试单位工厂;
 
     public static void load() {
-        电量查看器 = new powerShowBlock("电量查看器") {{
+        电量查看器 = new powerShowBlock("电量查看器") {
+            public static void loadPowerShow() {
+                Core.scene.find("minimap/position").parent.fill((t) -> {
+                    Label label = new Label("");
+                    label.update(() -> {
+                        label.setText(() -> {
+                            StringBuilder text = new StringBuilder();
+                            Iterator var1 = powerShowBuild.iterator();
+
+                            while(var1.hasNext()) {
+                                powerShowBuild build = (powerShowBuild)var1.next();
+                                text.append("<").append(build.message.toString()).append("> ").append(Core.bundle.get("category.power") + ": ");
+                                text.append(build.power.graph.getPowerBalance() > 0.0F ? "+" : "").append(UI.formatAmount((long)(build.power.graph.getPowerBalance() * 60.0F)));
+                               text.append("\n");
+                            }
+
+                            return text;
+                        });
+                    });
+                    t.row();
+                    t.add(label).touchable(Touchable.disabled).style(Styles.outlineLabel);
+                    t.right();
+                });
+            }{
             health = 100;
             armor = 500;
            // itemCapacity = 10;
@@ -90,7 +120,7 @@ public class CreatorTowerDefenseBlocks {
             armor = 500;
             itemCapacity = 40;
             size = 4;
-            craftTime = 60;
+            craftTime = 60*20;
             //升级前置=高级魂魄凝练器;
             requirements(crafting, with(
                     魂, 6600, 魄, 1200, 星辰, 80

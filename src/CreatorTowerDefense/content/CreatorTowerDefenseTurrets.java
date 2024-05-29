@@ -329,7 +329,7 @@ public class CreatorTowerDefenseTurrets {
          };
            // 升级前置 = 蓝瑟2;
             consumePower(700 / 60f);
-            requirements(Category.turret, with(魂, 1000,魄,350));
+            requirements(Category.turret, with(魂, 750,魄,280));
         }};
         冰霜塔1 = new TDItemTurret("冰霜塔1", 14 * 8, 8 * 60,
                 new Buff.BuffStatusEffect("gelivation1", 0.7f), 1) {{

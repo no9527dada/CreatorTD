@@ -1,19 +1,28 @@
 package CreatorTowerDefense.content;
 
+import arc.struct.Seq;
 import ct.Asystem.type.BlockDestroyReward;
 
+import ct.Asystem.type.StatusEffectProjector;
 import ct.Asystem.type.VXV.UnitPortal;
 import ct.Asystem.type.waveRule;
+import ct.content.ItemX;
+import mindustry.content.StatusEffects;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
+import mindustry.type.StatusEffect;
 import mindustry.world.blocks.defense.Wall;
+import mindustry.world.consumers.ConsumeItems;
 import mindustry.world.meta.BuildVisibility;
 import mindustry.world.meta.Env;
 import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatUnit;
 
+import static CreatorTowerDefense.content.CreatorTowerDefenseUnits.加速状态仪Buff;
 import static ct.content.ItemX.物品;
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.*;
+import static mindustry.content.StatusEffects.boss;
+import static mindustry.ctype.ContentType.status;
 import static mindustry.type.Category.effect;
 import static mindustry.type.ItemStack.with;
 import static ct.Asystem.type.TDTyep.TDBuffChange.*;
@@ -101,7 +110,33 @@ public class CreatorTowerDefenseSandbox {
 
 
 
-
+       new StatusEffectProjector("加速状态仪"){{
+           targetable = false;//被单位攻击
+           hasShadow=false;//方块阴影
+         range=500*8;
+           outputsPower = true;
+           solid = false;//固体
+           requirements(Category.effect, BuildVisibility.sandboxOnly, ItemStack.with(ItemX.物品, 1));
+           plans = Seq.with(
+                   new StatusEffectPlan(
+                           加速状态仪Buff,
+                   new ConsumeItems(with()),60)
+           );
+           buildType = Build::new;
+       }
+           public void setStats() {
+               super.setStats();
+               this.stats.add(Stat.basePowerGeneration, 1, StatUnit.powerSecond);
+           }
+           class Build extends StatusEffectProjector.StatusEffectProjectorBuild {
+               @Override
+               public void damage(float damage) {
+               }
+               @Override
+               public float getPowerProduction() {
+                   return 1f / 60;
+               }
+           }};
 
 
 

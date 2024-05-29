@@ -2,16 +2,14 @@ package CreatorTowerDefense.content;
 
 import arc.Core;
 import arc.graphics.Color;
-import arc.graphics.g2d.Fill;
-import mindustry.entities.Effect;
-import mindustry.type.StatusEffect;
+import mindustry.graphics.CacheLayer;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.StaticWall;
 
 import static CreatorTowerDefense.content.CreatorTowerDefenseType.TDFloor;
-import static arc.graphics.g2d.Draw.color;
 import static ct.Asystem.type.CTColor.C;
+import static ct.content.CTFragShader.紫色冷却液效果;
 
 //地形
 public class CreatorTowerDefenseTerrain {
@@ -28,7 +26,7 @@ public class CreatorTowerDefenseTerrain {
             cacheLayer = CacheLayer.mud;//效果
             walkSound = Sounds.mud;//走路发出的声音
         }};*/
-        StatusEffect 恢复1= new StatusEffect("recover1"){{
+/*        StatusEffect 恢复1= new StatusEffect("recover1"){{
             damage=-8/60f;
             show = false;
             effect= new Effect(30, e -> {
@@ -42,7 +40,28 @@ public class CreatorTowerDefenseTerrain {
                 color(C("6fffa1"), Color.darkGray, e.rotation);
                 Fill.circle(e.x, e.y, e.fout() * 3.5f);
             });
+        }};*/
+
+
+        new Floor("DT-LiquidFloor"){{
+            drownTime = 10f;
+            variants = 0;
+            isLiquid = true;
+            emitLight = true;
+            lightRadius = 25f;
+            lightColor = Color.cyan.cpy().a(0.7f);
+            cacheLayer = CacheLayer.cryofluid;
         }};
+        new Floor("DT-LiquidFloor2"){{
+            variants = 0;
+            isLiquid = false;
+            emitLight = true;
+            lightRadius = 25f;
+            lightColor = C("cc44ff").cpy().a(0.7f);
+            //cacheLayer = new CacheLayer.ShaderLayer(紫色Floor);
+            cacheLayer = 紫色冷却液效果;
+        }};
+
         new TDFloor("TD地板0"){{
             isLiquid=true;
         localizedName = Core.bundle.getOrNull("block.Floor");

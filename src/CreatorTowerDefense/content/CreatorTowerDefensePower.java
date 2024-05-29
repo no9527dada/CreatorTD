@@ -98,7 +98,7 @@ public class CreatorTowerDefensePower {
             armor=500;
             requirements(Category.power, with(魂, 750, 魄, 180));
             canOverdrive = false;
-            powerProduction = 720/60f;
+            powerProduction = 900/60f;
             itemDuration = 60*2f;
             consumeItem(魂,1);
             hasLiquids = false;
@@ -112,7 +112,7 @@ public class CreatorTowerDefensePower {
             health = 100;
             armor=500;
             requirements(Category.power, with(魂, 580, 魄, 340));
-            powerProduction = 1650/60f;
+            powerProduction = 3200/60f;
             itemDuration = 220f;
             size = 4;
             takeItemDelay = 50f;
@@ -129,7 +129,7 @@ public class CreatorTowerDefensePower {
             health = 100;
             armor=500;
             requirements(Category.power, with(魂, 2300, 魄, 1500,星辰,50));
-            powerProduction = 13000/60f;
+            powerProduction = 25000/60f;
             size = 5;
             itemDuration = 140f;
             ambientSound = Sounds.pulse;

@@ -71,5 +71,6 @@ public class Buff {
                 damageMultiplier = 3f;//伤害倍率
                 localizedName = Core.bundle.format("status." + name + ".name", speedMultiplier * 100);
             }};
+
     }
 }
