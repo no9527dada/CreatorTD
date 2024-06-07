@@ -38,7 +38,7 @@ import static mindustry.type.ItemStack.with;
 //方块
 public class CreatorTowerDefenseBlocks {
     public static Block 初级魂魄凝练器, 初级魂魄转换器, 高级魂魄凝练器, 高级魂魄转换器;
-    public static Block 魔力石墙, 修复器, 无限, 电量查看器, 制冷机;
+    public static Block 魔力石墙,  无限, 电量查看器, 制冷机;
     public static Block 星尘单位工厂, 星灵单位工厂, 凝蓝单位工厂, 蚀魂单位工厂, 测试单位工厂;
 
     public static void load() {
@@ -240,10 +240,7 @@ public class CreatorTowerDefenseBlocks {
             requirements(Category.defense, with(魂, 30));
             floor = (Floor) TD地板a;
         }};
-        修复器 = new TDMendProjector("修复器a") {{
-            requirements(effect, with(魂, 600));
-            floor = (Floor) TD地板b;
-        }};
+
         无限 = new CreatorTowerDefenseType.infiniteWall("TD无限") {{
             floor = (Floor) TD地板d;
             requirements(effect, with(星越星辰, 1));

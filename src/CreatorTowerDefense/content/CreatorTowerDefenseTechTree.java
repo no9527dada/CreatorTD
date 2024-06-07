@@ -83,6 +83,9 @@ public class CreatorTowerDefenseTechTree {
             addToTree(森林19, 雪地18, ItemStack.with(
                     星越星辰, 1)
             );
+            addToTree(菌湖20, 森林19, ItemStack.with(
+                    星越星辰, 1)
+            );
             //炮塔 湖泊12
 
             addToTree(双管1, DTcore0, ItemStack.with(
@@ -162,6 +165,11 @@ public class CreatorTowerDefenseTechTree {
             addToTree(冰霜塔2, 冰霜塔1, ItemStack.with(
                             星辰, 4800, 星越星辰, 3), Seq.with(
                             new Objectives.SectorComplete(碧云10)
+                    )
+            );
+            addToTree(冰霜塔3, 冰霜塔2, ItemStack.with(
+                            星辰, 5300, 星越星辰, 5), Seq.with(
+                            new Objectives.SectorComplete(菌湖20)
                     )
             );
             addToTree(火焰喷射器1, DTcore0, ItemStack.with(

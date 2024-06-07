@@ -1,19 +1,16 @@
 package CreatorTowerDefense.content;
 
-import arc.Core;
 import arc.graphics.Color;
 import ct.Asystem.type.CTUnitSpawnAbility;
 import ct.Asystem.type.OnlyAttackCoreAI;
+import ct.Asystem.type.Ovulam5480.TDRoundBUFFAbility;
 import ct.Asystem.type.UnitDeathReward;
 import mindustry.Vars;
 import mindustry.ai.UnitCommand;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
 import mindustry.content.UnitTypes;
-import mindustry.entities.abilities.ForceFieldAbility;
-import mindustry.entities.abilities.RepairFieldAbility;
-import mindustry.entities.abilities.SpawnDeathAbility;
-import mindustry.entities.abilities.StatusFieldAbility;
+import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.ContinuousLaserBulletType;
 import mindustry.entities.bullet.MissileBulletType;
@@ -24,9 +21,13 @@ import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.ammo.ItemAmmoType;
 
+import static CreatorTowerDefense.content.CreatorTowerDefenseBuff.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.*;
 import static CreatorTowerDefense.content.CreatorTowerDefenseType.TDUnitType;
 import static ct.Asystem.WorldDifficulty.cheat;
+import static ct.Asystem.type.CTColor.C;
+import static mindustry.content.StatusEffects.burning;
+import static mindustry.content.StatusEffects.freezing;
 import static mindustry.type.ItemStack.with;
 
 //方块
@@ -66,11 +67,8 @@ public class CreatorTowerDefenseUnits {
             abilities.add(new SpawnDeathAbility(煤炭, 2, 8));
             Vars.tree.loadSound("m9");
         }};
-        TDUnitType 硅 = new TDUnitType("dt硅", 3, 30, 2.5f){{       immunities.addAll(cheat,加速状态仪Buff);}};
-/*        TDUnitType 星灵花 = new TDUnitType("dt星灵花", 2, 40, 0.5f) {{
-           // abilities.add(new SpawnDeathAbility(煤炭, 1, 8));
-            Vars.tree.loadSound("m11");
-        }};*/
+        TDUnitType 硅 = new TDUnitType("dt硅", 3, 30, 2.5f){{
+            immunities.addAll(cheat,加速状态仪Buff);}};
         TDUnitType 石墨烯 = new TDUnitType("dt石墨烯", 3, 100, 0.75f) {{
             abilities.add(new SpawnDeathAbility(石墨, 2, 8));
         }};
@@ -81,6 +79,7 @@ public class CreatorTowerDefenseUnits {
             abilities.add(new RepairFieldAbility(80f, 60f * 2, 4 * 8f));
             deathSound= Vars.tree.loadSound("m8");
         }};//加血
+
         TDUnitType 钛 = new TDUnitType("dt钛", 4, 220, 0.5f) {{
             abilities.add(new ForceFieldAbility(3 * 8f, 30/60f, 150f, 60f * 3, 8, 0f));
             deathSound= Vars.tree.loadSound("m10");
@@ -89,28 +88,36 @@ public class CreatorTowerDefenseUnits {
             abilities.add(new CTUnitSpawnAbility(石墨烯, 60 * 8, 0, 0));
             deathSound= Vars.tree.loadSound("m11");
         }};//生产单位
+        TDUnitType 冷却液 = new TDUnitType("dt冷却液", 4, 90, 0.5f) {{// 免疫潮湿 冷冻 免疫燃烧 范围队友免疫燃烧
+            // abilities.add(new SpawnDeathAbility(钍, 2, 8));
+            deathSound= Vars.tree.loadSound("m4");
+            immunities.addAll(cheat,freezing,burning,冰霜塔减速1);//免疫难度修改的BUFF
+            abilities.add(new TDRoundBUFFAbility(冷却液免疫,2,1,4*8,C("62f8ed")));
+        }};
+        TDUnitType 液氮 = new TDUnitType("dt液氮", 4, 240, 0.5f) {{// 免疫潮湿 冷冻 免疫燃烧 范围队友免疫冰冻
+           // abilities.add(new SpawnDeathAbility(钍, 2, 8));
+            deathSound= Vars.tree.loadSound("m6");
+            immunities.addAll(cheat,burning,freezing,冰霜塔减速1,冰霜塔减速2,冰霜塔减速3);//免疫难度修改的BUFF
+            abilities.add(new TDRoundBUFFAbility(液氮免疫,2,1,7*8,Color.white));
+        }};
         TDUnitType 塑钢 = new TDUnitType("dt塑钢", 5, 320, 0.5f) {{
             deathSound= Vars.tree.loadSound("m1");
-            abilities.add(new StatusFieldAbility(new StatusEffect("tdjiaxue") {{
-                show = false;healthMultiplier = 2f;//血量倍率
-                localizedName= Core.bundle.format("status."+name+".name", healthMultiplier*100);
-            }}, 60f * 3, 60f * 6f, 4 * 8f));
+            abilities.add(new StatusFieldAbility(塑钢加血, 60f * 3, 60f * 6f, 4 * 8f));
         }};
         TDUnitType 相织布 = new TDUnitType("dt相织布", 6, 260, 0.5f) {{
             deathSound= Vars.tree.loadSound("m9");
-            abilities.add(new StatusFieldAbility(new StatusEffect("tdjiasu") {{
-                show = false;speedMultiplier = 1.8f;//移速
-                localizedName= Core.bundle.format("status."+name+".name", speedMultiplier*100);
-            }}, 60f * 10, 60f * 6f, 4 * 8f));
+            abilities.add(new StatusFieldAbility(相织布移速, 60f * 10, 60f * 6f, 4 * 8f));
             abilities.add(new SpawnDeathAbility(硅, 1, 8));
             immunities.addAll(cheat,加速状态仪Buff);
         }};
+        TDUnitType 紫晶 = new TDUnitType("dt紫晶", 5, 150, 0.5f) {{//给队友加盾量
+            abilities.add(new SpawnDeathAbility(硅晶体, 1, 8));
+            abilities.add(new ShieldRegenFieldAbility(80f, 5000f, 60f * 2, 4*8f));//加盾每次加80  最大加5000
+            Vars.tree.loadSound("m7");
+        }};
         TDUnitType 金 = new TDUnitType("dt金", 8, 380, 0.5f) {{
             deathSound= Vars.tree.loadSound("m7");
-            abilities.add(new StatusFieldAbility(new StatusEffect("tdjiasu2") {{
-                show = false;speedMultiplier = 3.2f;//移速
-                localizedName= Core.bundle.format("status."+name+".name", speedMultiplier*100);
-            }}, 60f * 5, 90f * 60f, 4 * 8f));
+            abilities.add(new StatusFieldAbility(金加速, 60f * 5, 90f * 60f, 4 * 8f));
             abilities.add(new SpawnDeathAbility(钍, 1, 8));
             immunities.addAll(cheat,加速状态仪Buff);
         }};
@@ -209,6 +216,7 @@ public class CreatorTowerDefenseUnits {
             hittable = false;//被子弹击中
             targetable = false;//被敌人瞄准
             killable = true;//被杀死,这里需要打开，保证在刷怪圈内会被死亡
+           // playerControllable = false;
             speed = 2.7f;
             accel = 0.08f;
             drag = 0.04f;
@@ -246,6 +254,7 @@ public class CreatorTowerDefenseUnits {
             hittable = false;//被子弹击中
             targetable = false;//被敌人瞄准
             killable = true;//被杀死,这里需要打开，保证在刷怪圈内会被死亡
+           // playerControllable = false;
             speed = 2.7f;
             accel = 0.08f;
             armor = 500;
@@ -291,6 +300,7 @@ public class CreatorTowerDefenseUnits {
             hittable = false;//被子弹击中
             targetable = false;//被敌人瞄准
             killable = true;//被杀死,这里需要打开，保证在刷怪圈内会被死亡
+            playerControllable = false;
             speed = 2.7f;
             accel = 0.08f;
             drag = 0.04f;

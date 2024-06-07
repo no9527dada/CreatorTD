@@ -228,7 +228,6 @@ public class CreatorTowerDefenseType {
             shootCone = 90;//射击锁定角度
             buildCostMultiplier = 2.5f;//建造时间倍
         }
-
         public Block 升级前置 = null;
 
         public boolean canReplace(Block other) {

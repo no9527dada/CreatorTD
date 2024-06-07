@@ -12,9 +12,10 @@ public class CreatorTowerDefense extends Mod {
        }*/
 
     public void loadContent() {
-        if(/*Vars.mods.getMod("ct")!=null||*/Vars.mods.locateMod("ct") !=null) {
+        if(Vars.mods.locateMod("ct") !=null) {
             CreatorTowerDefenseTerrain.load();//地形
             CreatorTowerDefenseItems.load();//资源
+            CreatorTowerDefenseBuff.load();
             CreatorTowerDefenseCore.load();//核心
             CreatorTowerDefenseUnits.load();//单位A
             // CreatorTowerDefenseUnits2.load();//单位B
@@ -26,6 +27,8 @@ public class CreatorTowerDefense extends Mod {
             CreatorTowerDefensePlanet.load();//星球
             CreatorTowerDefenseMaps.load();//地图
             CreatorTowerDefenseTechTree.load();//科技树
+
+            //CreatorTowerDefenseTow.load();
             CTTDModJS.DawnMods();//JS加载器
         }
     }

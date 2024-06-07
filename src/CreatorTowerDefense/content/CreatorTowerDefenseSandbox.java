@@ -142,11 +142,11 @@ public class CreatorTowerDefenseSandbox {
 
         Wall 铜墙 = new CreatorTowerDefenseType.TDWall("dt铜墙", 1000);
         Wall 铅墙 = new CreatorTowerDefenseType.TDWall("dt铅墙", 1000);
-        Wall 钛墙 = new CreatorTowerDefenseType.TDWall("dt钛墙", 2400){{armor=2;}};
-        Wall 钍墙 = new CreatorTowerDefenseType.TDWall("dt钍墙", 4000){{armor=5;}};
-        Wall 塑钢墙 = new CreatorTowerDefenseType.TDWall("dt塑钢墙", 6000){{armor=7;}};
-        Wall 布墙 = new CreatorTowerDefenseType.TDWall("dt布墙", 6000){{armor=7;}};
-        Wall 合金墙 = new CreatorTowerDefenseType.TDWall("dt合金墙", 20000){{armor=15;}};
+        Wall 钛墙 = new CreatorTowerDefenseType.TDWall("dt钛墙", 2400){{armor=3;}};
+        Wall 钍墙 = new CreatorTowerDefenseType.TDWall("dt钍墙", 5000){{armor=5;}};
+        Wall 塑钢墙 = new CreatorTowerDefenseType.TDWall("dt塑钢墙", 8000){{armor=7;}};
+        Wall 布墙 = new CreatorTowerDefenseType.TDWall("dt布墙", 12000){{armor=10;}};
+        Wall 合金墙 = new CreatorTowerDefenseType.TDWall("dt合金墙", 50000){{armor=18;}};
 
         BlockDestroyReward.getInstance().apply()
                 .add(铜墙, with(魂, 120))

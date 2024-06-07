@@ -7,7 +7,7 @@ import static CreatorTowerDefense.content.CreatorTowerDefensePlanet.DTPlanet1;
 
 public class CreatorTowerDefenseMaps {
     public static SectorPreset TD教程,草原1,草原2,草原3,草原4,草原5,红地6,红地7,红地8,红地9,碧云10,镀银11,
-            湖泊12,雪地13,雪地14,红冰15,草原16,碧云17,雪地18,森林19,
+            湖泊12,雪地13,雪地14,红冰15,草原16,碧云17,雪地18,森林19,菌湖20,
            fhgf ;
 
     public static void load() {
@@ -127,19 +127,18 @@ public class CreatorTowerDefenseMaps {
             addStartingItems = true;
             localizedName = Core.bundle.format("maps.TD雪地18");
         }};
-          森林19= new SectorPreset("TD森林19",DTPlanet1, 12) {{
+       森林19= new SectorPreset("TD森林19",DTPlanet1, 12) {{
             captureWave = 91;//始终要比地图中设置的终结波次要+1
             difficulty = 7;
             addStartingItems = true;
             localizedName = Core.bundle.format("maps.TD森林19");
         }};
-           /*
-        哈哈= new SectorPreset("TD哈哈",DTPlanet1, 153) {{
-            captureWave = 哈哈;//始终要比地图中设置的终结波次要+1
+        菌湖20= new SectorPreset("TD菌湖20",DTPlanet1, 153) {{//81 130-boss 190-boss
+            captureWave = 81;//始终要比地图中设置的终结波次要+1
             difficulty = 7;
             addStartingItems = true;
-            localizedName = Core.bundle.format("maps.TD哈哈");
-        }};
+            localizedName = Core.bundle.format("maps.TD菌湖20");
+        }};     /*
         哈哈= new SectorPreset("TD哈哈",DTPlanet1, 161) {{
             captureWave = 哈哈;//始终要比地图中设置的终结波次要+1
             difficulty = 7;
