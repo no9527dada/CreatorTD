@@ -16,6 +16,8 @@ public class CreatorTowerDefenseInfoDialog {
     public static void show() {
 
         String QQ群2 = "https://jq.qq.com/?_wv=1027&k=oygqLbJ5";
+        String Git="https://github.com/no9527dada/creators3/releases";
+        String Steam="https://steamcommunity.com/sharedfiles/filedetails/?id=3080264168";
         hghghg = new BaseDialog("warning") {
               String toText(String str) {
                 return Core.bundle.format(str, new Object[0]);
@@ -38,6 +40,18 @@ public class CreatorTowerDefenseInfoDialog {
                 cont.pane((i -> {
                     i.add(Core.bundle.format("ct3tdZHUYI")).left().growX().wrap().width(620).maxWidth(620).pad(4).labelAlign(Align.left).row();
                     i.image().color(Color.valueOf("69dcee")).fillX().height(3).pad(3).row();
+                    i.button("GitHub", (() -> {
+                        if (!Core.app.openURI(Git)) {
+                            Vars.ui.showErrorMessage("@linkfail");
+                            Core.app.setClipboardText(Git);
+                        }
+                    })).size(250.0f, 50).padLeft(0);
+                    i.button("Steam", (() -> {
+                        if (!Core.app.openURI(Steam)) {
+                            Vars.ui.showErrorMessage("@linkfail");
+                            Core.app.setClipboardText(Steam);
+                        }
+                    })).size(250.0f, 50).padLeft(0).row();
                     i.button(Core.bundle.format("QQ群2"), (() -> {
                         if (!Core.app.openURI(QQ群2)) {
                             Vars.ui.showErrorMessage("@linkfail");
