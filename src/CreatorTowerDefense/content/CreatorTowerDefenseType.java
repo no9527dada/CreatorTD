@@ -1,49 +1,57 @@
 package CreatorTowerDefense.content;
 
+import CtCoreSystem.CoreSystem.type.EU_healthDisplay;
+import CtCoreSystem.CoreSystem.type.OnlyAttackCoreAI;
+import CtCoreSystem.CoreSystem.type.VXV.EntityDraw;
+import CtCoreSystem.CoreSystem.type.LYBF.factory.CoreGenericCrafter;
+import CtCoreSystem.CoreSystem.type.LYBF.factory.CreatorsUnitFactory;
+import CtCoreSystem.content.NewColor;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
+import arc.math.Angles;
 import arc.math.Interp;
 import arc.math.Mathf;
+import arc.struct.IntSeq;
 import arc.struct.ObjectMap;
 import arc.util.Nullable;
+import arc.util.Time;
 import arc.util.Tmp;
-import ct.Asystem.type.EU_healthDisplay;
-import ct.Asystem.type.OnlyAttackCoreAI;
-import ct.Asystem.type.VXV.EntityDraw;
-import ct.Asystem.type.factory.CoreGenericCrafter;
-import ct.Asystem.type.factory.CreatorsUnitFactory;
-import ct.content.NewColor;
 import mindustry.Vars;
+import mindustry.ai.types.GroundAI;
 import mindustry.content.Fx;
+import mindustry.content.StatusEffects;
 import mindustry.content.UnitTypes;
+import mindustry.entities.Fires;
+import mindustry.entities.Units;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.BulletType;
+import mindustry.entities.bullet.FireBulletType;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.game.Team;
-import mindustry.gen.Building;
-import mindustry.gen.Bullet;
-import mindustry.gen.Sounds;
+import mindustry.gen.*;
+import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.type.ammo.ItemAmmoType;
 import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.blocks.defense.Wall;
-import mindustry.world.blocks.defense.turrets.LaserTurret;
+import mindustry.world.blocks.defense.turrets.ContinuousTurret;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.defense.turrets.TractorBeamTurret;
 import mindustry.world.blocks.defense.turrets.Turret;
 import mindustry.world.blocks.environment.Floor;
-import mindustry.world.meta.BlockFlag;
-import mindustry.world.meta.BuildVisibility;
-import mindustry.world.meta.Stat;
-import mindustry.world.meta.StatValues;
+import mindustry.world.consumers.ConsumeLiquid;
+import mindustry.world.consumers.ConsumeLiquidBase;
+import mindustry.world.meta.*;
 
+import static CreatorTowerDefense.content.CreatorTowerDefenseItems.TD蔚蓝星辰;
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.魂;
-import static ct.Asystem.WorldDifficulty.cheat;
-import static ct.content.ItemX.物品;
+import static CtCoreSystem.content.ItemX.物品;
+import static CtCoreSystem.ui.NanDu.WorldDifficulty.cheat;
+import static mindustry.Vars.*;
 import static mindustry.type.ItemStack.with;
 
 //
@@ -56,20 +64,20 @@ public class CreatorTowerDefenseType {
             variants = 0;
             placeableOn = false;
             emitLight = true;
-            lightRadius = 8f;
-            lightColor = Color.white.cpy().a(0.5f);
+            lightRadius = 10f;
+            lightColor = Color.white.cpy().a(1f);
 
 
         }
     }
 
     public static class TDCoreGenericCrafter extends CoreGenericCrafter {
+        public Block 升级前置 = null;
+
         public TDCoreGenericCrafter(String name) {
 
             super(name);
         }
-
-        public Block 升级前置 = null;
 
         public boolean canReplace(Block other) {
             if (other.alwaysReplace) return true;
@@ -94,6 +102,9 @@ public class CreatorTowerDefenseType {
 
 
         public class TDCoreGenericCrafterBuild extends CoreGenericCrafterBuilding {
+            public void drawLight() {
+                Drawf.light(this.x, this.y, 8, Pal.accent, 0.65F + Mathf.absin(20.0F, 0.1F));
+            }
 
             @Override
             public void craft() {
@@ -124,17 +135,17 @@ public class CreatorTowerDefenseType {
 
     //无限波次的方块
     public static class infiniteWall extends Wall {
+        /**
+         * 通用地板限制
+         */
+        public Floor floor;//需要的地板
+
         public infiniteWall(String name) {
             super(name);
             health = 100;
             solid = false;//固体
             buildType = Build::new;
         }
-
-        /**
-         * 通用地板限制
-         */
-        public Floor floor;//需要的地板
 
         @Override
         public boolean canPlaceOn(Tile tile, Team team, int rotation) {
@@ -155,12 +166,15 @@ public class CreatorTowerDefenseType {
 
     //塔防的统一炮塔
     public static class TDPowerTurret extends PowerTurret {
+        public Block 升级前置 = null;
+
         public TDPowerTurret(String name, float 射速, float 范围) {
             super(name);
             targetable = false;//被单位攻击？
             health = 100;
             inaccuracy = 0f;
             rotateSpeed = 3f;
+
             armor = 500;
             // buildType = Build::new;
             coolantMultiplier = 0f; //液体冷却倍率
@@ -171,9 +185,9 @@ public class CreatorTowerDefenseType {
             size = 2;
             shootCone = 90;//射击锁定角度
             buildCostMultiplier = 3;//建造时间倍
-        }
+             buildType = Build::new;
 
-        public Block 升级前置 = null;
+        }
 
         public boolean canReplace(Block other) {
             if (other.alwaysReplace) return true;
@@ -188,7 +202,11 @@ public class CreatorTowerDefenseType {
             tile.getLinkedTilesAs(this, tempTiles);
             return tempTiles.contains(o -> o.block() == 升级前置);
         }
-
+        class Build extends PowerTurret.PowerTurretBuild {
+            public void drawLight() {
+                Drawf.light(this.x, this.y, size*8, Pal.accent, 0.65F + Mathf.absin(20.0F, 0.1F));
+            }
+        }
         @Override
         public void drawPlace(int x, int y, int rotation, boolean valid) {
          /*   if ( (player.team().core() != null && player.team().core().items.has(requirements, Vars.state.rules.buildCostMultiplier)) || Vars.state.rules.infiniteResources ) {
@@ -199,17 +217,15 @@ public class CreatorTowerDefenseType {
 
             super.drawPlace(x, y, rotation, valid);
 
-/*        //免伤
-    class Build extends PowerTurret.PowerTurretBuild {
-            @Override
-            public void damage(float damage) {
-            }
-        }*/
+
+
         }
     }
 
     //融汇类炮塔
-    public static class TDLaserTurret extends LaserTurret {
+    public static class TDLaserTurret extends ContinuousTurret {
+        public Block 升级前置 = null;
+
         public TDLaserTurret(String name, float 射速, float 范围) {
             super(name);
             targetable = false;//被单位攻击？
@@ -220,15 +236,16 @@ public class CreatorTowerDefenseType {
             // buildType = Build::new;
             coolantMultiplier = 0f; //液体冷却倍率
             liquidCapacity = 0; //液体容量
-            coolant =null;
+            coolant = null;
             hasLiquids = false;
             reload = 射速;
             range = 范围 * 8;
+            recoil = 1.3f;//武器后座
             size = 3;
             shootCone = 90;//射击锁定角度
             buildCostMultiplier = 2.5f;//建造时间倍
+            buildType = Build::new;
         }
-        public Block 升级前置 = null;
 
         public boolean canReplace(Block other) {
             if (other.alwaysReplace) return true;
@@ -253,29 +270,61 @@ public class CreatorTowerDefenseType {
                 drawPlaceText(Core.bundle.format("cttd.UpgradeFront") + 升级前置.localizedName, x, y, false);
 
             super.drawPlace(x, y, rotation, valid);
-
-/*        //免伤
-    class Build extends PowerTurret.PowerTurretBuild {
-            @Override
-            public void damage(float damage) {
+        }
+        class Build extends ContinuousTurret.ContinuousTurretBuild {
+            public void drawLight() {
+                Drawf.light(this.x, this.y, size*8, Pal.accent, 0.65F + Mathf.absin(20.0F, 0.1F));
             }
-        }*/
+            @Override
+            public void updateTile(){
+                super.updateTile();
+                //TODO unclean way of calculating ammo fraction to display
+                float ammoFract = efficiency;
+                if(findConsumer(f -> f instanceof ConsumeLiquidBase) instanceof ConsumeLiquid cons){
+                    ammoFract = Math.min(ammoFract, liquids.get(cons.liquid) / liquidCapacity);
+                }
+                unit.ammo(unit.type().ammoCapacity * ammoFract);
+                bullets.removeAll(b -> !b.bullet.isAdded() || b.bullet.type == null || b.bullet.owner != this);
+                //不被火焰灼伤
+                if(bullets.any()){
+                    for(var entry : bullets){
+                        updateBullet(entry);
+                    }
+
+                    wasShooting = true;
+                    heat = 1f;
+                    curRecoil = recoil;
+                }
+                tile.getLinkedTiles(t -> {
+                    if(t == null || !Fires.has(t.x, t.y))return;
+
+                    Fire fire = Fires.get(t.x, t.y);
+                    fire.remove();
+                });
+                float radiusT = size / 2f * tilesize;
+                Groups.bullet.intersect(x - radiusT, y - radiusT, radiusT * 2, radiusT * 2).each(fire ->
+                        fire.type instanceof FireBulletType, Bullet::remove);
+            }
         }
     }
+
     //扣核心资源的炮塔
     public static class TDItemTurret extends Turret {
-        public TDItemTurret(String name, float 范围, float 时间, StatusEffect 状态,float 装弹倍率) {
+        public ItemStack[] itemStacks;
+        public BulletType shootType;
+        public Block 升级前置 = null;
+
+        public TDItemTurret(String name, float 范围, float 时间, StatusEffect 状态, float 装弹倍率) {
             super(name);
             size = 3;
             armor = 500;
             health = 100;
             destroyEffect = Fx.reactorExplosion;
             range = 范围;
-            shootEffect=Fx.none;
+            shootEffect = Fx.none;
             shootWarmupSpeed = 0.01F;
             minWarmup = 1f;
             linearWarmup = true;
-
             rotateSpeed = 0;//武器旋转速度
             shootCone = 360;//射击瞄准角度
             //createRubble = true;//被破坏后的黑色残留
@@ -288,8 +337,8 @@ public class CreatorTowerDefenseType {
                 splashDamage = 0;
                 status = 状态;
                 statusDuration = 时间;
-                maxAmmo=1;
-                despawnEffect=hitEffect=new WaveEffect() {{//一个空心圈，适用子弹击中效果
+                maxAmmo = 1;
+                despawnEffect = hitEffect = new WaveEffect() {{//一个空心圈，适用子弹击中效果
                     sizeFrom = 0f;
                     sizeTo = 范围;
                     //持续时间
@@ -301,24 +350,24 @@ public class CreatorTowerDefenseType {
                 }};
             }};
         }
-
-        public ItemStack[] itemStacks;
-        public BulletType shootType;
+   
         public TDItemTurret(String name) {
             super(name);
         }
+
         @Override
-        public void setStats(){
+        public void setStats() {
             super.setStats();
             stats.add(Stat.ammo, StatValues.items(false, itemStacks));//显示子弹种类
             stats.add(Stat.ammo, StatValues.ammo(ObjectMap.of(this, shootType)));//显示伤害数字
 
         }
-        public Block 升级前置 = null;
+
         public boolean canReplace(Block other) {
             if (other.alwaysReplace) return true;
             return 升级前置 == null ? super.canReplace(other) : 升级前置 == other;
         }
+
         @Override
         public boolean canPlaceOn(Tile tile, Team team, int rotation) {
             if (tile == null) return false;
@@ -326,35 +375,45 @@ public class CreatorTowerDefenseType {
             tile.getLinkedTilesAs(this, tempTiles);
             return tempTiles.contains(o -> o.block() == 升级前置);
         }
+
         @Override
         public void drawPlace(int x, int y, int rotation, boolean valid) {
             if (!valid && 升级前置 != null)
                 drawPlaceText(Core.bundle.format("cttd.UpgradeFront") + 升级前置.localizedName, x, y, false);
             super.drawPlace(x, y, rotation, valid);
         }
-        public class TDItemTurretBuild extends TurretBuild{
-            @Override
-            public void updateTile(){
-                unit.ammo((float)unit.type().ammoCapacity * totalAmmo / maxAmmo);
 
-                if(totalAmmo < maxAmmo){
+        public class TDItemTurretBuild extends TurretBuild {
+            public void drawLight() {
+                Drawf.light(this.x, this.y, size*8, Pal.accent, 0.65F + Mathf.absin(20.0F, 0.1F));
+            }
+            @Override
+            public void updateTile() {
+                unit.ammo((float) unit.type().ammoCapacity * totalAmmo / maxAmmo);
+
+                if (totalAmmo < maxAmmo) {
                     Building core = Vars.state.teams.get(team).core();
-                    if(core != null && core.items.has(itemStacks)){
+                    if (core != null && core.items.has(itemStacks)) {
                         core.items.remove(itemStacks);
-                        totalAmmo ++;
+                        totalAmmo++;
                     }
                 }
                 super.updateTile();
-            }            @Override
-            public BulletType useAmmo(){
-                totalAmmo --;
+            }
+
+            @Override
+            public BulletType useAmmo() {
+                totalAmmo--;
                 return shootType;
-            }            @Override
-            public boolean hasAmmo(){
+            }
+
+            @Override
+            public boolean hasAmmo() {
                 return totalAmmo > 0;
             }
+
             @Override
-            public BulletType peekAmmo(){
+            public BulletType peekAmmo() {
                 return shootType;
             }
 
@@ -363,6 +422,8 @@ public class CreatorTowerDefenseType {
 
     //塔防的激光炮 实则差扰改的
     public static class TDTractorBeamTurret extends TractorBeamTurret {
+        public Block 升级前置 = null;
+
         public TDTractorBeamTurret(String name, float 伤害, float 范围) {
             super(name);
             range = 范围 * 8f;
@@ -375,10 +436,54 @@ public class CreatorTowerDefenseType {
             scaledForce = 6f;
             rotateSpeed = 10;
             armor = 500;
+            buildType = Build::new;
         }
+        class Build extends TractorBeamTurret.TractorBeamBuild {
+              public void drawLight() {
+                Drawf.light(this.x, this.y, size*8, Pal.accent, 0.65F + Mathf.absin(20.0F, 0.1F));
+            }
 
-        public Block 升级前置 = null;
 
+            //这里是改了不对单位施加牵引力
+            @Override
+            public void updateTile(){
+                if(timer(timerTarget, retargetTime)){
+                    target = Units.closestEnemy(team, x, y, range, u -> u.checkTarget(targetAir, targetGround));
+                }
+                if(target != null && coolant != null){
+                    float maxUsed = coolant.amount;
+                    Liquid liquid = liquids.current();
+                    float used = Math.min(Math.min(liquids.get(liquid), maxUsed * Time.delta), Math.max(0, (1f / coolantMultiplier) / liquid.heatCapacity));
+                    liquids.remove(liquid, used);
+                    if(Mathf.chance(0.06 * used)){
+                        coolEffect.at(x + Mathf.range(size * tilesize / 2f), y + Mathf.range(size * tilesize / 2f));
+                    }
+                    coolantMultiplier = 1f + (used * liquid.heatCapacity * coolantMultiplier);
+                }
+                any = false;
+                if(target != null && target.within(this, range + target.hitSize/2f) && target.team() != team && target.checkTarget(targetAir, targetGround) && efficiency > 0.02f){
+                    if(!headless){
+                        control.sound.loop(shootSound, this, shootSoundVolume);
+                    }
+                    float dest = angleTo(target);
+                    rotation = Angles.moveToward(rotation, dest, rotateSpeed *  efficiency * coolantMultiplier * delta());
+                    lastX = target.x;
+                    lastY = target.y;
+                    strength = Mathf.lerpDelta(strength, 1f, 0.1f);
+                    if(Angles.within(rotation, dest, shootCone)){
+                        if(damage > 0){
+                            target.damageContinuous(damage * efficiency * coolantMultiplier * state.rules.blockDamage(team));
+                        }
+                        if(status != StatusEffects.none){
+                            target.apply(status, statusDuration);
+                        }
+                        any = true;
+                    }
+                }else{
+                    strength = Mathf.lerpDelta(strength, 0, 0.1f);
+                }
+            }
+        }
         public boolean canReplace(Block other) {
             if (other.alwaysReplace) return true;
             return 升级前置 == null ? super.canReplace(other) : 升级前置 == other;
@@ -403,13 +508,52 @@ public class CreatorTowerDefenseType {
 
             super.drawPlace(x, y, rotation, valid);
         }
+
     }
+
+    //单位工厂
     public static class TDCreatorsUnitFactory extends CreatorsUnitFactory {
+
+        public Block 升级前置 = null;
+        // 最大同时存在单位数（如果 >0 则启用限制）
+        public int maxSimultaneousUnits = 0;
         public TDCreatorsUnitFactory(String name) {
             super(name);
+            buildType = Build::new;
         }
-        public Block 升级前置 = null;
+        class Build extends CreatorsUnitFactory.CreatorsUnitFactoryBuild {
+            public void drawLight() {
+                Drawf.light(this.x, this.y, size*8, Pal.accent, 0.65F + Mathf.absin(20.0F, 0.1F));
+            }
 
+            @Override
+            public void updateTile() {
+                super.updateTile();
+
+                // 如果设置了最大单位数限制，检查并移除最早的本单位工厂生产的单位
+                if (maxSimultaneousUnits > 0 && !this.unitMap.isEmpty()) {
+                    // 获取当前生产计划对应的单位类型
+                    UnitType currentUnit = unit();
+                    if (currentUnit != null) {
+                        // 获取这个工厂生产的该类型单位的 ID 列表
+                        IntSeq factoryUnits = getUnitIDs(currentUnit);
+
+                        // 如果单位数量超过限制，移除最早的
+                        while (factoryUnits.size > maxSimultaneousUnits) {
+                            int oldestID = factoryUnits.get(0);
+                            Unit oldest = Groups.unit.getByID(oldestID);
+
+                            if (oldest != null && !oldest.dead && oldest.isValid()) {
+                                oldest.kill(); // 立即杀死最早的单位
+                            }
+
+                            // 从列表中移除这个 ID
+                            factoryUnits.removeIndex(0);
+                        }
+                    }
+                }
+            }
+        }
         public boolean canReplace(Block other) {
             if (other.alwaysReplace) return true;
             return 升级前置 == null ? super.canReplace(other) : 升级前置 == other;
@@ -435,65 +579,69 @@ public class CreatorTowerDefenseType {
             super.drawPlace(x, y, rotation, valid);
         }
     }
-        public static class  CTTDBasicBulletType extends BulletType{
-            public Color backColor = Pal.bulletYellowBack, frontColor = Pal.bulletYellow;
-            public Color mixColorFrom = new Color(1f, 1f, 1f, 0f), mixColorTo = new Color(1f, 1f, 1f, 0f);
-            public float width = 5f, height = 7f;
-            public float shrinkX = 0f, shrinkY = 0f;
-            public Interp shrinkInterp = Interp.linear;
-            public float spin = 0, rotationOffset = 0f;
-            public String sprite;
-            public @Nullable String backSprite;
 
-            public TextureRegion backRegion;
-            public TextureRegion frontRegion;
 
-            public CTTDBasicBulletType(float speed, float damage, String bulletSprite){
-                super(speed, damage);
-                this.sprite = bulletSprite;
-            }
+    //三叶的子弹
+    public static class CTTDBasicBulletType extends BulletType {
+        public Color backColor = Pal.bulletYellowBack, frontColor = Pal.bulletYellow;
+        public Color mixColorFrom = new Color(1f, 1f, 1f, 0f), mixColorTo = new Color(1f, 1f, 1f, 0f);
+        public float width = 5f, height = 7f;
+        public float shrinkX = 0f, shrinkY = 0f;
+        public Interp shrinkInterp = Interp.linear;
+        public float spin = 0, rotationOffset = 0f;
+        public String sprite;
+        public @Nullable String backSprite;
 
-            public CTTDBasicBulletType(float speed, float damage){
-                this(speed, damage, "bullet");
-            }
+        public TextureRegion backRegion;
+        public TextureRegion frontRegion;
 
-            /** For mods. */
-            public CTTDBasicBulletType(){
-                this(1f, 1f, "bullet");
-            }
-
-            @Override
-            public void load(){
-                super.load();
-
-                backRegion = Core.atlas.find(backSprite == null ? (sprite + "-back") : backSprite);
-                frontRegion = Core.atlas.find(sprite);
-            }
-
-            @Override
-            public void draw(Bullet b){
-                super.draw(b);
-               // float shrink = shrinkInterp.apply(b.fout());
-                float height = this.height * ((1f - shrinkY) + shrinkY );
-                float width = this.width * ((1f - shrinkX) + shrinkX );
-                float offset = -90 + (spin != 0 ? Mathf.randomSeed(b.id, 360f) + b.time * spin : 0f) + rotationOffset;
-
-                Color mix = Tmp.c1.set(mixColorFrom).lerp(mixColorTo, b.fin());
-
-                Draw.mixcol(mix, mix.a);
-
-                if(backRegion.found()){
-                    Draw.color(backColor);
-                    Draw.rect(backRegion, b.x, b.y, width, height, b.rotation() + offset);
-                }
-
-                Draw.color(frontColor);
-                Draw.rect(frontRegion, b.x, b.y, width, height, b.rotation() + offset);
-
-                Draw.reset();
-            }
+        public CTTDBasicBulletType(float speed, float damage, String bulletSprite) {
+            super(speed, damage);
+            this.sprite = bulletSprite;
         }
 
+        public CTTDBasicBulletType(float speed, float damage) {
+            this(speed, damage, "bullet");
+        }
+
+        /**
+         * For mods.
+         */
+        public CTTDBasicBulletType() {
+            this(1f, 1f, "bullet");
+        }
+
+        @Override
+        public void load() {
+            super.load();
+
+            backRegion = Core.atlas.find(backSprite == null ? (sprite + "-back") : backSprite);
+            frontRegion = Core.atlas.find(sprite);
+        }
+
+        @Override
+        public void draw(Bullet b) {
+            super.draw(b);
+            // float shrink = shrinkInterp.apply(b.fout());
+            float height = this.height * ((1f - shrinkY) + shrinkY);
+            float width = this.width * ((1f - shrinkX) + shrinkX);
+            float offset = -90 + (spin != 0 ? Mathf.randomSeed(b.id, 360f) + b.time * spin : 0f) + rotationOffset;
+
+            Color mix = Tmp.c1.set(mixColorFrom).lerp(mixColorTo, b.fin());
+
+            Draw.mixcol(mix, mix.a);
+
+            if (backRegion.found()) {
+                Draw.color(backColor);
+                Draw.rect(backRegion, b.x, b.y, width, height, b.rotation() + offset);
+            }
+
+            Draw.color(frontColor);
+            Draw.rect(frontRegion, b.x, b.y, width, height, b.rotation() + offset);
+
+            Draw.reset();
+        }
+    }
 
 
     //塔防敌人的统一单位类
@@ -555,6 +703,38 @@ public class CreatorTowerDefenseType {
         }
     }
 
-    //塔防敌人的统一单位类 带加速的  需要免疫加速护盾仪
-
+    //塔防2敌人的统一单位类
+    public static class TD2UnitType extends UnitType {
+        public TD2UnitType(String name, float 血量, float 移速) {
+            super(name);
+            controller = u -> new GroundAI();
+            //controller = u -> new OnlyAttackCoreAI.GroundOnlyAttackCoreAI();//单位的AI 塔防AI
+            alwaysUnlocked = true;//默认解锁
+            immunities.addAll(cheat);//免疫难度修改的BUFF
+            flying = false;
+            hitSize = 10;
+            armor = 0;
+            speed = 移速;
+            health = 血量;
+            drawCell = false;//不显示队伍指示贴图
+            targetFlags = new BlockFlag[]{BlockFlag.core};
+            constructor = UnitTypes.elude.constructor;
+            ammoType = new ItemAmmoType(TD蔚蓝星辰);
+            abilities.add(new EU_healthDisplay.TDhealthDisplay(14, 22, 3));
+            weapons.add(new Weapon("large-weapon") {{
+                reload = 13f;
+                x = 4f;
+                y = 2f;
+                top = false;
+                ejectEffect = Fx.casing1;
+                bullet = new BasicBulletType(2f, 1) {{
+                    width = 7f;
+                    height = 9f;
+                    lifetime = 10f;
+                    pierceArmor = true;//护甲穿透
+                    absorbable = false;//子弹不被护盾仪吸收
+                }};
+            }});
+        }
+    }
 }

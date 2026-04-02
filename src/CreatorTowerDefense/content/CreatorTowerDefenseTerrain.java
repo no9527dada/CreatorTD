@@ -2,14 +2,19 @@ package CreatorTowerDefense.content;
 
 import arc.Core;
 import arc.graphics.Color;
+import mindustry.content.StatusEffects;
 import mindustry.graphics.CacheLayer;
 import mindustry.world.Block;
+import mindustry.world.blocks.environment.EmptyFloor;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.StaticWall;
 
 import static CreatorTowerDefense.content.CreatorTowerDefenseType.TDFloor;
-import static ct.Asystem.type.CTColor.C;
-import static ct.content.CTFragShader.紫色冷却液效果;
+import static CtCoreSystem.CoreSystem.type.CTColor.C;
+import static CtCoreSystem.CoreSystem.type.VXV.UnitPortal.TransferEffect;
+import static CtCoreSystem.CoreSystem.type.VXV.UnitPortal.fan_TransferEffect;
+import static CtCoreSystem.content.CTFragShader.*;
+import static java.lang.Long.MAX_VALUE;
 
 //地形
 public class CreatorTowerDefenseTerrain {
@@ -44,9 +49,8 @@ public class CreatorTowerDefenseTerrain {
 
 
         new Floor("DT-LiquidFloor"){{
-            drownTime = 10f;
             variants = 0;
-            isLiquid = true;
+            isLiquid = false;
             emitLight = true;
             lightRadius = 25f;
             lightColor = Color.cyan.cpy().a(0.7f);
@@ -58,14 +62,104 @@ public class CreatorTowerDefenseTerrain {
             emitLight = true;
             lightRadius = 25f;
             lightColor = C("cc44ff").cpy().a(0.7f);
-            //cacheLayer = new CacheLayer.ShaderLayer(紫色Floor);
             cacheLayer = 紫色冷却液效果;
         }};
+  /*      new Floor("DT-LiquidFloor3"){{
+            variants = 0;
+            isLiquid = false;
+            emitLight = true;
+            lightRadius = 25f;
+            lightColor = C("0007ff").cpy().a(0.7f);
+            //cacheLayer = new CacheLayer.ShaderLayer(紫色Floor);
+            cacheLayer = 蓝色冷却液效果;
+        }};*/
+        new Floor("DT-LiquidFloor3"){{
+            variants = 0;
+            isLiquid = false;
+            emitLight = true;
+            lightRadius = 25f;
+            lightColor = C("ffffff").cpy().a(0.7f);
+            //cacheLayer = new CacheLayer.ShaderLayer(紫色Floor);
+            cacheLayer = 灰色冷却液大效果;
+        }};
+        new Floor("DT-LiquidFloor4"){{
+            placeableOn = false;//禁止方块放置
+            variants = 0;
+            isLiquid = false;
+            emitLight = true;
+            lightRadius = 25f;
+            lightColor = C("cc44ff").cpy().a(0.7f);
+            //cacheLayer = new CacheLayer.ShaderLayer(紫色Floor);
+            cacheLayer = 玫瑰金小点效果;//此地板用于镶边装饰
+        }};
+        new Floor("DT-LiquidFloor5"){{
+            variants = 0;
+            isLiquid = false;
+            emitLight = true;
+            lightRadius = 25f;
+            lightColor = C("38c401").cpy().a(0.7f);
+            cacheLayer = 绿色冷却液大效果;
+        }};
+        new Floor("DT-LiquidFloor6"){{
+            variants = 0;
+            isLiquid = false;
+            emitLight = true;
+            lightRadius = 25f;
+            lightColor = C("e7ea00").cpy().a(0.7f);
+            cacheLayer = 黄色冷却液大效果;
+        }};
+        new Floor("DT-LiquidFloor7"){{
+            variants = 0;
+            isLiquid = false;
+            emitLight = true;
+            lightRadius = 25f;
+            lightColor = C("f46aff").cpy().a(0.7f);
+            cacheLayer = 粉色冷却液效果;
+        }};
+        new Floor("DT-LiquidFloor8"){{
+            variants = 0;
+            isLiquid = false;
+            emitLight = true;
+            lightRadius = 25f;
+            lightColor = C("f46aff").cpy().a(0.7f);
+            cacheLayer = 蓝色冷却液效果;
+        }};
+        new Floor("太空"){{
+            cacheLayer = CacheLayer.space;
+            solid = false;//开启更新后单位无法行走
+            variants = 0;
+        }};
+        new EmptyFloor("空"){{
+            cacheLayer = CacheLayer.space;
+           // solid = true;//开启更新后单位无法行走
+            variants = 0;
+            canShadow = true;
+            placeableOn = true;
+            solid = false;
 
+        }};
+        new Floor("太空2"){{
+            cacheLayer = CacheLayer.space;
+            solid = false;//开启更新后单位无法行走
+            variants = 0;
+            canShadow = false;
+            placeableOn = false;
+        }};
+        new EmptyFloor("空2"){{
+            cacheLayer = CacheLayer.space;
+            // solid = true;//开启更新后单位无法行走
+            variants = 0;
+            canShadow = false;
+            placeableOn = false;
+            solid = false;
+
+        }};
         new TDFloor("TD地板0"){{
             isLiquid=true;
         localizedName = Core.bundle.getOrNull("block.Floor");
         }};
+        new TDFloor("TD地板暗面板");
+        new TDFloor("TD地板金属地板1");
         new TDFloor("TD地板1"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
         new TDFloor("TD地板2"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
         new TDFloor("TD地板3"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
@@ -74,7 +168,8 @@ public class CreatorTowerDefenseTerrain {
         new TDFloor("TD地板6"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
         new TDFloor("TD地板7"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
         new TDFloor("TD地板8"){{ localizedName = Core.bundle.getOrNull("block.Floor");}};
-
+        new TDFloor("TD开启传送地板"){{status=fan_TransferEffect;statusDuration= 60*60*60;}};
+        new TDFloor("TD关闭传送地板"){{status=TransferEffect;statusDuration=60*60*60;}};
 
         new TDFloor("TD加速地板a1"){{
             speedMultiplier = 1.8f;
@@ -124,6 +219,20 @@ public class CreatorTowerDefenseTerrain {
         new Floor("TD镀银地板9"){{  variants = 0;}};
         new Floor("TD镀银地板10"){{  variants = 0;}};
         new StaticWall("TD镀银墙壁"){{variants=5;}};
+
+        new Floor("TDaaa"){{  variants = 4;}};
+
+
+
+
+
+
+
+
+
+
+
+
         //墙专用
         TD地板a= new Floor("TD地板a"){{
             variants = 0;

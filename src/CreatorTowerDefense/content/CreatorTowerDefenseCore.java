@@ -1,17 +1,28 @@
 package CreatorTowerDefense.content;
 
 import arc.graphics.Color;
-import ct.Asystem.type.CT3UnitType;
-import ct.Asystem.type.CTCoreBlock;
-import ct.Asystem.type.waveRule;
+import CtCoreSystem.CoreSystem.type.CT3UnitType;
+import CtCoreSystem.CoreSystem.type.CTCoreBlock;
+import mindustry.entities.Fires;
+import mindustry.entities.bullet.FireBulletType;
+import arc.graphics.g2d.Draw;
+import mindustry.gen.Bullet;
+import arc.graphics.g2d.Fill;
+import arc.math.Interp;
+import arc.util.Time;
 import mindustry.ai.types.BuilderAI;
+import mindustry.gen.Fire;
+import mindustry.gen.Groups;
 import mindustry.type.Category;
 import mindustry.type.UnitType;
 import mindustry.type.ammo.ItemAmmoType;
 import mindustry.world.Block;
+import mindustry.world.blocks.storage.CoreBlock;
 
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.星辰;
 import static CreatorTowerDefense.content.CreatorTowerDefenseItems.魂;
+import static arc.util.Tmp.c1;
+import static mindustry.Vars.tilesize;
 import static mindustry.type.ItemStack.with;
 
 public class CreatorTowerDefenseCore {
@@ -68,7 +79,54 @@ public class CreatorTowerDefenseCore {
             size = 5;
             unitCapModifier = 0;
             requiresCoreZone = true;//需要特定地板
+            buildType = CTCoreBlockBuild::new;
+        }
 
-        }};
+            public class CTCoreBlockBuild  extends CoreBlock.CoreBuild {
+                 public float y偏移 = 5f;
+                public float 血条高度 = 3f;
+                public float 底色透明度 = 0.5f;
+                @Override
+                public void draw() {
+                    if (this.thrusterTime > 0.0F) {
+                        float frame = this.thrusterTime;
+                        Draw.alpha(1.0F);
+                        this.drawThrusters(frame);
+                        Draw.rect(this.block.region, this.x, this.y);
+                        Draw.alpha(Interp.pow4In.apply(frame));
+                        this.drawThrusters(frame);
+                        Draw.reset();
+                        this.drawTeamTop();
+                    } else {
+                        super.draw();
+                    }
+                 //   if(Version.class.getFields().length == 6) {//仅限在原版端显示血条
+                        super.draw();
+                        float trns = size * 8 / 2f;
+                        Draw.color(Color.grays(底色透明度));
+                        Fill.rect(x, y + trns + y偏移, size * 8, 血条高度);
+                        //Draw.color(team.color);
+                      //  Draw.color(C("00de54"));
+                        Draw.color(c1.set(Color.red).shiftHue((float) ((Time.time * 0.2) + (1 * (360 / 16)))));//变色
+                        Fill.rect(x - size * 4 * (1 - health / maxHealth), y + trns + y偏移, size * 8 * health / maxHealth, 血条高度);
+                        Draw.color();
+                  //  }
+                }
+                public void updateTile() {
+                    super.updateTile();
+
+                    this.iframes -= Time.delta;
+                    this.thrusterTime -= Time.delta / 90.0F;
+                    tile.getLinkedTiles(t -> {
+                        if(t == null || !Fires.has(t.x, t.y))return;
+
+                        Fire fire = Fires.get(t.x, t.y);
+                        fire.remove();
+                    });
+
+                    float radiusT = size / 2f * tilesize;
+                    Groups.bullet.intersect(x - radiusT, y - radiusT, radiusT * 2, radiusT * 2).each(fire -> fire.type instanceof FireBulletType, Bullet::remove);
+                }
+            }};
     }
 }

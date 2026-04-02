@@ -16,11 +16,12 @@ public class CreatorTowerDefenseInfoDialog {
     public static void show() {
 
         String QQ群2 = "https://jq.qq.com/?_wv=1027&k=oygqLbJ5";
-        String Git="https://github.com/no9527dada/creators3/releases";
-        String Steam="https://steamcommunity.com/sharedfiles/filedetails/?id=3080264168";
+        String Git="https://github.com/no9527dada/CtCoreSystem/releases";
+        String Steam="https://steamcommunity.com/sharedfiles/filedetails/?id=3292837678";
+        String 网盘 ="https://pan.quark.cn/s/571579daddcf";
         hghghg = new BaseDialog("warning") {
               String toText(String str) {
-                return Core.bundle.format(str, new Object[0]);
+                return Core.bundle.format(str);
             }
             private float leave = 8f * 60;
             private boolean canClose = false;
@@ -45,13 +46,19 @@ public class CreatorTowerDefenseInfoDialog {
                             Vars.ui.showErrorMessage("@linkfail");
                             Core.app.setClipboardText(Git);
                         }
-                    })).size(250.0f, 50).padLeft(0);
+                    })).size(250.0f, 50).padLeft(0).row();
                     i.button("Steam", (() -> {
                         if (!Core.app.openURI(Steam)) {
                             Vars.ui.showErrorMessage("@linkfail");
                             Core.app.setClipboardText(Steam);
                         }
                     })).size(250.0f, 50).padLeft(0).row();
+                    i.button("网盘下载", (() -> {
+                        if (!Core.app.openURI(网盘)) {
+                            Vars.ui.showErrorMessage("@linkfail");
+                            Core.app.setClipboardText(网盘);
+                        }
+                    })).size(160, 50).padLeft(0).row();
                     i.button(Core.bundle.format("QQ群2"), (() -> {
                         if (!Core.app.openURI(QQ群2)) {
                             Vars.ui.showErrorMessage("@linkfail");

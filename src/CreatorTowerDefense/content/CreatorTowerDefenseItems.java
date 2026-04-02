@@ -6,16 +6,19 @@ import mindustry.type.Item;
 import mindustry.type.Liquid;
 import mindustry.world.blocks.environment.OreBlock;
 
-import static ct.content.ItemX.物品;
+import static CtCoreSystem.content.ItemX.物品;
 
 //方块
 public class CreatorTowerDefenseItems {
     public static final Seq<Item>
-            CreatorTowerDefenseItems显示 = new Seq<>();
+            CreatorTowerDefenseItems显示 = new Seq<>(),    CreatorTowerDefenseItems显示2 = new Seq<>();
+
     public static OreBlock xgdh;
     public static Item
     魄, 魂,星辰,星越星辰,无尽星辰;
 
+    //资源
+    public static Item TD微晶, TD魔能晶,TD蔚蓝星辰 ;
 
     public static Liquid 制冷剂;
     public static void load() {
@@ -41,13 +44,18 @@ public class CreatorTowerDefenseItems {
         CreatorTowerDefenseItems显示.addAll(
                 物品,魄, 魂,星辰,星越星辰,无尽星辰
         );
-        制冷剂 = new Liquid("cryofluid", Color.valueOf("6ecdec")){{
+   /*     制冷剂 = new Liquid("cryofluid", Color.valueOf("6ecdec")){{
             heatCapacity = 0.9f;
             temperature = 0.25f;
             lightColor = Color.valueOf("0097f5").a(0.2f);
             boilPoint = 0.55f;
             gasColor = Color.valueOf("c1e8f5");
-        }};
-
+        }};*/
+        TD微晶 = new Item("微晶", Color.valueOf("7ad8be"));
+        TD魔能晶 = new Item("魔能晶", Color.valueOf("f68d54"));
+        TD蔚蓝星辰 = new Item("蔚蓝星辰", Color.valueOf("531fff"));
+        CreatorTowerDefenseItems显示2.addAll(
+                物品,TD微晶, TD魔能晶,TD蔚蓝星辰
+        );
     }
 }

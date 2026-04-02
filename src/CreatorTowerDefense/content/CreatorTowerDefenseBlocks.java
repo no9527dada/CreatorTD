@@ -1,16 +1,15 @@
 package CreatorTowerDefense.content;
 
+import CtCoreSystem.CoreSystem.type.LYBF.factory.CreatorsUnitFactory;
+import CtCoreSystem.CoreSystem.type.LYBF.factory.DuplexCoreGenericCrafter;
+import CtCoreSystem.CoreSystem.type.VXV.TDpowerShowBlock;
 import arc.Core;
 import arc.scene.event.Touchable;
 import arc.scene.ui.Label;
 import arc.struct.Seq;
-import ct.Asystem.type.TDTyep.TDMendProjector;
-import ct.Asystem.type.TDTyep.TDsuicideWall;
-import ct.Asystem.type.VXV.powerShowBlock;
-import ct.Asystem.type.factory.CoreGenericCrafter;
-import ct.Asystem.type.factory.CoreLiquidGenericCrafter;
-import ct.Asystem.type.factory.CreatorsUnitFactory;
-import ct.Asystem.type.factory.DuplexCoreGenericCrafter;
+import CtCoreSystem.CoreSystem.type.TDTyep.TDMendProjector;
+import CtCoreSystem.CoreSystem.type.TDTyep.TDsuicideWall;
+import CtCoreSystem.CoreSystem.type.VXV.powerShowBlock;
 import mindustry.content.Liquids;
 import mindustry.core.UI;
 import mindustry.type.Category;
@@ -18,6 +17,7 @@ import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.ui.Styles;
 import mindustry.world.Block;
+import mindustry.world.blocks.defense.MendProjector;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.units.UnitFactory;
 import mindustry.world.draw.DrawDefault;
@@ -38,34 +38,13 @@ import static mindustry.type.ItemStack.with;
 //方块
 public class CreatorTowerDefenseBlocks {
     public static Block 初级魂魄凝练器, 初级魂魄转换器, 高级魂魄凝练器, 高级魂魄转换器;
-    public static Block 魔力石墙,  无限, 电量查看器, 制冷机;
+    public static Block 魔力石墙,  无限, 电量查看器, 修理;
     public static Block 星尘单位工厂, 星灵单位工厂, 凝蓝单位工厂, 蚀魂单位工厂, 测试单位工厂;
 
+
     public static void load() {
-        电量查看器 = new powerShowBlock("电量查看器") {
-            public static void loadPowerShow() {
-                Core.scene.find("minimap/position").parent.fill((t) -> {
-                    Label label = new Label("");
-                    label.update(() -> {
-                        label.setText(() -> {
-                            StringBuilder text = new StringBuilder();
-                            Iterator var1 = powerShowBuild.iterator();
-
-                            while(var1.hasNext()) {
-                                powerShowBuild build = (powerShowBuild)var1.next();
-                                text.append("<").append(build.message.toString()).append("> ").append(Core.bundle.get("category.power") + ": ");
-                                text.append(build.power.graph.getPowerBalance() > 0.0F ? "+" : "").append(UI.formatAmount((long)(build.power.graph.getPowerBalance() * 60.0F)));
-                               text.append("\n");
-                            }
-
-                            return text;
-                        });
-                    });
-                    t.row();
-                    t.add(label).touchable(Touchable.disabled).style(Styles.outlineLabel);
-                    t.right();
-                });
-            }{
+        电量查看器 = new TDpowerShowBlock("电量查看器") {
+        {
             health = 100;
             armor = 500;
            // itemCapacity = 10;
@@ -75,7 +54,7 @@ public class CreatorTowerDefenseBlocks {
             ));
         }};
         初级魂魄凝练器 = new TDCoreGenericCrafter("初级魂魄凝练器") {{
-            consumePower(170 / 60f);
+            consumePower(210 / 60f);
             outputItem = new ItemStack(魂, 4);
             health = 100;
             armor = 500;
@@ -83,12 +62,12 @@ public class CreatorTowerDefenseBlocks {
             size = 4;
             craftTime = 60 * 5;
             requirements(crafting, with(
-                    魂, 300
+                    魂, 400
             ));
         }};
         高级魂魄凝练器 = new TDCoreGenericCrafter("高级魂魄凝练器") {{
-            consumePower(800 / 60f);
-            outputItems = ItemStack.with(魂, 7);
+            consumePower(830 / 60f);
+            outputItems = ItemStack.with(魂, 8);
             health = 100;
             armor = 500;
             itemCapacity = 20;
@@ -96,12 +75,12 @@ public class CreatorTowerDefenseBlocks {
             craftTime = 60 * 5;
             升级前置 = 初级魂魄凝练器;
             requirements(crafting, with(
-                    魂, 1800
+                    魂, 2100
             ));
         }};
         初级魂魄转换器 = new DuplexCoreGenericCrafter("初级魂魄转换器") {{
             consumeItems(with(魂, 15));
-            consumePower(1500 / 60f);
+            consumePower(1300 / 60f);
             outputItems = ItemStack.with(魄, 4);
             health = 100;
             armor = 500;
@@ -112,10 +91,10 @@ public class CreatorTowerDefenseBlocks {
                     魂, 3200, 魄, 300
             ));
         }};
-        高级魂魄转换器 = new CoreGenericCrafter("高级魂魄转换器") {{
+        高级魂魄转换器 = new DuplexCoreGenericCrafter("高级魂魄转换器") {{
             consumeItems(with(星辰, 1));
             consumePower(9000 / 60f);
-            outputItems = ItemStack.with(魄, 500, 魂, 3000);
+            outputItems = ItemStack.with(魄, 300, 魂, 800);
             health = 100;
             armor = 500;
             itemCapacity = 40;
@@ -126,7 +105,7 @@ public class CreatorTowerDefenseBlocks {
                     魂, 6600, 魄, 1200, 星辰, 80
             ));
         }};
-        制冷机 = new CoreLiquidGenericCrafter("制冷机") {
+      /*     制冷机 = new CoreLiquidGenericCrafter("制冷机") {
 
             {
                 consumeLiquid(Liquids.water, 12f / 60);
@@ -166,9 +145,9 @@ public class CreatorTowerDefenseBlocks {
                     }
                 }
 
-            }*/
+            }
         };
-/*        测试单位工厂 = new CreatorsUnitFactory("测试单位工厂") {{
+     测试单位工厂 = new CreatorsUnitFactory("测试单位工厂") {{
             requirements(Category.units, with(
                     魂, 300, 魄, 5
             ));
@@ -182,10 +161,11 @@ public class CreatorTowerDefenseBlocks {
         }};*/
 
 
-        星尘单位工厂 = new CreatorsUnitFactory("星尘单位工厂") {{
-            unitLimit = 2;
+        星尘单位工厂 = new CreatorTowerDefenseType.TDCreatorsUnitFactory("星尘单位工厂") {{
+            unitLimit = 3;
+            maxSimultaneousUnits=2;
             requirements(Category.units, with(
-                    魂, 1200, 魄, 120
+                    魂, 600, 魄, 90
             ));
             plans = Seq.with(
                     new UnitPlan(星尘单位, 60f * 90, with())
@@ -196,6 +176,7 @@ public class CreatorTowerDefenseBlocks {
 
         }};
         星灵单位工厂 = new CreatorTowerDefenseType.TDCreatorsUnitFactory("星灵单位工厂") {{
+            maxSimultaneousUnits=2;
             requirements(Category.units, with(
                     魂, 120
             )); unitLimit = 3;
@@ -207,12 +188,14 @@ public class CreatorTowerDefenseBlocks {
             floating = true;
         }};
         凝蓝单位工厂 = new CreatorTowerDefenseType.TDCreatorsUnitFactory("凝蓝单位工厂") {{
+
             requirements(Category.units, with(
                     魂, 650, 魄, 180
             ));
-            unitLimit = 2;
+            maxSimultaneousUnits=4;
+            unitLimit = 5;
             plans = Seq.with(
-                    new UnitPlan(凝蓝单位, 60f * 100, with())
+                    new UnitPlan(凝蓝单位, 60f * 200, with())
             );
             size = 5;
             consumePower(800 / 60f);
@@ -221,13 +204,14 @@ public class CreatorTowerDefenseBlocks {
         }};
         蚀魂单位工厂 = new CreatorTowerDefenseType.TDCreatorsUnitFactory("蚀魂单位工厂") {{
             requirements(Category.units, with(
-                    魂, 1400, 魄, 180
-            ));unitLimit = 2;
+                    魂, 1500, 魄, 520
+            ));unitLimit = 7;
+            maxSimultaneousUnits=6;
             plans = Seq.with(
-                    new UnitPlan(蚀魂单位, 60f * 240, with())
+                    new UnitPlan(蚀魂单位, 60f * 320, with())
             );
             size = 7;
-            consumePower(2200 / 60f);
+            consumePower(3200 / 60f);
             floating = true;
             升级前置=凝蓝单位工厂;
         }};
@@ -245,7 +229,20 @@ public class CreatorTowerDefenseBlocks {
             floor = (Floor) TD地板d;
             requirements(effect, with(星越星辰, 1));
         }};
-
+        修理 = new MendProjector("mender"){{
+            requirements(Category.effect, with(魂, 5000, 魄, 2000));
+            consumePower(800/60f);
+            size = 1;
+            canOverdrive = false;
+            reload = 200f;
+            range = 40f;
+            healPercent = 4f;
+            phaseBoost = 4f;
+            phaseRangeBoost = 20f;
+            health = 80;
+            solid = false;//固体
+            // consumeItem(Items.silicon).boost();
+        }};
 
     }
 }

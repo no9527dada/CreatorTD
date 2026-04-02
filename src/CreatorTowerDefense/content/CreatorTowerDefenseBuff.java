@@ -7,6 +7,7 @@ import arc.math.Mathf;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
+import mindustry.entities.units.StatusEntry;
 import mindustry.game.Team;
 import mindustry.gen.Unit;
 import mindustry.graphics.Pal;
@@ -19,8 +20,8 @@ import static mindustry.Vars.tilesize;
 import static mindustry.content.StatusEffects.*;
 
 public class CreatorTowerDefenseBuff {
-    public static StatusEffect 塑钢加血,相织布移速,金加速,液氮免疫,冷却液免疫,
-            TDburning,BossBuff,dd,黏黏,冰霜塔减速1,冰霜塔减速2,冰霜塔减速3;
+    public static StatusEffect 塑钢加血,相织布移速,金加速,液氮免疫,冷却液免疫,减血,
+            TDburning,BossBuff,dd,黏黏,冰霜塔减速1,冰霜塔减速2,冰霜塔减速3,粒子抗伤;
     public static class BuffStatusEffect extends StatusEffect {
         public BuffStatusEffect(String name,float 移速) {
             super(name);
@@ -39,7 +40,8 @@ public class CreatorTowerDefenseBuff {
     public static void load() {
         TDburning = new StatusEffect("TDburning"){{//燃烧
             color = Color.valueOf("ffc455");
-            damage = 3/60f;
+            damage = 25/60f;
+            healthMultiplier =0.9f;
             effect = Fx.burning;
             transitionDamage = 8f;
             show = false;
@@ -54,8 +56,8 @@ public class CreatorTowerDefenseBuff {
         }};
         BossBuff = new StatusEffect("Boss") {
             @Override
-            public void update(Unit unit, float time) {
-                super.update(unit, time);
+            public void update(Unit unit, StatusEntry entry) {
+                super.update(unit, entry);
                 Vars.state.teams.bosses.add(unit);
             }{
                 effect =  new Effect(35, e -> {
@@ -102,10 +104,17 @@ public class CreatorTowerDefenseBuff {
                 opposite(burning,冰霜塔减速1);
             });
         }};
+         减血 = new StatusEffect("劣化") {{
+            damage = 1f/60;
+        }};
         液氮免疫=new StatusEffect("液氮免疫"){{
             init(() -> {
                 opposite(burning,冰霜塔减速3);
             });
+        }};
+        粒子抗伤=new StatusEffect("粒子抗伤"){{
+            healthMultiplier = 1.5f;
+            speedMultiplier = 2;
         }};
     }
 }
